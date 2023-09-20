@@ -1,37 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Main from "./components/Main/Main";
+import UserForm from "./components/Forms/UserForm/UserForm";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
-  const idRef = useRef();
-
-  const showId = () => {
-    fetch(`http://localhost:8080/user/get?id=${idRef.current.value}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.email === null) {
-          setError("User is not found!");
-          setData([]);
-          return;
-        } else {
-          console.log(data);
-          setData(data);
-        }
-      });
-  };
-
   return (
-    <div>
-      <input ref={idRef} />
-      <button onClick={showId}>Show</button>
-      <div>Name: {data.name}</div>
-      <div>Surname: {data.surname}</div>
-      <div>Email: {data.email}</div>
-      <div>Length: {data.length}</div>
-      <div>Weight: {data.weight}</div>
-      <div>{error}</div>
-    </div>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/admin" element={<AdminPanel />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
