@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button, Box, TextField } from "@mui/material";
+import { Button, Box, TextField, Alert } from "@mui/material";
 import Swal from "sweetalert2";
 
 const FoodForm = () => {
@@ -14,11 +14,11 @@ const FoodForm = () => {
     const data = {
       name: nameRef.current.value,
       calories: caloriesRef.current.value,
-    }
+    };
 
     setFoodData(data);
     Swal.fire("Data is added", "Correctly!", "success");
-  }
+  };
   console.log(foodData);
 
   return (
@@ -54,10 +54,16 @@ const FoodForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <Button variant="contained" type="submit">Submit</Button>
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
       </div>
     </Box>
   );
 };
 
 export default FoodForm;
+
+// <Alert variant="outlined" severity="success">
+//   This is a success alert — check it out!
+// </Alert>;

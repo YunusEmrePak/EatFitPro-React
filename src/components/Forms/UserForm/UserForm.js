@@ -18,6 +18,20 @@ const UserForm = () => {
   const lengthRef = useRef();
   const weightRef = useRef();
 
+  // function fetchData(url, data) {
+  //   return fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: data,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // }
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -29,6 +43,25 @@ const UserForm = () => {
       length: lengthRef.current.value,
       weight: weightRef.current.value,
     };
+
+    const dataJSON = JSON.stringify(data);
+
+    const url = "http://localhost:8080/user/add";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
     setUserData(data);
 
     Swal.fire("Data is added", "Correctly!", "success");
