@@ -1,7 +1,26 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { useRef, useState } from "react";
+import { Button, Box, TextField } from "@mui/material";
+import Swal from "sweetalert2";
 
 const FoodForm = () => {
+  const [foodData, setFoodData] = useState([]);
+
+  const nameRef = useRef();
+  const caloriesRef = useRef();
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const data = {
+      name: nameRef.current.value,
+      calories: caloriesRef.current.value,
+    }
+
+    setFoodData(data);
+    Swal.fire("Data is added", "Correctly!", "success");
+  }
+  console.log(foodData);
+
   return (
     <Box
       component="form"
@@ -10,6 +29,7 @@ const FoodForm = () => {
       }}
       noValidate
       autoComplete="off"
+      onSubmit={submitHandler}
     >
       <div>
         <TextField
@@ -18,6 +38,7 @@ const FoodForm = () => {
           id="outlined-required"
           label="Name"
           size="small"
+          inputRef={nameRef}
         />
       </div>
       <div>
@@ -27,7 +48,13 @@ const FoodForm = () => {
           id="outlined-required"
           label="Calories"
           size="small"
+          inputRef={caloriesRef}
         />
+      </div>
+      <div
+        style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
+      >
+        <Button variant="contained" type="submit">Submit</Button>
       </div>
     </Box>
   );

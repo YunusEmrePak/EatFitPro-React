@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Main from "./components/Main/Main";
-import UserForm from "./components/Forms/UserForm/UserForm";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import Navbar from "./components/Navbar/Navbar";
+
+import "./App.css";
 
 function App() {
   return (

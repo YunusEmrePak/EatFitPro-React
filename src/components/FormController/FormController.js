@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Button from "@mui/material/Button";
 
 import styles from "./FormController.module.css";
 
 const FormController = (props) => {
-  const [variant, setVariant] = useState("");
 
   return (
     <div
