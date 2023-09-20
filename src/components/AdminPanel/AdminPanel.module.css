@@ -5,3 +5,7 @@
     align-items: flex-start;
     padding-top: 3rem;
 }
+
+.formContainer {
+    width: 40%;
+}

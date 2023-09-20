@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Button from "@mui/material/Button";
 
 import styles from "./FormController.module.css";
 
-const FormController = () => {
+const FormController = (props) => {
+  const [variant, setVariant] = useState("");
+
   return (
     <div
       style={{
@@ -12,9 +15,14 @@ const FormController = () => {
       }}
       className={styles.formControllerContainer}
     >
-      <div style={{marginBottom: "1rem"}}>Adding Panel</div>
-      <Button variant="outlined">User</Button>
-      <Button variant="outlined" disabled>
+      <div style={{ marginBottom: "1rem" }}>Adding Panel</div>
+      <Button
+        variant={props.userFormVisible ? "contained" : "outlined"}
+        onClick={props.showUserForm}
+      >
+        User
+      </Button>
+      <Button variant={props.foodFormVisible ? "contained" : "outlined"} onClick={props.showFoodForm}>
         Food
       </Button>
       <Button variant="outlined" disabled>
