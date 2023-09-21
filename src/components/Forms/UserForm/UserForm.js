@@ -18,20 +18,6 @@ const UserForm = () => {
   const lengthRef = useRef();
   const weightRef = useRef();
 
-  // function fetchData(url, data) {
-  //   return fetch(url, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: data,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }
-
   const submitHandler = (event) => {
     event.preventDefault();
 
