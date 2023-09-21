@@ -23,9 +23,8 @@ const FoodList = () => {
       filterable: false,
     },
     // {
-    //   field: "weight",
-    //   headerName: "Weight",
-    //   type: "number",
+    //   field: "foodCategoryDto",
+    //   headerName: "Category",
     //   width: 130,
     //   sortable: false,
     //   filterable: false,
@@ -57,7 +56,7 @@ const FoodList = () => {
         <CircularProgress color="inherit" />
       ) : (
         <DataGrid
-          rows={rows}
+          rows={foodList}
           columns={columns}
           initialState={{
             pagination: {
