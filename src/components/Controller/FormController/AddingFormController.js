@@ -1,8 +1,8 @@
 import Button from "@mui/material/Button";
 
-import styles from "./FormController.module.css";
+import styles from "./AddingFormController.module.css";
 
-const FormController = (props) => {
+const AddingFormController = (props) => {
 
   return (
     <div
@@ -30,4 +30,4 @@ const FormController = (props) => {
   );
 };
 
-export default FormController;
+export default AddingFormController;

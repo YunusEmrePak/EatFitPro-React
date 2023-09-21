@@ -1,0 +1,10 @@
+.addingPage {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 3rem;
+}
+
+.formContainer {
+    width: 50%;
+}

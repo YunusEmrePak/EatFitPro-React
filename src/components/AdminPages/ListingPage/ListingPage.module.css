@@ -1,0 +1,10 @@
+.listingPage {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 3rem;
+}
+
+.listContainer {
+    width: 50%;
+}
