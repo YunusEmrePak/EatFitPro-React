@@ -1,3 +1,4 @@
+import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import {
@@ -15,6 +16,14 @@ const PageController = (props) => {
   const context = useContext(EatFitProContext);
   return (
     <div className={styles.pageControllerContainer}>
+      <ListItem isablePadding>
+        <ListItemButton onClick={context.showMainPage} >
+          <ListItemIcon>
+            <HomeIcon fontSize="large" />
+          </ListItemIcon>
+          <ListItemText primary="Main Page" />
+        </ListItemButton>
+      </ListItem>
       <ListItem isablePadding>
         <ListItemButton onClick={context.showAddingPage} >
           <ListItemIcon>

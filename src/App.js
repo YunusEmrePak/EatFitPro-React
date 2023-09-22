@@ -12,8 +12,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
     </>
@@ -21,7 +20,3 @@ function App() {
 }
 
 export default App;
-
-// https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093&query=${query}
-
-// http://localhost:8080/user/get?id=50

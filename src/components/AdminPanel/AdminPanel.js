@@ -6,7 +6,7 @@ import {
   Drawer,
   List,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useContext } from "react";
 import AddingPage from "../AdminPages/AddingPage/AddingPage";
@@ -17,7 +17,7 @@ import PageController from "../Controller/PageController/PageController";
 import EatFitProContext from "../store/context";
 
 import Logo from "../constants/Logo";
-
+import MainPage from "../AdminPages/MainPage/MainPage";
 
 const drawerWidth = 240;
 
@@ -79,11 +79,11 @@ const AdminPanel = () => {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar>
-          {" "}
           {(context.addingPageVisible && <AddingFormController />) ||
             (context.listingPageVisible && <ListingController />)}
         </Toolbar>
-        {(context.addingPageVisible && <AddingPage />) ||
+        {(context.mainPageVisible && <MainPage />) ||
+          (context.addingPageVisible && <AddingPage />) ||
           (context.listingPageVisible && <ListingPage />)}
       </Box>
     </Box>
@@ -92,8 +92,7 @@ const AdminPanel = () => {
 
 export default AdminPanel;
 
-
-  /* <div>
+/* <div>
       <PageController
         showAddingPage={showAddingPage}
         showListingPage={showListingPage}
@@ -103,4 +102,3 @@ export default AdminPanel;
       {(addingPageVisible && <AddingPage />) ||
         (listingPageVisible && <ListingPage />)}
     </div> */
-

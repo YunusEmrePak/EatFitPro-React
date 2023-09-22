@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const EatFitProContext = React.createContext({
+  mainPageVisible: false,
   addingPageVisible: false,
   listingPageVisible: false,
   userFormVisible: false,
@@ -8,6 +9,7 @@ const EatFitProContext = React.createContext({
   userListVisible: false,
   foodListVisible: false,
   pageName: "",
+  showMainPage: () => {},
   showAddingPage: () => {},
   showListingPage: () => {},
   showUserForm: () => {},
@@ -17,7 +19,8 @@ const EatFitProContext = React.createContext({
 });
 
 export const EatFitProContextProvider = (props) => {
-  const [addingPageVisible, setAddingPageVisible] = useState(true);
+  const [mainPageVisible, setMainPageVisible] = useState(true);
+  const [addingPageVisible, setAddingPageVisible] = useState(false);
   const [listingPageVisible, setListingPageVisible] = useState(false);
   const [userFormVisible, setUserFormVisible] = useState(true);
   const [foodFormVisible, setFoodFormVisible] = useState(false);
@@ -25,13 +28,22 @@ export const EatFitProContextProvider = (props) => {
   const [foodListVisible, setFoodListVisible] = useState(false);
   const [pageName, setPageName] = useState("Adding Page");
 
+  const showMainPage = () => {
+    setMainPageVisible(true);
+    setAddingPageVisible(false);
+    setListingPageVisible(false);
+    setPageName("Main Page");
+  };
+
   const showAddingPage = () => {
+    setMainPageVisible(false);
     setAddingPageVisible(true);
     setListingPageVisible(false);
     setPageName("Adding Page");
   };
 
   const showListingPage = () => {
+    setMainPageVisible(false);
     setAddingPageVisible(false);
     setListingPageVisible(true);
     setPageName("Listing Page");
@@ -60,6 +72,7 @@ export const EatFitProContextProvider = (props) => {
   return (
     <EatFitProContext.Provider
       value={{
+        mainPageVisible: mainPageVisible,
         addingPageVisible: addingPageVisible,
         listingPageVisible: listingPageVisible,
         userFormVisible: userFormVisible,
@@ -67,6 +80,7 @@ export const EatFitProContextProvider = (props) => {
         userListVisible: userListVisible,
         foodListVisible: foodListVisible,
         pageName: pageName,
+        showMainPage: showMainPage,
         showAddingPage: showAddingPage,
         showListingPage: showListingPage,
         showUserForm: showUserForm,
