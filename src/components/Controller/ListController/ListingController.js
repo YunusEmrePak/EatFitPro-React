@@ -1,26 +1,25 @@
+import { useContext } from "react";
+import EatFitProContext from "../../store/context";
+
 import Button from "@mui/material/Button";
 
 import styles from "./ListingController.module.css";
 
-const ListingFormController = (props) => {
+const ListingController = (props) => {
+  const context = useContext(EatFitProContext);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-      className={styles.listControllerContainer}
-    >
-      <div style={{ marginBottom: "1rem" }}>Listing Panel</div>
+    <div className={styles.listControllerContainer}>
       <Button
-        variant={props.userListVisible ? "contained" : "outlined"}
-        onClick={props.showUserList}
+        variant={context.userListVisible ? "contained" : "outlined"}
+        onClick={context.showUserList}
       >
         User
       </Button>
-      <Button variant={props.foodListVisible ? "contained" : "outlined"} onClick={props.showFoodList}>
+      <Button
+        variant={context.foodListVisible ? "contained" : "outlined"}
+        onClick={context.showFoodList}
+      >
         Food
       </Button>
       <Button variant="outlined" disabled>
@@ -30,4 +29,4 @@ const ListingFormController = (props) => {
   );
 };
 
-export default ListingFormController;
+export default ListingController;

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
 import CircularProgress from "@mui/material/CircularProgress";
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useState } from "react";
 
 const FoodList = () => {
   const [foodList, setFoodList] = useState([]);
@@ -22,19 +22,14 @@ const FoodList = () => {
       sortable: false,
       filterable: false,
     },
-    // {
-    //   field: "foodCategoryDto",
-    //   headerName: "Category",
-    //   width: 130,
-    //   sortable: false,
-    //   filterable: false,
-    // },
-  ];
-
-  const rows = [
-    { id: 1, name: "Apple", calories: 50 },
-    { id: 2, name: "Orange", calories: 60 },
-    { id: 3, name: "Banana", calories: 70 },
+    {
+      field: "foodCategoryDto",
+      headerName: "Category",
+      width: 130,
+      sortable: false,
+      filterable: false,
+      valueGetter: (params) => params.row?.foodCategoryDto?.name,
+    },
   ];
 
   const url = "http://localhost:8080/food/get/all";
@@ -51,7 +46,15 @@ const FoodList = () => {
     });
 
   return (
-    <Box sx={{ height: 400, width: "100%", display: "flex", justifyContent: "center", alignItems: "center"  }}>
+    <Box
+      sx={{
+        height: 400,
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : (

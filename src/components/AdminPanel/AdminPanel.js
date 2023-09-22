@@ -1,26 +1,99 @@
-import { useState } from "react";
+import {
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  List,
+  Toolbar,
+  Typography
+} from "@mui/material";
+import { useContext } from "react";
 import AddingPage from "../AdminPages/AddingPage/AddingPage";
-import PageController from "../Controller/PageController/PageController";
 import ListingPage from "../AdminPages/ListingPage/ListingPage";
+import AddingFormController from "../Controller/FormController/AddingFormController";
+import ListingController from "../Controller/ListController/ListingController";
+import PageController from "../Controller/PageController/PageController";
+import EatFitProContext from "../store/context";
 
-import styles from "./AdminPanel.module.css";
+import Logo from "../constants/Logo";
+
+
+const drawerWidth = 240;
 
 const AdminPanel = () => {
-  const [addingPageVisible, setAddingPageVisible] = useState(true);
-  const [listingPageVisible, setListingPageVisible] = useState(false);
-
-  const showAddingPage = () => {
-    setAddingPageVisible(true);
-    setListingPageVisible(false);
-  };
-
-  const showListingPage = () => {
-    setAddingPageVisible(false);
-    setListingPageVisible(true);
-  };
+  const context = useContext(EatFitProContext);
 
   return (
-    <div>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            {context.pageName}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar>
+          <Logo />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "Segoe UI",
+              fontWeight: 700,
+              letterSpacing: ".2rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            EatFitPro
+          </Typography>
+        </Toolbar>
+        <Divider />
+        <List>
+          <PageController />
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <Toolbar>
+          {" "}
+          {(context.addingPageVisible && <AddingFormController />) ||
+            (context.listingPageVisible && <ListingController />)}
+        </Toolbar>
+        {(context.addingPageVisible && <AddingPage />) ||
+          (context.listingPageVisible && <ListingPage />)}
+      </Box>
+    </Box>
+  );
+};
+
+export default AdminPanel;
+
+
+  /* <div>
       <PageController
         showAddingPage={showAddingPage}
         showListingPage={showListingPage}
@@ -29,8 +102,5 @@ const AdminPanel = () => {
       />
       {(addingPageVisible && <AddingPage />) ||
         (listingPageVisible && <ListingPage />)}
-    </div>
-  );
-};
+    </div> */
 
-export default AdminPanel;

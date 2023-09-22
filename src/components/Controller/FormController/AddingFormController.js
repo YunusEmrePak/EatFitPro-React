@@ -1,26 +1,25 @@
+import { useContext } from "react";
+import EatFitProContext from "../../store/context";
+
 import Button from "@mui/material/Button";
 
 import styles from "./AddingFormController.module.css";
 
 const AddingFormController = (props) => {
+  const context = useContext(EatFitProContext);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-      className={styles.formControllerContainer}
-    >
-      <div style={{ marginBottom: "1rem" }}>Adding Panel</div>
+    <div className={styles.formControllerContainer}>
       <Button
-        variant={props.userFormVisible ? "contained" : "outlined"}
-        onClick={props.showUserForm}
+        variant={context.userFormVisible ? "contained" : "outlined"}
+        onClick={context.showUserForm}
       >
         User
       </Button>
-      <Button variant={props.foodFormVisible ? "contained" : "outlined"} onClick={props.showFoodForm}>
+      <Button
+        variant={context.foodFormVisible ? "contained" : "outlined"}
+        onClick={context.showFoodForm}
+      >
         Food
       </Button>
       <Button variant="outlined" disabled>

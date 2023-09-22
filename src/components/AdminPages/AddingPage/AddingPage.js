@@ -1,34 +1,18 @@
-import { useState } from "react";
-import AddingFormController from "../../Controller/FormController/AddingFormController";
-import UserForm from "../../Forms/UserForm/UserForm";
+import { useContext } from "react";
 import FoodForm from "../../Forms/FoodForm/FoodForm";
+import UserForm from "../../Forms/UserForm/UserForm";
+import EatFitProContext from "../../store/context";
 
 import styles from "./AddingPage.module.css";
 
 const AddingPage = () => {
-  const [userFormVisible, setUserFormVisible] = useState(true);
-  const [foodFormVisible, setFoodFormVisible] = useState(false);
-
-  const showUserForm = () => {
-    setUserFormVisible(true);
-    setFoodFormVisible(false);
-  };
-
-  const showFoodForm = () => {
-    setUserFormVisible(false);
-    setFoodFormVisible(true);
-  };
+  const context = useContext(EatFitProContext);
 
   return (
     <div className={styles.addingPage}>
-      <AddingFormController
-        showUserForm={showUserForm}
-        showFoodForm={showFoodForm}
-        userFormVisible={userFormVisible}
-        foodFormVisible={foodFormVisible}
-      />
       <div className={styles.formContainer}>
-        {(userFormVisible && <UserForm />) || (foodFormVisible && <FoodForm />)}
+        {(context.userFormVisible && <UserForm />) ||
+          (context.foodFormVisible && <FoodForm />)}
       </div>
     </div>
   );

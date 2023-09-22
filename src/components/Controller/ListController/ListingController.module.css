@@ -1,6 +1,6 @@
 .listControllerContainer {
-    display: "flex";
-    justify-content:  "center";
-    flex-direction: "column";
+    display: flex;
+    justify-content:  center;
+    width: 100%;
   }
   
