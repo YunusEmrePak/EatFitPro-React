@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 import styles from "./AddingFormController.module.css";
 
-const AddingFormController = (props) => {
+const AddingFormController = () => {
   const context = useContext(EatFitProContext);
 
   return (

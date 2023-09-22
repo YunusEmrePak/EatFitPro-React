@@ -16,7 +16,7 @@ const PageController = (props) => {
   const context = useContext(EatFitProContext);
   return (
     <div className={styles.pageControllerContainer}>
-      <ListItem isablePadding>
+      <ListItem disablePadding>
         <ListItemButton onClick={context.showMainPage} >
           <ListItemIcon>
             <HomeIcon fontSize="large" />
@@ -24,7 +24,7 @@ const PageController = (props) => {
           <ListItemText primary="Main Page" />
         </ListItemButton>
       </ListItem>
-      <ListItem isablePadding>
+      <ListItem disablePadding>
         <ListItemButton onClick={context.showAddingPage} >
           <ListItemIcon>
             <AddIcon fontSize="large" />
@@ -32,7 +32,7 @@ const PageController = (props) => {
           <ListItemText primary="Adding Page" />
         </ListItemButton>
       </ListItem>
-      <ListItem isablePadding>
+      <ListItem disablePadding>
         <ListItemButton onClick={context.showListingPage} >
           <ListItemIcon>
             <ListIcon fontSize="large" />

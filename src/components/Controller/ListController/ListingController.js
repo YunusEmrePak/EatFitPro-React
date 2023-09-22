@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 import styles from "./ListingController.module.css";
 
-const ListingController = (props) => {
+const ListingController = () => {
   const context = useContext(EatFitProContext);
 
   return (

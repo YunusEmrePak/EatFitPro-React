@@ -26,7 +26,7 @@ export const EatFitProContextProvider = (props) => {
   const [foodFormVisible, setFoodFormVisible] = useState(false);
   const [userListVisible, setUserListVisible] = useState(true);
   const [foodListVisible, setFoodListVisible] = useState(false);
-  const [pageName, setPageName] = useState("Adding Page");
+  const [pageName, setPageName] = useState("Main Page");
 
   const showMainPage = () => {
     setMainPageVisible(true);

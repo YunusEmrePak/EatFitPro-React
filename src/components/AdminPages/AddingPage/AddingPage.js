@@ -10,10 +10,8 @@ const AddingPage = () => {
 
   return (
     <div className={styles.addingPage}>
-      <div className={styles.formContainer}>
         {(context.userFormVisible && <UserForm />) ||
           (context.foodFormVisible && <FoodForm />)}
-      </div>
     </div>
   );
 };

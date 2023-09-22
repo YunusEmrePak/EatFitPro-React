@@ -82,9 +82,11 @@ const AdminPanel = () => {
           {(context.addingPageVisible && <AddingFormController />) ||
             (context.listingPageVisible && <ListingController />)}
         </Toolbar>
-        {(context.mainPageVisible && <MainPage />) ||
-          (context.addingPageVisible && <AddingPage />) ||
-          (context.listingPageVisible && <ListingPage />)}
+        <Toolbar>
+          {(context.mainPageVisible && <MainPage />) ||
+            (context.addingPageVisible && <AddingPage />) ||
+            (context.listingPageVisible && <ListingPage />)}
+        </Toolbar>
       </Box>
     </Box>
   );

@@ -52,7 +52,6 @@ const UserForm = () => {
 
     Swal.fire("Data is added", "Correctly!", "success");
   };
-  console.log(userData);
 
   return (
     <Box
@@ -67,7 +66,6 @@ const UserForm = () => {
       <div>
         <TextField
           required
-          id="outlined-required"
           label="Name"
           size="small"
           inputRef={nameRef}
@@ -75,7 +73,6 @@ const UserForm = () => {
         />
         <TextField
           required
-          id="outlined-required"
           label="Surname"
           size="small"
           inputRef={surnameRef}
@@ -86,7 +83,6 @@ const UserForm = () => {
         <TextField
           style={{ width: "41.8ch" }}
           required
-          id="outlined-required"
           label="Email"
           size="small"
           type="email"
@@ -98,7 +94,6 @@ const UserForm = () => {
         <TextField
           style={{ width: "41.8ch" }}
           required
-          id="outlined-required"
           label="Password"
           size="small"
           type="password"
@@ -109,7 +104,6 @@ const UserForm = () => {
       <div>
         <TextField
           required
-          id="outlined-required"
           label="Length"
           size="small"
           inputRef={lengthRef}
@@ -117,7 +111,6 @@ const UserForm = () => {
         />
         <TextField
           required
-          id="outlined-required"
           label="Weight"
           size="small"
           inputRef={weightRef}

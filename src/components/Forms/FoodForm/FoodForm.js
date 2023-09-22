@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
-import { Button, Box, TextField, Alert } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { Button, Box, TextField, Autocomplete } from "@mui/material";
 import Swal from "sweetalert2";
 
 const FoodForm = () => {
   const [foodData, setFoodData] = useState([]);
+  const [databaseCategories, setDatabaseCategories] = useState([]);
+  const [category, setCategory] = useState("");
 
   const nameRef = useRef();
   const caloriesRef = useRef();
@@ -14,12 +16,58 @@ const FoodForm = () => {
     const data = {
       name: nameRef.current.value,
       calories: caloriesRef.current.value,
+      foodCategory: {
+        id: category.id
+      },
     };
 
-    setFoodData(data);
+    const dataJSON = JSON.stringify(data);
+
+    const url = "http://localhost:8080/food/add";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
+    console.log(data);
     Swal.fire("Data is added", "Correctly!", "success");
   };
-  console.log(foodData);
+
+  useEffect(() => {
+    const url = "http://localhost:8080/foodCategory/get/all";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setDatabaseCategories(data);
+      });
+  }, []);
+
+  const top100Films = [
+    { name: "The Shawshank Redemption" },
+    { name: "The Godfather" },
+    { name: "The Godfather: Part II" },
+    { name: "The Dark Knight" },
+    { name: "12 Angry Men" },
+    { name: "Schindler's List" },
+  ];
 
   return (
     <Box
@@ -35,7 +83,6 @@ const FoodForm = () => {
         <TextField
           style={{ width: "41.8ch" }}
           required
-          id="outlined-required"
           label="Name"
           size="small"
           inputRef={nameRef}
@@ -45,10 +92,27 @@ const FoodForm = () => {
         <TextField
           style={{ width: "41.8ch" }}
           required
-          id="outlined-required"
           label="Calories"
           size="small"
           inputRef={caloriesRef}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          // {...defaultProps}
+          getOptionLabel={(option) => option.name}
+          clearOnEscape
+          options={databaseCategories}
+          size="small"
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Category"
+              style={{ width: "41.8ch" }}
+            />
+          )}
+          onChange={(event, value) => setCategory(value)}
+          // isOptionEqualToValue={(option) => option.name = category.name}
         />
       </div>
       <div
@@ -63,7 +127,3 @@ const FoodForm = () => {
 };
 
 export default FoodForm;
-
-// <Alert variant="outlined" severity="success">
-//   This is a success alert — check it out!
-// </Alert>;
