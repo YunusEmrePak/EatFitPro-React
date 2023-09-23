@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Box, TextField, Autocomplete } from "@mui/material";
-import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FoodForm = () => {
-  const [foodData, setFoodData] = useState([]);
   const [databaseCategories, setDatabaseCategories] = useState([]);
   const [category, setCategory] = useState("");
 
@@ -12,35 +12,54 @@ const FoodForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log(category);
 
-    const data = {
-      name: nameRef.current.value,
-      calories: caloriesRef.current.value,
-      foodCategory: {
-        id: category.id
-      },
-    };
-
-    const dataJSON = JSON.stringify(data);
-
-    const url = "http://localhost:8080/food/add";
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: dataJSON,
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        console.log(data);
+    if (
+      nameRef.current.value.trim().length === 0 ||
+      caloriesRef.current.value.trim().length === 0 ||
+      category === null
+    ) {
+      toast.error("All fields must be filled!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
       });
+    } else {
+      const data = {
+        name: nameRef.current.value,
+        calories: caloriesRef.current.value,
+        foodCategory: {
+          id: category.id,
+        },
+      };
 
-    console.log(data);
-    Swal.fire("Data is added", "Correctly!", "success");
+      const dataJSON = JSON.stringify(data);
+
+      const url = "http://localhost:8080/food/add";
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: dataJSON,
+      })
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+
+      nameRef.current.value = "";
+      caloriesRef.current.value = "";
+      setCategory("");
+      toast.success("Data is added correctly!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
+      });
+    }
   };
 
   useEffect(() => {
@@ -59,15 +78,6 @@ const FoodForm = () => {
         setDatabaseCategories(data);
       });
   }, []);
-
-  const top100Films = [
-    { name: "The Shawshank Redemption" },
-    { name: "The Godfather" },
-    { name: "The Godfather: Part II" },
-    { name: "The Dark Knight" },
-    { name: "12 Angry Men" },
-    { name: "Schindler's List" },
-  ];
 
   return (
     <Box
@@ -122,6 +132,7 @@ const FoodForm = () => {
           Submit
         </Button>
       </div>
+      <ToastContainer />
     </Box>
   );
 };

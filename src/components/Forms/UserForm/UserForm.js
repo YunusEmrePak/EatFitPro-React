@@ -1,16 +1,9 @@
-import { useRef, useState } from "react";
-import { Button, Box, TextField } from "@mui/material";
-import Swal from "sweetalert2";
+import { Box, Button, TextField } from "@mui/material";
+import { useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserForm = () => {
-  const [userData, setUserData] = useState([]);
-  // const [nameError, setNameError] = useState(false);
-  // const [surnameError, setSurnameError] = useState(false);
-  // const [emailError, setEmailError] = useState(false);
-  // const [passwordError, setPasswordError] = useState(false);
-  // const [lengthError, setLengthError] = useState(false);
-  // const [weigthError, setWeightError] = useState(false);
-
   const nameRef = useRef();
   const surnameRef = useRef();
   const emailRef = useRef();
@@ -21,36 +14,60 @@ const UserForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const data = {
-      name: nameRef.current.value,
-      surname: surnameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      length: lengthRef.current.value,
-      weight: weightRef.current.value,
-    };
-
-    const dataJSON = JSON.stringify(data);
-
-    const url = "http://localhost:8080/user/add";
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: dataJSON,
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        console.log(data);
+    if (
+      nameRef.current.value.trim().length === 0 ||
+      surnameRef.current.value.trim().length === 0 ||
+      emailRef.current.value.trim().length === 0 ||
+      passwordRef.current.value.trim().length === 0 ||
+      lengthRef.current.value.trim().length === 0 ||
+      weightRef.current.value.trim().length === 0
+    ) {
+      toast.error("All fields must be filled!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
       });
+    } else {
+      const data = {
+        name: nameRef.current.value,
+        surname: surnameRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+        length: lengthRef.current.value,
+        weight: weightRef.current.value,
+      };
 
-    setUserData(data);
+      const dataJSON = JSON.stringify(data);
 
-    Swal.fire("Data is added", "Correctly!", "success");
+      const url = "http://localhost:8080/user/add";
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: dataJSON,
+      })
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+
+      nameRef.current.value = "";
+      surnameRef.current.value = "";
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+      lengthRef.current.value = "";
+      weightRef.current.value = "";
+
+      toast.success("Data is added correctly!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
+      });
+    }
   };
 
   return (
@@ -64,19 +81,12 @@ const UserForm = () => {
       onSubmit={submitHandler}
     >
       <div>
-        <TextField
-          required
-          label="Name"
-          size="small"
-          inputRef={nameRef}
-          // helperText={nameError && "Incorrect entry"}
-        />
+        <TextField required label="Name" size="small" inputRef={nameRef} />
         <TextField
           required
           label="Surname"
           size="small"
           inputRef={surnameRef}
-          // helperText={surnameError && "Incorrect entry"}
         />
       </div>
       <div>
@@ -87,7 +97,6 @@ const UserForm = () => {
           size="small"
           type="email"
           inputRef={emailRef}
-          // helperText={emailError && "Incorrect entry"}
         />
       </div>
       <div>
@@ -98,24 +107,11 @@ const UserForm = () => {
           size="small"
           type="password"
           inputRef={passwordRef}
-          // helperText={passwordError && "Incorrect entry"}
         />
       </div>
       <div>
-        <TextField
-          required
-          label="Length"
-          size="small"
-          inputRef={lengthRef}
-          // helperText={lengthError && "Incorrect entry"}
-        />
-        <TextField
-          required
-          label="Weight"
-          size="small"
-          inputRef={weightRef}
-          // helperText={weigthError && "Incorrect entry"}
-        />
+        <TextField required label="Length" size="small" inputRef={lengthRef} />
+        <TextField required label="Weight" size="small" inputRef={weightRef} />
       </div>
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
@@ -129,28 +125,3 @@ const UserForm = () => {
 };
 
 export default UserForm;
-
-// if (nameRef.current.value.trim().length === 0) {
-//   setNameError(true);
-// }
-// if (surnameRef.current.value.trim().length === 0) {
-//   setSurnameError(true);
-// }
-// if (emailRef.current.value.trim().length === 0) {
-//   setEmailError(true);
-// }
-// if (passwordRef.current.value.trim().length === 0) {
-//   setPasswordError(true);
-// }
-// if (lengthRef.current.value.trim().length === 0) {
-//   setLengthError(true);
-// }
-// if (weightRef.current.value.trim().length === 0) {
-//   setWeightError(true);
-// }
-// setNameError(false);
-// setSurnameError(false);
-// setEmailError(false);
-// setPasswordError(false);
-// setLengthError(false);
-// setWeightError(false);
