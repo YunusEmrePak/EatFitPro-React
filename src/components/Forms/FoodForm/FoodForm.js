@@ -74,7 +74,6 @@ const FoodForm = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setDatabaseCategories(data);
       });
   }, []);
@@ -109,7 +108,6 @@ const FoodForm = () => {
       </div>
       <div>
         <Autocomplete
-          // {...defaultProps}
           getOptionLabel={(option) => option.name}
           clearOnEscape
           options={databaseCategories}
@@ -122,7 +120,6 @@ const FoodForm = () => {
             />
           )}
           onChange={(event, value) => setCategory(value)}
-          // isOptionEqualToValue={(option) => option.name = category.name}
         />
       </div>
       <div
@@ -132,7 +129,6 @@ const FoodForm = () => {
           Submit
         </Button>
       </div>
-      <ToastContainer />
     </Box>
   );
 };
