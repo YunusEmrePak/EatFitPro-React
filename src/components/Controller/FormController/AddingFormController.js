@@ -22,8 +22,11 @@ const AddingFormController = () => {
       >
         Food
       </Button>
-      <Button variant="outlined" disabled>
-        Activity
+      <Button
+        variant={context.foodCategoryFormVisible ? "contained" : "outlined"}
+        onClick={context.showFoodCategoryForm}
+      >
+        Food Category
       </Button>
     </div>
   );

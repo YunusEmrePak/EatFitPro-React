@@ -6,16 +6,20 @@ const EatFitProContext = React.createContext({
   listingPageVisible: false,
   userFormVisible: false,
   foodFormVisible: false,
+  foodCategoryFormVisible: false,
   userListVisible: false,
   foodListVisible: false,
+  foodCategoryListVisible: false,
   pageName: "",
   showMainPage: () => {},
   showAddingPage: () => {},
   showListingPage: () => {},
   showUserForm: () => {},
   showFoodForm: () => {},
+  showFoodCategoryForm: () => {},
   showUserList: () => {},
   showFoodList: () => {},
+  showFoodCategoryList: () => {},
 });
 
 export const EatFitProContextProvider = (props) => {
@@ -24,8 +28,10 @@ export const EatFitProContextProvider = (props) => {
   const [listingPageVisible, setListingPageVisible] = useState(false);
   const [userFormVisible, setUserFormVisible] = useState(true);
   const [foodFormVisible, setFoodFormVisible] = useState(false);
+  const [foodCategoryFormVisible, setFoodCategoryFormVisible] = useState(false);
   const [userListVisible, setUserListVisible] = useState(true);
   const [foodListVisible, setFoodListVisible] = useState(false);
+  const [foodCategoryListVisible, setFoodCategoryListVisible] = useState(false);
   const [pageName, setPageName] = useState("Main Page");
 
   const showMainPage = () => {
@@ -52,21 +58,37 @@ export const EatFitProContextProvider = (props) => {
   const showUserForm = () => {
     setUserFormVisible(true);
     setFoodFormVisible(false);
+    setFoodCategoryFormVisible(false)
   };
 
   const showFoodForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(true);
+    setFoodCategoryFormVisible(false);
+  };
+
+  const showFoodCategoryForm = () => {
+    setUserFormVisible(false);
+    setFoodFormVisible(false);
+    setFoodCategoryFormVisible(true)
   };
 
   const showUserList = () => {
     setUserListVisible(true);
     setFoodListVisible(false);
+    setFoodCategoryListVisible(false);
   };
 
   const showFoodList = () => {
     setUserListVisible(false);
     setFoodListVisible(true);
+    setFoodCategoryListVisible(false);
+  };
+
+  const showFoodCategoryList = () => {
+    setUserListVisible(false);
+    setFoodListVisible(false);
+    setFoodCategoryListVisible(true);
   };
 
   return (
@@ -77,16 +99,20 @@ export const EatFitProContextProvider = (props) => {
         listingPageVisible: listingPageVisible,
         userFormVisible: userFormVisible,
         foodFormVisible: foodFormVisible,
+        foodCategoryFormVisible: foodCategoryFormVisible,
         userListVisible: userListVisible,
         foodListVisible: foodListVisible,
+        foodCategoryListVisible: foodCategoryListVisible,
         pageName: pageName,
         showMainPage: showMainPage,
         showAddingPage: showAddingPage,
         showListingPage: showListingPage,
         showUserForm: showUserForm,
         showFoodForm: showFoodForm,
+        showFoodCategoryForm: showFoodCategoryForm,
         showUserList: showUserList,
         showFoodList: showFoodList,
+        showFoodCategoryList: showFoodCategoryList,
       }}
     >
       {props.children}

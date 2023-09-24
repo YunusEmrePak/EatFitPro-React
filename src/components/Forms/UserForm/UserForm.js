@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,23 +11,57 @@ const UserForm = () => {
   const lengthRef = useRef();
   const weightRef = useRef();
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const [nameError, setNameError] = useState(false);
+  const [surnameError, setSurnameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [lengthError, setLengthError] = useState(false);
+  const [weightError, setWeightError] = useState(false);
 
-    if (
-      nameRef.current.value.trim().length === 0 ||
-      surnameRef.current.value.trim().length === 0 ||
-      emailRef.current.value.trim().length === 0 ||
-      passwordRef.current.value.trim().length === 0 ||
-      lengthRef.current.value.trim().length === 0 ||
-      weightRef.current.value.trim().length === 0
-    ) {
+  const errorHandler = () => {
+    let errorCounter = 0;
+    if (nameRef.current.value.trim().length === 0) {
+      setNameError(true);
+      errorCounter += 1;
+    }
+    if (surnameRef.current.value.trim().length === 0) {
+      setSurnameError(true);
+      errorCounter += 1;
+    }
+    if (emailRef.current.value.trim().length === 0) {
+      setEmailError(true);
+      errorCounter += 1;
+    }
+    if (passwordRef.current.value.trim().length === 0) {
+      setPasswordError(true);
+      errorCounter += 1;
+    }
+    if (lengthRef.current.value.trim().length === 0) {
+      setLengthError(true);
+      errorCounter += 1;
+    }
+    if (weightRef.current.value.trim().length === 0) {
+      setWeightError(true);
+      errorCounter += 1;
+    }
+    if (errorCounter !== 0) {
       toast.error("All fields must be filled!", {
         position: "bottom-left",
         draggable: true,
         pauseOnHover: false,
       });
-    } else {
+      errorCounter = 0;
+      return true;
+    }
+    if (errorCounter === 0) {
+      return false;
+    }
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (!errorHandler()) {
       const data = {
         name: nameRef.current.value,
         surname: surnameRef.current.value,
@@ -81,12 +115,25 @@ const UserForm = () => {
       onSubmit={submitHandler}
     >
       <div>
-        <TextField required label="Name" size="small" inputRef={nameRef} />
+        <TextField
+          required
+          label="Name"
+          size="small"
+          inputRef={nameRef}
+          error={nameError ? true : false}
+          onChange={() => {
+            setNameError(false);
+          }}
+        />
         <TextField
           required
           label="Surname"
           size="small"
           inputRef={surnameRef}
+          error={surnameError ? true : false}
+          onChange={() => {
+            setSurnameError(false);
+          }}
         />
       </div>
       <div>
@@ -97,6 +144,10 @@ const UserForm = () => {
           size="small"
           type="email"
           inputRef={emailRef}
+          error={emailError ? true : false}
+          onChange={() => {
+            setEmailError(false);
+          }}
         />
       </div>
       <div>
@@ -107,11 +158,33 @@ const UserForm = () => {
           size="small"
           type="password"
           inputRef={passwordRef}
+          error={passwordError ? true : false}
+          onChange={() => {
+            setPasswordError(false);
+          }}
         />
       </div>
       <div>
-        <TextField required label="Length" size="small" inputRef={lengthRef} />
-        <TextField required label="Weight" size="small" inputRef={weightRef} />
+        <TextField
+          required
+          label="Length"
+          size="small"
+          inputRef={lengthRef}
+          error={lengthError ? true : false}
+          onChange={() => {
+            setLengthError(false);
+          }}
+        />
+        <TextField
+          required
+          label="Weight"
+          size="small"
+          inputRef={weightRef}
+          error={weightError ? true : false}
+          onChange={() => {
+            setWeightError(false);
+          }}
+        />
       </div>
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}

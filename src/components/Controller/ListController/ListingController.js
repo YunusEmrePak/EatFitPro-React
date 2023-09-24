@@ -22,8 +22,11 @@ const ListingController = () => {
       >
         Food
       </Button>
-      <Button variant="outlined" disabled>
-        Activity
+      <Button
+        variant={context.foodCategoryListVisible ? "contained" : "outlined"}
+        onClick={context.showFoodCategoryList}
+      >
+        Food Category
       </Button>
     </div>
   );
