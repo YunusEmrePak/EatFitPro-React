@@ -63,7 +63,7 @@ const UserList = () => {
     });
 
   return (
-    <Box sx={{ height: 400, width: "400", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <Box sx={{ height: 400, width: 700, display: "flex", justifyContent: "center", alignItems: "center" }}>
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : (

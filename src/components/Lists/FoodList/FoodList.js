@@ -49,7 +49,7 @@ const FoodList = () => {
     <Box
       sx={{
         height: 400,
-        width: "100%",
+        width: 450,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
