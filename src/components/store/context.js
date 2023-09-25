@@ -20,6 +20,7 @@ const EatFitProContext = React.createContext({
   foodCategoryListVisible: false,
   pageName: "",
   filterUserData: [],
+  userListSize: 0,
   showMainPage: () => {},
   showAddingPage: () => {},
   showListingPage: () => {},
@@ -30,6 +31,7 @@ const EatFitProContext = React.createContext({
   showFoodList: () => {},
   showFoodCategoryList: () => {},
   setFilterUserData: () => {},
+  setUserListSize: () => {},
 });
 
 export const EatFitProContextProvider = (props) => {
@@ -44,6 +46,7 @@ export const EatFitProContextProvider = (props) => {
   const [foodCategoryListVisible, setFoodCategoryListVisible] = useState(false);
   const [pageName, setPageName] = useState("Main Page");
   const [filterUserData, setFilterUserData] = useState(unFilteredData);
+  const [userListSize, setUserListSize] = useState(5);
 
   const showMainPage = () => {
     setMainPageVisible(true);
@@ -116,6 +119,7 @@ export const EatFitProContextProvider = (props) => {
         foodCategoryListVisible: foodCategoryListVisible,
         pageName: pageName,
         filterUserData: filterUserData,
+        userListSize: userListSize,
         showMainPage: showMainPage,
         showAddingPage: showAddingPage,
         showListingPage: showListingPage,
@@ -126,6 +130,7 @@ export const EatFitProContextProvider = (props) => {
         showFoodList: showFoodList,
         showFoodCategoryList: showFoodCategoryList,
         setFilterUserData: setFilterUserData,
+        setUserListSize: setUserListSize,
       }}
     >
       {props.children}

@@ -13,21 +13,17 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, { useState, useContext, useEffect } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFIlteringForm";
 import EatFitProContext from "../../store/context";
-
-const unFilteredData = {
-  name: null,
-  surname: null,
-  email: null,
-  length: null,
-  weight: null,
-};
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
 
-  const [filterData, setFilterData] = useState(unFilteredData);
   const [userList, setUserList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  let userListSize = context.userListSize;
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpen = () => {
@@ -37,31 +33,23 @@ const UserList = () => {
     setIsFilterOpen(false);
   };
 
-  const url = "http://localhost:8080/user/get/filtered";
-
   useEffect(() => {
+    const url = `http://localhost:8080/user/get/filtered?page=${
+      pageNumber - 1
+    }&size=${userListSize}`;
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(
-      //   context.filterUserData.content
-      //     ? context.filterUserData.content
-      //     : unFilteredData
-      // ),
-      body: JSON.stringify(
-        context.filterUserData
-      ),
+      body: JSON.stringify(context.filterUserData),
     })
       .then((response) => response.json())
       .then((data) => {
         setIsLoading(false);
-        console.log(data.content)
         setUserList(data.content);
-        // context.setFilterUserData(data.content)
       });
-  }, [context.filterUserData]);
+  }, [context.filterUserData, pageNumber, userListSize]);
 
   return (
     <div>
@@ -70,39 +58,66 @@ const UserList = () => {
       </Button>
 
       {isFilterOpen && <UserFilteringForm />}
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Name</TableCell>
-                <TableCell align="center">Surname</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Length</TableCell>
-                <TableCell align="center">Weight</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {userList.map((row) => (
-                <TableRow
-                  key={row.email}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" align="center">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.surname}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.length}</TableCell>
-                  <TableCell align="center">{row.weight}</TableCell>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <TableContainer component={Paper} style={{ maxHeight: 350, marginTop: 20 }}>
+            <Table
+              sx={{ minWidth: 650, maxHeight: 400 }}
+              size="small"
+              aria-label="a dense table"
+              style={{position: "relative"}}
+            >
+              <TableHead
+              >
+                <TableRow>
+                  <TableCell align="left">Name</TableCell>
+                  <TableCell align="left">Surname</TableCell>
+                  <TableCell align="left">Email</TableCell>
+                  <TableCell align="left">Length</TableCell>
+                  <TableCell align="left">Weight</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+              </TableHead>
+              <TableBody>
+                {userList.map((row) => (
+                  <TableRow
+                    key={row.email}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row" align="left">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="left">{row.surname}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.length}</TableCell>
+                    <TableCell align="left">{row.weight}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </div>
+
+      <Stack spacing={2} style={{ marginTop: 20 }}>
+        <Pagination
+          count={10}
+          color="primary"
+          onChange={(event, page) => {
+            if (page !== pageNumber) {
+              // setIsLoading(true);
+              setPageNumber(page);
+            }
+          }}
+        />
+      </Stack>
     </div>
   );
 };

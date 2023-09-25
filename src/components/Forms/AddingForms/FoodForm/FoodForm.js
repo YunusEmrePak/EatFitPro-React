@@ -1,6 +1,6 @@
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { Button, Box, TextField, Autocomplete } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const FoodForm = () => {

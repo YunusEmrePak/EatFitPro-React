@@ -1,9 +1,9 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useRef, useContext } from "react";
-import { toast } from "react-toastify";
+import { useContext, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 
 import EatFitProContext from "../../../store/context";
+import { toast } from "react-toastify";
 
 const UserFilteringForm = () => {
   const context = useContext(EatFitProContext);
@@ -13,6 +13,7 @@ const UserFilteringForm = () => {
   const emailRef = useRef(null);
   const lengthRef = useRef(null);
   const weightRef = useRef(null);
+  const sizeRef = useRef(null);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -24,42 +25,21 @@ const UserFilteringForm = () => {
       length: lengthRef.current.value ? lengthRef.current.value : null,
       weight: weightRef.current.value ? weightRef.current.value : null,
     };
-
+    console.log(typeof sizeRef.current.value);
     context.setFilterUserData(data);
-
-    // const dataJSON = JSON.stringify(data);
-
-    // const url = "http://localhost:8080/user/get/filtered";
-
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: dataJSON,
-    // })
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     context.setFilteredUserData(data.content);
-    //     console.log(data.content);
-    //   })
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
-
-    // nameRef.current.value = "";
-    // surnameRef.current.value = "";
-    // emailRef.current.value = "";
-    // lengthRef.current.value = "";
-    // weightRef.current.value = "";
-
-    toast.success("Data is added correctly!", {
-      position: "bottom-left",
-      draggable: true,
-      pauseOnHover: false,
-    });
+    if (sizeRef.current.value === "") {
+      context.setUserListSize(5);
+    } else {
+      if (sizeRef.current.value > 0) {
+        context.setUserListSize(sizeRef.current.value);
+      } else {
+        toast.error("Size must be greater than 0", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      }
+    }
   };
 
   return (
@@ -102,6 +82,13 @@ const UserFilteringForm = () => {
           size="small"
           inputRef={weightRef}
           type="double"
+        />
+        <TextField
+          required
+          label="Size"
+          size="small"
+          inputRef={sizeRef}
+          type="number"
         />
       </div>
       <Button variant="contained" type="submit">
