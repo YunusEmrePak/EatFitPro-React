@@ -28,7 +28,10 @@ const FoodCategoryList = () => {
     .then((data) => {
       setIsLoading(false);
       setFoodCategoryList(data);
-    });
+    })
+    .catch(error => {
+      console.error(error)
+    })
 
   return (
     <Box
