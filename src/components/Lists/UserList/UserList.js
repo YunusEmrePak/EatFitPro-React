@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFIlteringForm";
 import EatFitProContext from "../../store/context";
+import TablePagination from "../../Pagination/TablePagination";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
@@ -88,19 +89,9 @@ const UserList = () => {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <DataGrid rows={userList} columns={columns} hideFooter />
+            <DataGrid rows={userList} columns={columns} hideFooter style={{maxHeight: 320, minHeight: 320}} />
           )}
-          <Stack spacing={2} style={{ marginTop: 20 }}>
-            <Pagination
-              count={totalPage}
-              color="primary"
-              onChange={(event, page) => {
-                if (page !== pageNumber) {
-                  setPageNumber(page);
-                }
-              }}
-            />
-          </Stack>
+          <TablePagination pageNumber={pageNumber} totalPage={totalPage} setPageNumber={setPageNumber} />
         </div>
       </div>
     </div>
