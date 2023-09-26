@@ -25,7 +25,6 @@ const UserFilteringForm = () => {
       length: lengthRef.current.value ? lengthRef.current.value : null,
       weight: weightRef.current.value ? weightRef.current.value : null,
     };
-    console.log(typeof sizeRef.current.value);
     context.setFilterUserData(data);
     if (sizeRef.current.value === "") {
       context.setUserListSize(5);
