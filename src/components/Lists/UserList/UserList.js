@@ -1,22 +1,10 @@
-import FilterListIcon from "@mui/icons-material/FilterList";
-import {
-  Button,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import React, { useState, useContext, useEffect } from "react";
-import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFIlteringForm";
-import EatFitProContext from "../../store/context";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
-const fontSize = 18;
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useContext, useEffect, useState } from "react";
+import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFIlteringForm";
+import EatFitProContext from "../../store/context";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
@@ -28,13 +16,43 @@ const UserList = () => {
 
   let userListSize = context.userListSize;
 
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const handleOpen = () => {
-    setIsFilterOpen(true);
-  };
-  const handleClose = () => {
-    setIsFilterOpen(false);
-  };
+  const columns = [
+    {
+      field: "name",
+      headerName: "Name",
+      width: 130,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: "surname",
+      headerName: "Surname",
+      width: 130,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 130,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: "length",
+      headerName: "Length",
+      width: 130,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: "weight",
+      headerName: "Weight",
+      width: 130,
+      sortable: false,
+      filterable: false,
+    },
+  ];
 
   useEffect(() => {
     const url = `http://localhost:8080/user/get/filtered?page=${
@@ -57,22 +75,42 @@ const UserList = () => {
 
   return (
     <div>
-      <Button onClick={isFilterOpen ? handleClose : handleOpen}>
-        <FilterListIcon style={{ cursor: "pointer" }} />
-      </Button>
-
-      {isFilterOpen && <UserFilteringForm />}
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: -10,
         }}
       >
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <TableContainer
+        <UserFilteringForm />
+        <div style={{ marginLeft: 30 }}>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <DataGrid rows={userList} columns={columns} hideFooter />
+          )}
+          <Stack spacing={2} style={{ marginTop: 20 }}>
+            <Pagination
+              count={totalPage}
+              color="primary"
+              onChange={(event, page) => {
+                if (page !== pageNumber) {
+                  setPageNumber(page);
+                }
+              }}
+            />
+          </Stack>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserList;
+
+{
+  /* <TableContainer
             component={Paper}
             style={{ maxHeight: 400, marginTop: 20 }}
           >
@@ -134,24 +172,5 @@ const UserList = () => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
-        )}
-      </div>
-
-      <Stack spacing={2} style={{ marginTop: 20 }}>
-        <Pagination
-          count={totalPage}
-          color="primary"
-          onChange={(event, page) => {
-            if (page !== pageNumber) {
-              // setIsLoading(true);
-              setPageNumber(page);
-            }
-          }}
-        />
-      </Stack>
-    </div>
-  );
-};
-
-export default UserList;
+          </TableContainer> */
+}

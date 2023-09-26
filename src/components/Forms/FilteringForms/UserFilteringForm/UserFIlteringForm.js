@@ -52,48 +52,39 @@ const UserFilteringForm = () => {
       autoComplete="off"
       onSubmit={submitHandler}
     >
-      <div>
-        <TextField required label="Name" size="small" inputRef={nameRef} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TextField label="Name" size="small" inputRef={nameRef} />
+        <TextField label="Surname" size="small" inputRef={surnameRef} />
         <TextField
-          required
-          label="Surname"
-          size="small"
-          inputRef={surnameRef}
-        />
-        <TextField
-          required
           label="Email"
           size="small"
           type="email"
           inputRef={emailRef}
         />
-      </div>
-      <div>
         <TextField
-          required
           label="Length"
           size="small"
           inputRef={lengthRef}
           type="double"
         />
         <TextField
-          required
           label="Weight"
           size="small"
           inputRef={weightRef}
           type="double"
         />
-        <TextField
-          required
-          label="Size"
-          size="small"
-          inputRef={sizeRef}
-          type="number"
-        />
+        <TextField label="Size" size="small" inputRef={sizeRef} type="number" />
+        <Button variant="contained" type="submit">
+          Filter
+        </Button>
       </div>
-      <Button variant="contained" type="submit">
-        Filter
-      </Button>
     </Box>
   );
 };
