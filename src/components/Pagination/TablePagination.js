@@ -7,6 +7,8 @@ const TablePagination = (props) => {
       <Pagination
         count={props.totalPage}
         color="primary"
+        page={props.pageNumber}
+        defaultPage={props.pageNumber}
         onChange={(event, page) => {
           if (page !== props.pageNumber) {
             props.setPageNumber(page);

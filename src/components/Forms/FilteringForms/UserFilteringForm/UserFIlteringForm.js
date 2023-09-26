@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EatFitProContext from "../../../store/context";
 import { toast } from "react-toastify";
 
-const UserFilteringForm = () => {
+const UserFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
 
   const nameRef = useRef(null);
@@ -26,6 +26,7 @@ const UserFilteringForm = () => {
       weight: weightRef.current.value ? weightRef.current.value : null,
     };
     context.setFilterUserData(data);
+    props.setPageNumber(1);
     if (sizeRef.current.value === "") {
       context.setUserListSize(5);
     } else {

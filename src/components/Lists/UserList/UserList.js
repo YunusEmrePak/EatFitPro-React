@@ -19,35 +19,35 @@ const UserList = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 130,
+      width: 110,
       sortable: false,
       filterable: false,
     },
     {
       field: "surname",
       headerName: "Surname",
-      width: 130,
+      width: 110,
       sortable: false,
       filterable: false,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 130,
+      width: 230,
       sortable: false,
       filterable: false,
     },
     {
       field: "length",
       headerName: "Length",
-      width: 130,
+      width: 110,
       sortable: false,
       filterable: false,
     },
     {
       field: "weight",
       headerName: "Weight",
-      width: 130,
+      width: 110,
       sortable: false,
       filterable: false,
     },
@@ -69,7 +69,6 @@ const UserList = () => {
         setIsLoading(false);
         setUserList(data.content);
         setTotalPage(data.totalPages);
-        setPageNumber(1);
       });
   }, [context.filterUserData, pageNumber, userListSize]);
 
@@ -83,7 +82,7 @@ const UserList = () => {
           marginTop: -10,
         }}
       >
-        <UserFilteringForm />
+        <UserFilteringForm setPageNumber={setPageNumber} />
         <div style={{ marginLeft: 30 }}>
           {isLoading ? (
             <CircularProgress />
@@ -92,7 +91,7 @@ const UserList = () => {
               rows={userList}
               columns={columns}
               hideFooter
-              style={{ maxHeight: 320, minHeight: 320, width: 660, marginTop: 10 }}
+              style={{ maxHeight: 317.5, minHeight: 317.5, width: 680, marginTop: 10 }}
             />
           )}
           <TablePagination
