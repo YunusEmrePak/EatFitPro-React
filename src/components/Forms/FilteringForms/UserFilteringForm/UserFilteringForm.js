@@ -56,34 +56,45 @@ const UserFilteringForm = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
+          height: 380,
+          width: 200
         }}
       >
-        <TextField label="Name" size="small" inputRef={nameRef} />
-        <TextField label="Surname" size="small" inputRef={surnameRef} />
-        <TextField
-          label="Email"
-          size="small"
-          type="email"
-          inputRef={emailRef}
-        />
-        <TextField
-          label="Length"
-          size="small"
-          inputRef={lengthRef}
-          type="double"
-        />
-        <TextField
-          label="Weight"
-          size="small"
-          inputRef={weightRef}
-          type="double"
-        />
-        <TextField label="Size" size="small" inputRef={sizeRef} type="number" />
-        <Button variant="contained" type="submit">
-          Filter
-        </Button>
+        <div>
+          <TextField label="Name" size="small" inputRef={nameRef} />
+          <TextField label="Surname" size="small" inputRef={surnameRef} />
+          <TextField
+            label="Email"
+            size="small"
+            type="email"
+            inputRef={emailRef}
+          />
+          <TextField
+            label="Length"
+            size="small"
+            inputRef={lengthRef}
+            type="double"
+          />
+          <TextField
+            label="Weight"
+            size="small"
+            inputRef={weightRef}
+            type="double"
+          />
+          <TextField
+            label="Size"
+            size="small"
+            inputRef={sizeRef}
+            type="number"
+          />
+        </div>
+        <div>
+          <Button variant="contained" type="submit">
+            Filter
+          </Button>
+        </div>
       </div>
     </Box>
   );

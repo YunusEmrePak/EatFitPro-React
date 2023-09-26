@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 
-const unFilteredData = {
+const unFilteredUserData = {
   name: null,
   surname: null,
   email: null,
   length: null,
   weight: null,
+};
+
+const unFilteredFoodData = {
+  name: null,
+  calories: null,
+  foodCategoryName: null,
 };
 
 const EatFitProContext = React.createContext({
@@ -20,7 +26,9 @@ const EatFitProContext = React.createContext({
   foodCategoryListVisible: false,
   pageName: "",
   filterUserData: [],
+  filterFoodData: [],
   userListSize: 0,
+  foodListSize: 0,
   showMainPage: () => {},
   showAddingPage: () => {},
   showListingPage: () => {},
@@ -31,7 +39,9 @@ const EatFitProContext = React.createContext({
   showFoodList: () => {},
   showFoodCategoryList: () => {},
   setFilterUserData: () => {},
+  setFilterFoodData: () => {},
   setUserListSize: () => {},
+  setFoodListSize: () => {},
 });
 
 export const EatFitProContextProvider = (props) => {
@@ -45,8 +55,11 @@ export const EatFitProContextProvider = (props) => {
   const [foodListVisible, setFoodListVisible] = useState(false);
   const [foodCategoryListVisible, setFoodCategoryListVisible] = useState(false);
   const [pageName, setPageName] = useState("Main Page");
-  const [filterUserData, setFilterUserData] = useState(unFilteredData);
+  const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
+  const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
+  // const [filterFoodCategoryData, setFilterFoodCategoryData] = useState(un);
   const [userListSize, setUserListSize] = useState(5);
+  const [foodListSize, setFoodListSize] = useState(5);
 
   const showMainPage = () => {
     setMainPageVisible(true);
@@ -119,7 +132,9 @@ export const EatFitProContextProvider = (props) => {
         foodCategoryListVisible: foodCategoryListVisible,
         pageName: pageName,
         filterUserData: filterUserData,
+        filterFoodData: filterFoodData,
         userListSize: userListSize,
+        foodListSize: foodListSize,
         showMainPage: showMainPage,
         showAddingPage: showAddingPage,
         showListingPage: showListingPage,
@@ -130,7 +145,9 @@ export const EatFitProContextProvider = (props) => {
         showFoodList: showFoodList,
         showFoodCategoryList: showFoodCategoryList,
         setFilterUserData: setFilterUserData,
+        setFilterFoodData: setFilterFoodData,
         setUserListSize: setUserListSize,
+        setFoodListSize: setFoodListSize,
       }}
     >
       {props.children}

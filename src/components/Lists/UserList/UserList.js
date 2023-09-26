@@ -1,7 +1,7 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
-import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFIlteringForm";
+import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import EatFitProContext from "../../store/context";
 
@@ -73,33 +73,40 @@ const UserList = () => {
   }, [context.filterUserData, pageNumber, userListSize]);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        marginTop: -10,
+      }}
+    >
+      <UserFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: -10,
+          marginLeft: 30,
         }}
       >
-        <UserFilteringForm setPageNumber={setPageNumber} />
-        <div style={{ marginLeft: 30 }}>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <DataGrid
-              rows={userList}
-              columns={columns}
-              hideFooter
-              style={{ maxHeight: 318, minHeight: 318, width: 700, marginTop: 10 }}
-            />
-          )}
-          <TablePagination
-            pageNumber={pageNumber}
-            totalPage={totalPage}
-            setPageNumber={setPageNumber}
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <DataGrid
+            rows={userList}
+            columns={columns}
+            hideFooter
+            style={{
+              maxHeight: 318,
+              minHeight: 318,
+              width: 700,
+              marginTop: 10,
+            }}
           />
-        </div>
+        )}
+        <TablePagination
+          pageNumber={pageNumber}
+          totalPage={totalPage}
+          setPageNumber={setPageNumber}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import { Box, Button, TextField } from "@mui/material";
-import { useContext, useRef } from "react";
+import { Box, Button, TextField, Autocomplete } from "@mui/material";
+import { useContext, useRef, useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 
 import EatFitProContext from "../../../store/context";
@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 
 const FoodFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
+  const [category, setCategory] = useState(null);
+  const [databaseCategories, setDatabaseCategories] = useState([]);
 
   const nameRef = useRef(null);
   const caloriesRef = useRef(null);
-  const foodCategoryRef = useRef(null);
   const sizeRef = useRef(null);
 
   const submitHandler = (event) => {
@@ -19,15 +20,15 @@ const FoodFilteringForm = (props) => {
     const data = {
       name: nameRef.current.value ? nameRef.current.value : null,
       calories: caloriesRef.current.value ? caloriesRef.current.value : null,
-      foodCategoryName: foodCategoryRef.current.value ? foodCategoryRef.current.value : null,
+      foodCategoryName: category ? category.name : null,
     };
-    context.setFilterUserData(data);
+    context.setFilterFoodData(data);
     props.setPageNumber(1);
     if (sizeRef.current.value === "") {
-      context.setUserListSize(5);
+      context.setFoodListSize(5);
     } else {
       if (sizeRef.current.value > 0) {
-        context.setUserListSize(sizeRef.current.value);
+        context.setFoodListSize(sizeRef.current.value);
       } else {
         toast.error("Size must be greater than 0", {
           position: "bottom-left",
@@ -37,6 +38,22 @@ const FoodFilteringForm = (props) => {
       }
     }
   };
+
+  useEffect(() => {
+    const url = "http://localhost:8080/foodCategory/get/all";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setDatabaseCategories(data);
+      });
+  }, []);
 
   return (
     <Box
@@ -52,22 +69,38 @@ const FoodFilteringForm = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
+          height: 380,
+          width: 200
         }}
       >
-        <TextField label="Name" size="small" inputRef={nameRef} />
-        <TextField label="Calories" size="small" inputRef={surnameRef} />
-        <TextField
-          label="Category"
-          size="small"
-          type="email"
-          inputRef={emailRef}
-        />
-        <TextField label="Size" size="small" inputRef={sizeRef} type="number" />
-        <Button variant="contained" type="submit">
-          Filter
-        </Button>
+        <div>
+          <TextField label="Name" size="small" inputRef={nameRef} />
+          <TextField label="Calories" size="small" inputRef={caloriesRef} />
+          <Autocomplete
+            getOptionLabel={(option) => option.name}
+            clearOnEscape
+            options={databaseCategories}
+            size="small"
+            value={category}
+            renderInput={(params) => <TextField {...params} label="Category" />}
+            onChange={(event, value) => {
+              setCategory(value);
+            }}
+          />
+          <TextField
+            label="Size"
+            size="small"
+            inputRef={sizeRef}
+            type="number"
+          />
+        </div>
+        <div>
+          <Button variant="contained" type="submit">
+            Filter
+          </Button>
+        </div>
       </div>
     </Box>
   );
