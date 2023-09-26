@@ -116,7 +116,6 @@ const UserForm = () => {
     >
       <div>
         <TextField
-          required
           label="Name"
           size="small"
           inputRef={nameRef}
@@ -126,7 +125,6 @@ const UserForm = () => {
           }}
         />
         <TextField
-          required
           label="Surname"
           size="small"
           inputRef={surnameRef}
@@ -139,7 +137,6 @@ const UserForm = () => {
       <div>
         <TextField
           style={{ width: "41.8ch" }}
-          required
           label="Email"
           size="small"
           type="email"
@@ -153,7 +150,6 @@ const UserForm = () => {
       <div>
         <TextField
           style={{ width: "41.8ch" }}
-          required
           label="Password"
           size="small"
           type="password"
@@ -166,7 +162,6 @@ const UserForm = () => {
       </div>
       <div>
         <TextField
-          required
           label="Length"
           size="small"
           inputRef={lengthRef}
@@ -176,7 +171,6 @@ const UserForm = () => {
           }}
         />
         <TextField
-          required
           label="Weight"
           size="small"
           inputRef={weightRef}

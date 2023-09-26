@@ -91,7 +91,7 @@ const UserList = () => {
               rows={userList}
               columns={columns}
               hideFooter
-              style={{ maxHeight: 317.5, minHeight: 317.5, width: 680, marginTop: 10 }}
+              style={{ maxHeight: 318, minHeight: 318, width: 700, marginTop: 10 }}
             />
           )}
           <TablePagination

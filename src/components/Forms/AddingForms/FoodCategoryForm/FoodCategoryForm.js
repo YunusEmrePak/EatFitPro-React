@@ -64,7 +64,6 @@ const FoodCategoryForm = () => {
       <div>
         <TextField
           style={{ width: "41.8ch" }}
-          required
           label="Name"
           size="small"
           inputRef={nameRef}
