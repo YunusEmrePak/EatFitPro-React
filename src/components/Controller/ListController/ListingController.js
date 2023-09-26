@@ -28,6 +28,25 @@ const ListingController = () => {
       >
         Food Category
       </Button>
+
+      <Button
+        variant={context.activityListVisible ? "contained" : "outlined"}
+        onClick={context.showActivityList}
+      >
+        Activity
+      </Button>
+      <Button
+        variant={context.activityCategoryListVisible ? "contained" : "outlined"}
+        onClick={context.showActivityCategoryList}
+      >
+        Activity Category
+      </Button>
+      <Button
+        variant={context.foodAndActivityAssignmentListVisible ? "contained" : "outlined"}
+        onClick={context.showFoodAndActivityAssignmentList}
+      >
+        Food And Activity Assignment
+      </Button>
     </div>
   );
 };

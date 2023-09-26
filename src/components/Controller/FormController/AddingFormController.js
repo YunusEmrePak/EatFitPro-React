@@ -28,6 +28,25 @@ const AddingFormController = () => {
       >
         Food Category
       </Button>
+
+      <Button
+        variant={context.activityFormVisible ? "contained" : "outlined"}
+        onClick={context.showActivityForm}
+      >
+        Activity
+      </Button>
+      <Button
+        variant={context.activityCategoryFormVisible ? "contained" : "outlined"}
+        onClick={context.showActivityCategoryForm}
+      >
+        Activity Category
+      </Button>
+      <Button
+        variant={context.foodAndActivityAssignmentFormVisible ? "contained" : "outlined"}
+        onClick={context.showFoodAndActivityAssignmentForm}
+      >
+        Food And Activity Assignment
+      </Button>
     </div>
   );
 };
