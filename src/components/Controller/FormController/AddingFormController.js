@@ -70,6 +70,7 @@ const AddingFormController = () => {
       {buttons.map((value) => {
         return (
           <ButtonUI
+            key={value.name}
             name={value.name}
             variant={value.variant}
             onClick={value.click}

@@ -8,8 +8,7 @@ const TablePagination = (props) => {
     <Stack spacing={2} style={{ marginTop: 20}}>
       <Pagination
         count={props.totalPage}
-        // color="primary"
-        className="paginationButton"
+        color="primary"
         page={props.pageNumber}
         onChange={(event, page) => {
           if (page !== props.pageNumber) {

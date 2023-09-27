@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import EatFitProContext from "../../store/context";
 
-import ButtonUI from "../../UI/Button/Button"
+import ButtonUI from "../../UI/Button/Button";
 
 // import styles from "./ListingController.module.css";
 
@@ -70,6 +70,7 @@ const ListingController = () => {
       {buttons.map((value) => {
         return (
           <ButtonUI
+            key={value.name}
             name={value.name}
             variant={value.variant}
             onClick={value.click}

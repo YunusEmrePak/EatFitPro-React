@@ -77,7 +77,7 @@ const FoodCategoryForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <ButtonUI name="Filter" variant="contained" type="submit" />
+        <ButtonUI name="Add" variant="contained" type="submit" />
       </div>
     </Box>
   );

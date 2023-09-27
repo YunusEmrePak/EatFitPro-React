@@ -185,7 +185,7 @@ const UserForm = () => {
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
         <ButtonUI
-            name="FIlter"
+            name="Add"
             variant="contained"
             type="submit"
           />
