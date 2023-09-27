@@ -1,8 +1,36 @@
-import logo from "../Images/Logo.jpeg"
+import {
+  Toolbar,
+  Typography
+} from "@mui/material";
+import logo from "../Images/Logo.jpeg";
 
 const Logo = () => {
-    return <img src={logo} alt="Logo" style={{width: "2.8rem", borderRadius: "10%", marginRight: ".7rem"}} />;
-  };
-  
-  export default Logo;
-  
+  return (
+    <Toolbar>
+      <img
+        src={logo}
+        alt="Logo"
+        style={{ width: "2.8rem", borderRadius: "10%", marginRight: ".7rem" }}
+      />
+      <Typography
+        variant="h6"
+        noWrap
+        component="a"
+        href="/"
+        sx={{
+          mr: 2,
+          display: { xs: "none", md: "flex" },
+          fontFamily: "Helvetica",
+          fontWeight: 700,
+          letterSpacing: ".2rem",
+          textDecoration: "none",
+          color: "white",
+        }}
+      >
+        EATFITPRO
+      </Typography>
+    </Toolbar>
+  );
+};
+
+export default Logo;

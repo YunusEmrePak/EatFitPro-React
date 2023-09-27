@@ -1,52 +1,82 @@
 import { useContext } from "react";
 import EatFitProContext from "../../store/context";
 
-import Button from "@mui/material/Button";
+import ButtonUI from "../../UI/Button/Button"
 
-import styles from "./ListingController.module.css";
+// import styles from "./ListingController.module.css";
 
 const ListingController = () => {
   const context = useContext(EatFitProContext);
 
-  return (
-    <div className={styles.listControllerContainer}>
-      <Button
-        variant={context.userListVisible ? "contained" : "outlined"}
-        onClick={context.showUserList}
-      >
-        User
-      </Button>
-      <Button
-        variant={context.foodListVisible ? "contained" : "outlined"}
-        onClick={context.showFoodList}
-      >
-        Food
-      </Button>
-      <Button
-        variant={context.foodCategoryListVisible ? "contained" : "outlined"}
-        onClick={context.showFoodCategoryList}
-      >
-        Food Category
-      </Button>
+  const buttons = [
+    {
+      name: "User",
+      variant: context.userListVisible,
+      click: context.showUserList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+    {
+      name: "Food",
+      variant: context.foodListVisible,
+      click: context.showFoodList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+    {
+      name: "Food Category",
+      variant: context.foodCategoryListVisible,
+      click: context.showFoodCategoryList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+    {
+      name: "Activity",
+      variant: context.activityListVisible,
+      click: context.showActivityList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+    {
+      name: "Activity Category",
+      variant: context.activityCategoryListVisible,
+      click: context.showActivityCategoryList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+    {
+      name: "Food And Activity Assignment",
+      variant: context.foodAndActivityAssignmentListVisible,
+      click: context.showFoodAndActivityAssignmentList,
+      style: {
+        color: "#084392",
+        backgroundColor: "#084392",
+      },
+    },
+  ];
 
-      <Button
-        variant={context.activityListVisible ? "contained" : "outlined"}
-        onClick={context.showActivityList}
-      >
-        Activity
-      </Button>
-      <Button
-        variant={context.activityCategoryListVisible ? "contained" : "outlined"}
-        onClick={context.showActivityCategoryList}
-      >
-        Activity Category
-      </Button>
-      <Button
-        variant={context.foodAndActivityAssignmentListVisible ? "contained" : "outlined"}
-        onClick={context.showFoodAndActivityAssignmentList}
-      >
-        Food And Activity Assignment
-      </Button>
+  return (
+    <div>
+      {buttons.map((value) => {
+        return (
+          <ButtonUI
+            name={value.name}
+            variant={value.variant}
+            onClick={value.click}
+            style={value.style}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -1,7 +1,8 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ButtonUI from "../../../UI/Button/Button";
 
 const UserForm = () => {
   const nameRef = useRef();
@@ -183,9 +184,11 @@ const UserForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+        <ButtonUI
+            name="FIlter"
+            variant="contained"
+            type="submit"
+          />
       </div>
     </Box>
   );

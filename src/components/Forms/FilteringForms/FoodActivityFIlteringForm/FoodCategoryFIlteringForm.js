@@ -5,26 +5,18 @@ import ButtonUI from "../../../UI/Button/Button";
 
 import EatFitProContext from "../../../store/context";
 
-const UserFilteringForm = (props) => {
+const FoodCategoryFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
 
   const nameRef = useRef(null);
-  const surnameRef = useRef(null);
-  const emailRef = useRef(null);
-  const lengthRef = useRef(null);
-  const weightRef = useRef(null);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     const data = {
       name: nameRef.current.value ? nameRef.current.value : null,
-      surname: surnameRef.current.value ? surnameRef.current.value : null,
-      email: emailRef.current.value ? emailRef.current.value : null,
-      length: lengthRef.current.value ? lengthRef.current.value : null,
-      weight: weightRef.current.value ? weightRef.current.value : null,
     };
-    context.setFilterUserData(data);
+    context.setFilterFoodCategoryData(data);
     props.setPageNumber(1);
   };
 
@@ -51,25 +43,6 @@ const UserFilteringForm = (props) => {
       >
         <div>
           <TextField label="Name" size="small" inputRef={nameRef} />
-          <TextField label="Surname" size="small" inputRef={surnameRef} />
-          <TextField
-            label="Email"
-            size="small"
-            type="email"
-            inputRef={emailRef}
-          />
-          <TextField
-            label="Length"
-            size="small"
-            inputRef={lengthRef}
-            type="double"
-          />
-          <TextField
-            label="Weight"
-            size="small"
-            inputRef={weightRef}
-            type="double"
-          />
         </div>
         <div>
           <ButtonUI name="Filter" variant="contained" type="submit" />
@@ -79,4 +52,4 @@ const UserFilteringForm = (props) => {
   );
 };
 
-export default UserFilteringForm;
+export default FoodCategoryFilteringForm;

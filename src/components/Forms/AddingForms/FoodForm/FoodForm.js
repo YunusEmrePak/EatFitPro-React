@@ -1,7 +1,8 @@
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ButtonUI from "../../../UI/Button/Button";
 
 const FoodForm = () => {
   const [databaseCategories, setDatabaseCategories] = useState([]);
@@ -158,9 +159,11 @@ const FoodForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+        <ButtonUI
+            name="Filter"
+            variant="contained"
+            type="submit"
+          />
       </div>
     </Box>
   );

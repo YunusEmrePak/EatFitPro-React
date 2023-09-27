@@ -1,12 +1,15 @@
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
+import "./TablePagination.css"
+
 const TablePagination = (props) => {
   return (
-    <Stack spacing={2} style={{ marginTop: 20 }}>
+    <Stack spacing={2} style={{ marginTop: 20}}>
       <Pagination
         count={props.totalPage}
-        color="primary"
+        // color="primary"
+        className="paginationButton"
         page={props.pageNumber}
         onChange={(event, page) => {
           if (page !== props.pageNumber) {

@@ -1,7 +1,8 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ButtonUI from "../../../UI/Button/Button";
 
 const FoodCategoryForm = () => {
   const nameRef = useRef();
@@ -17,9 +18,9 @@ const FoodCategoryForm = () => {
         draggable: true,
         pauseOnHover: false,
       });
-      setNameError(true)
+      setNameError(true);
     } else {
-      setNameError(false)
+      setNameError(false);
       const data = {
         name: nameRef.current.value,
       };
@@ -68,15 +69,15 @@ const FoodCategoryForm = () => {
           size="small"
           inputRef={nameRef}
           error={nameError ? true : false}
-          onChange={() => {setNameError(false)}}
+          onChange={() => {
+            setNameError(false);
+          }}
         />
       </div>
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+        <ButtonUI name="Filter" variant="contained" type="submit" />
       </div>
     </Box>
   );

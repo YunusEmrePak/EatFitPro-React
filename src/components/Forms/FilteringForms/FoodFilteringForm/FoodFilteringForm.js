@@ -1,9 +1,10 @@
-import { Box, Button, TextField, Autocomplete } from "@mui/material";
-import { useContext, useRef, useState, useEffect } from "react";
+import { Autocomplete, Box, TextField } from "@mui/material";
+import { useContext, useEffect, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import ButtonUI from "../../../UI/Button/Button";
 
-import EatFitProContext from "../../../store/context";
 import { toast } from "react-toastify";
+import EatFitProContext from "../../../store/context";
 
 const FoodFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
@@ -72,7 +73,8 @@ const FoodFilteringForm = (props) => {
           justifyContent: "space-between",
           alignItems: "center",
           height: 380,
-          width: 200
+          width: 200,
+          marginTop: 20,
         }}
       >
         <div>
@@ -97,9 +99,7 @@ const FoodFilteringForm = (props) => {
           />
         </div>
         <div>
-          <Button variant="contained" type="submit">
-            Filter
-          </Button>
+          <ButtonUI name="Filter" variant="contained" type="submit" />
         </div>
       </div>
     </Box>

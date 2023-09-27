@@ -1,4 +1,10 @@
-import CircularProgress from "@mui/material/CircularProgress";
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import FoodFilteringForm from "../../Forms/FilteringForms/FoodFilteringForm/FoodFilteringForm";
@@ -65,31 +71,57 @@ const FoodList = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        marginTop: -10,
       }}
     >
       <FoodFilteringForm setPageNumber={setPageNumber} />
-      <div style={{ marginLeft: 30 }}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <DataGrid
-            rows={foodList}
-            columns={columns}
-            hideFooter
-            style={{
-              maxHeight: 318,
-              minHeight: 318,
-              width: 700,
-              marginTop: 10,
+      <div
+        style={{
+          marginLeft: 30,
+          marginTop: -20,
+          display: "flex",
+          alignItems: "flex-end",
+          flexDirection: "column",
+        }}
+      >
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Size</InputLabel>
+          <Select
+            defaultValue={10}
+            size="small"
+            label="Size"
+            style={{ width: "12ch" }}
+            onChange={(event) => {
+              context.setFoodListSize(event.target.value);
             }}
+          >
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={15}>15</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+          </Select>
+        </FormControl>
+        <div>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <DataGrid
+              rows={foodList}
+              columns={columns}
+              hideFooter
+              style={{
+                maxHeight: 318,
+                minHeight: 318,
+                width: 700,
+                marginTop: 10,
+              }}
+            />
+          )}
+          <TablePagination
+            pageNumber={pageNumber}
+            totalPage={totalPage}
+            setPageNumber={setPageNumber}
           />
-        )}
-        <TablePagination
-          pageNumber={pageNumber}
-          totalPage={totalPage}
-          setPageNumber={setPageNumber}
-        />
+        </div>
       </div>
     </div>
   );

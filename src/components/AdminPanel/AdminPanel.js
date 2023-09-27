@@ -1,17 +1,16 @@
 import {
   AppBar,
+  Avatar,
   Box,
   CssBaseline,
-  Divider,
   Drawer,
-  List,
-  Toolbar,
-  Typography,
-  Tooltip,
   IconButton,
-  Avatar,
+  List,
   Menu,
   MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import AddingPage from "../AdminPages/AddingPage/AddingPage";
@@ -21,10 +20,10 @@ import ListingController from "../Controller/ListController/ListingController";
 import PageController from "../Controller/PageController/PageController";
 import EatFitProContext from "../store/context";
 
-import Logo from "../constants/Logo";
 import MainPage from "../AdminPages/MainPage/MainPage";
+import Logo from "../constants/Logo";
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const AdminPanel = () => {
@@ -46,15 +45,25 @@ const AdminPanel = () => {
       <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        style={{ backgroundColor: "white" }}
       >
         <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h6" noWrap component="div">
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            style={{ color: "#084392" }}
+          >
             {context.pageName}
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/2.jpg"
+                  style={{ color: "#fff", backgroundColor: "#084392" }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -81,46 +90,27 @@ const AdminPanel = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer
+      <Drawer // Logo and left part
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            backgroundColor: "#042A5D",
           },
         }}
         variant="permanent"
         anchor="left"
       >
-        <Toolbar>
-          <Logo />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "Segoe UI",
-              fontWeight: 700,
-              letterSpacing: ".2rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            EatFitPRo
-          </Typography>
-        </Toolbar>
-        <Divider />
+        <Logo />
         <List>
           <PageController />
         </List>
       </Drawer>
-      <Box
+      <Box // Toolboxes
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3, marginTop: 8 }}
       >
         <Toolbar>
           {(context.addingPageVisible && <AddingFormController />) ||
@@ -137,14 +127,3 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
-
-/* <div>
-      <PageController
-        showAddingPage={showAddingPage}
-        showListingPage={showListingPage}
-        addingPageVisible={addingPageVisible}
-        listingPageVisible={listingPageVisible}
-      />
-      {(addingPageVisible && <AddingPage />) ||
-        (listingPageVisible && <ListingPage />)}
-    </div> */

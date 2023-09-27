@@ -1,11 +1,9 @@
 import {
   CircularProgress,
-  TextField,
-  Autocomplete,
+  FormControl,
   InputLabel,
   MenuItem,
-  FormControl,
-  Select,
+  Select
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
@@ -20,16 +18,8 @@ const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  // const [sizeNumber, setSizeNumber] = useState
 
   let userListSize = context.userListSize;
-
-  const size = [
-    { number: "5" },
-    { number: "10" },
-    { number: "15" },
-    { number: "20" },
-  ];
 
   const columns = [
     {
@@ -94,7 +84,6 @@ const UserList = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        // marginTop: -10,
       }}
     >
       <UserFilteringForm setPageNumber={setPageNumber} />
@@ -110,12 +99,11 @@ const UserList = () => {
         <FormControl>
           <InputLabel id="demo-simple-select-label">Size</InputLabel>
           <Select
-            defaultValue={5}
+            defaultValue={10}
             size="small"
             label="Size"
             style={{ width: "12ch" }}
             onChange={(event) => {
-              console.log(event.target.value);
               context.setUserListSize(event.target.value);
             }}
           >
@@ -153,22 +141,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
-/* <Autocomplete
-          getOptionLabel={(option) => option.number}
-          clearOnEscape
-          options={size}
-          size="small"
-          defaultValue={{ number: "5" }}
-          renderInput={(params) => (
-            <TextField {...params} label="Size" style={{ width: "12ch" }} />
-          )}
-          onChange={(event, value) => {
-            console.log(value);
-            if (value === null) {
-              context.setUserListSize(5);
-            } else {
-              context.setUserListSize(parseInt(value.number, 10));
-            }
-          }}
-        /> */
