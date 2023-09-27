@@ -59,7 +59,8 @@ const UserFilteringForm = (props) => {
           justifyContent: "space-between",
           alignItems: "center",
           height: 380,
-          width: 200
+          width: 200,
+          marginTop: 20
         }}
       >
         <div>
