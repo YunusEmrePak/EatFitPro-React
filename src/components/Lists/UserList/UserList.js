@@ -1,4 +1,12 @@
-import { CircularProgress, TextField, Autocomplete } from "@mui/material";
+import {
+  CircularProgress,
+  TextField,
+  Autocomplete,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
@@ -99,24 +107,24 @@ const UserList = () => {
           flexDirection: "column",
         }}
       >
-        <Autocomplete
-          getOptionLabel={(option) => option.number}
-          clearOnEscape
-          options={size}
-          size="small"
-          defaultValue={{ number: "5" }}
-          renderInput={(params) => (
-            <TextField {...params} label="Size" style={{ width: "12ch" }} />
-          )}
-          onChange={(event, value) => {
-            console.log(value);
-            if (value === null) {
-              context.setUserListSize(5);
-            } else {
-              context.setUserListSize(parseInt(value.number, 10));
-            }
-          }}
-        />
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Size</InputLabel>
+          <Select
+            defaultValue={5}
+            size="small"
+            label="Size"
+            style={{ width: "12ch" }}
+            onChange={(event) => {
+              console.log(event.target.value);
+              context.setUserListSize(event.target.value);
+            }}
+          >
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={15}>15</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+          </Select>
+        </FormControl>
         <div>
           {isLoading ? (
             <CircularProgress />
@@ -145,3 +153,22 @@ const UserList = () => {
 };
 
 export default UserList;
+
+/* <Autocomplete
+          getOptionLabel={(option) => option.number}
+          clearOnEscape
+          options={size}
+          size="small"
+          defaultValue={{ number: "5" }}
+          renderInput={(params) => (
+            <TextField {...params} label="Size" style={{ width: "12ch" }} />
+          )}
+          onChange={(event, value) => {
+            console.log(value);
+            if (value === null) {
+              context.setUserListSize(5);
+            } else {
+              context.setUserListSize(parseInt(value.number, 10));
+            }
+          }}
+        /> */
