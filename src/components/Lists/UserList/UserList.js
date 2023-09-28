@@ -3,7 +3,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select
+  Select,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
@@ -114,21 +114,32 @@ const UserList = () => {
           </Select>
         </FormControl>
         <div>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <DataGrid
-              rows={userList}
-              columns={columns}
-              hideFooter
-              style={{
-                maxHeight: 318,
-                minHeight: 318,
-                width: 700,
-                marginTop: 10,
-              }}
-            />
-          )}
+          <div
+            style={{
+              width: 700,
+              height: 318,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <DataGrid
+                rows={userList}
+                columns={columns}
+                hideFooter
+                style={{
+                  maxHeight: 318,
+                  minHeight: 318,
+                  width: 700,
+                  marginTop: 10,
+                }}
+              />
+            )}
+          </div>
+
           <TablePagination
             pageNumber={pageNumber}
             totalPage={totalPage}

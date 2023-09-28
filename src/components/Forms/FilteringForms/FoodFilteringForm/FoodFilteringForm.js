@@ -3,7 +3,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
 
-import { toast } from "react-toastify";
 import EatFitProContext from "../../../store/context";
 
 const FoodFilteringForm = (props) => {
@@ -13,7 +12,6 @@ const FoodFilteringForm = (props) => {
 
   const nameRef = useRef(null);
   const caloriesRef = useRef(null);
-  const sizeRef = useRef(null);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -25,19 +23,6 @@ const FoodFilteringForm = (props) => {
     };
     context.setFilterFoodData(data);
     props.setPageNumber(1);
-    if (sizeRef.current.value === "") {
-      context.setFoodListSize(5);
-    } else {
-      if (sizeRef.current.value > 0) {
-        context.setFoodListSize(sizeRef.current.value);
-      } else {
-        toast.error("Size must be greater than 0", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
-      }
-    }
   };
 
   useEffect(() => {
@@ -72,7 +57,7 @@ const FoodFilteringForm = (props) => {
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          height: 380,
+          height: 370,
           width: 200,
           marginTop: 20,
         }}
@@ -90,12 +75,6 @@ const FoodFilteringForm = (props) => {
             onChange={(event, value) => {
               setCategory(value);
             }}
-          />
-          <TextField
-            label="Size"
-            size="small"
-            inputRef={sizeRef}
-            type="number"
           />
         </div>
         <div>

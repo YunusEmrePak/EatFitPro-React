@@ -2,7 +2,7 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import logo from "../Images/Logo.jpeg";
+import logo from "../Images/EFPlogo.png";
 
 const Logo = () => {
   return (

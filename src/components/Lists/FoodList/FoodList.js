@@ -25,21 +25,21 @@ const FoodList = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 110,
+      width: 150,
       sortable: false,
       filterable: false,
     },
     {
       field: "calories",
       headerName: "Calories",
-      width: 110,
+      width: 130,
       sortable: false,
       filterable: false,
     },
     {
       field: "foodCategoryDto",
       headerName: "Category",
-      width: 130,
+      width: 180,
       sortable: false,
       filterable: false,
       valueGetter: (params) => params.row?.foodCategoryDto?.name,
@@ -101,21 +101,31 @@ const FoodList = () => {
           </Select>
         </FormControl>
         <div>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <DataGrid
-              rows={foodList}
-              columns={columns}
-              hideFooter
-              style={{
-                maxHeight: 318,
-                minHeight: 318,
-                width: 700,
-                marginTop: 10,
-              }}
-            />
-          )}
+          <div
+            style={{
+              width: 700,
+              height: 318,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <DataGrid
+                rows={foodList}
+                columns={columns}
+                hideFooter
+                style={{
+                  maxHeight: 318,
+                  minHeight: 318,
+                  width: 700,
+                  marginTop: 10,
+                }}
+              />
+            )}
+          </div>
           <TablePagination
             pageNumber={pageNumber}
             totalPage={totalPage}

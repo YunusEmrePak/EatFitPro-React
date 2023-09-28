@@ -36,7 +36,7 @@ const FoodCategoryFilteringForm = (props) => {
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          height: 380,
+          height: 370,
           width: 200,
           marginTop: 20,
         }}
