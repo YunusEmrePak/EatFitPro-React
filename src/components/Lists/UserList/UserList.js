@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import EatFitProContext from "../../store/context";
+import ButtonUI from "../../UI/Button/Button";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
@@ -57,9 +58,32 @@ const UserList = () => {
       sortable: false,
       filterable: false,
     },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 110,
+      sortable: false,
+      filterable: false,
+      renderCell: (value) => {
+        return (
+          <ButtonUI
+            type="submit"
+            name="Delete"
+            onClick={() => {
+              deleteHandler(value);
+            }}
+          />
+        );
+      },
+    },
   ];
 
-  useEffect(() => {
+  const deleteHandler = (value) => {
+    console.log(value.id);
+    deleteUser(value.id);
+  };
+
+  const fetchFilteredData = () => {
     const url = `http://localhost:8080/user/get/filtered?page=${
       pageNumber - 1
     }&size=${userListSize}`;
@@ -76,6 +100,27 @@ const UserList = () => {
         setUserList(data.content);
         setTotalPage(data.totalPages);
       });
+  };
+
+  const deleteUser = (id) => {
+    const url = `http://localhost:8080/user/delete?id=${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        fetchFilteredData();
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchFilteredData();
   }, [context.filterUserData, pageNumber, userListSize]);
 
   return (
@@ -117,7 +162,7 @@ const UserList = () => {
         <div>
           <div
             style={{
-              width: 700,
+              width: 810,
               height: 318,
               display: "flex",
               justifyContent: "center",

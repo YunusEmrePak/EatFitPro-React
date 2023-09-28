@@ -10,6 +10,7 @@ const ButtonUI = (props) => {
       style={{
         backgroundColor: props.variant ? backgroundColor : "#fff",
         color: !props.variant ? color : "#fff",
+        fontSize: props.fontSize,
       }}
       type={props.type}
     >
