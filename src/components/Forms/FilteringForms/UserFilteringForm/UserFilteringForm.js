@@ -55,20 +55,19 @@ const UserFilteringForm = (props) => {
           <TextField
             label="Email"
             size="small"
-            type="email"
             inputRef={emailRef}
           />
           <TextField
             label="Length"
             size="small"
             inputRef={lengthRef}
-            type="double"
+            type="number"
           />
           <TextField
             label="Weight"
             size="small"
             inputRef={weightRef}
-            type="double"
+            type="number"
           />
         </div>
         <div>

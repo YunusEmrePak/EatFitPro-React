@@ -128,6 +128,7 @@ const FoodForm = () => {
           style={{ width: "41.8ch" }}
           label="Calories"
           size="small"
+          type="number"
           inputRef={caloriesRef}
           error={caloriesError ? true : false}
           onChange={() => {

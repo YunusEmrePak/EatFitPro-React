@@ -105,6 +105,7 @@ const UserList = () => {
             style={{ width: "12ch" }}
             onChange={(event) => {
               context.setUserListSize(event.target.value);
+              setPageNumber(1);
             }}
           >
             <MenuItem value={5}>5</MenuItem>

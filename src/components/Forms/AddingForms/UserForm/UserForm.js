@@ -21,11 +21,17 @@ const UserForm = () => {
 
   const errorHandler = () => {
     let errorCounter = 0;
-    if (nameRef.current.value.trim().length === 0) {
+    if (
+      nameRef.current.value.trim().length === 0 ||
+      !/^[A-Za-z]+$/.test(nameRef.current.value)
+    ) {
       setNameError(true);
       errorCounter += 1;
     }
-    if (surnameRef.current.value.trim().length === 0) {
+    if (
+      surnameRef.current.value.trim().length === 0 ||
+      !/^[A-Za-z]+$/.test(surnameRef.current.value)
+    ) {
       setSurnameError(true);
       errorCounter += 1;
     }
@@ -46,11 +52,14 @@ const UserForm = () => {
       errorCounter += 1;
     }
     if (errorCounter !== 0) {
-      toast.error("All fields must be filled!", {
-        position: "bottom-left",
-        draggable: true,
-        pauseOnHover: false,
-      });
+      toast.error(
+        "All fields must be filled, name and surname must not include number. Please check your entries!",
+        {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        }
+      );
       errorCounter = 0;
       return true;
     }
@@ -119,8 +128,12 @@ const UserForm = () => {
         <TextField
           label="Name"
           size="small"
+          type="text"
           inputRef={nameRef}
           error={nameError ? true : false}
+          inputProps={{
+            pattern: "[A-Za-z]+",
+          }}
           onChange={() => {
             setNameError(false);
           }}
@@ -165,6 +178,7 @@ const UserForm = () => {
         <TextField
           label="Length"
           size="small"
+          type="number"
           inputRef={lengthRef}
           error={lengthError ? true : false}
           onChange={() => {
@@ -174,6 +188,11 @@ const UserForm = () => {
         <TextField
           label="Weight"
           size="small"
+          type="number"
+          inputProps={{
+            maxLength: 13,
+            step: "1"
+          }}
           inputRef={weightRef}
           error={weightError ? true : false}
           onChange={() => {
@@ -184,11 +203,7 @@ const UserForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <ButtonUI
-            name="Add"
-            variant="contained"
-            type="submit"
-          />
+        <ButtonUI name="Add" variant="contained" type="submit" />
       </div>
     </Box>
   );

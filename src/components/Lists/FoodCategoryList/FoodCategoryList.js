@@ -77,6 +77,7 @@ const FoodCategoryList = () => {
             style={{ width: "12ch" }}
             onChange={(event) => {
               context.setFoodCategoryListSize(event.target.value);
+              setPageNumber(1);
             }}
           >
             <MenuItem value={5}>5</MenuItem>

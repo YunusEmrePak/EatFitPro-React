@@ -64,7 +64,7 @@ const FoodFilteringForm = (props) => {
       >
         <div>
           <TextField label="Name" size="small" inputRef={nameRef} />
-          <TextField label="Calories" size="small" inputRef={caloriesRef} />
+          <TextField label="Calories" size="small" type="number" inputRef={caloriesRef} />
           <Autocomplete
             getOptionLabel={(option) => option.name}
             clearOnEscape
