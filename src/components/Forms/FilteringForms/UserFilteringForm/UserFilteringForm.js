@@ -1,5 +1,5 @@
-import { Box, TextField } from "@mui/material";
-import { useContext, useRef } from "react";
+import { Box, TextField, Slider, Typography } from "@mui/material";
+import { useContext, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
 
@@ -11,9 +11,10 @@ const UserFilteringForm = (props) => {
   const nameRef = useRef(null);
   const surnameRef = useRef(null);
   const emailRef = useRef(null);
-  const lengthRef = useRef(null);
-  const weightRef = useRef(null);
 
+  const [lengthRange, setLengthRange] = useState([100, 200]);
+  const [weightRange, setWeightRange] = useState([40, 100]); 
+  
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -21,8 +22,10 @@ const UserFilteringForm = (props) => {
       name: nameRef.current.value ? nameRef.current.value : null,
       surname: surnameRef.current.value ? surnameRef.current.value : null,
       email: emailRef.current.value ? emailRef.current.value : null,
-      length: lengthRef.current.value ? lengthRef.current.value : null,
-      weight: weightRef.current.value ? weightRef.current.value : null,
+      lengthLowerBound: lengthRange[0],
+      lengthUpperBound: lengthRange[1],
+      weightLowerBound: weightRange[0],
+      weightUpperBound: weightRange[1],
     };
     context.setFilterUserData(data);
     props.setPageNumber(1);
@@ -57,17 +60,28 @@ const UserFilteringForm = (props) => {
             size="small"
             inputRef={emailRef}
           />
-          <TextField
+          
+          <Typography id="length-slider" gutterBottom>
+            Length
+          </Typography>
+          <Slider 
             label="Length"
-            size="small"
-            inputRef={lengthRef}
-            type="number"
+            value={lengthRange}
+            onChange={(event, newValue) => setLengthRange(newValue)}
+            valueLabelDisplay="on"
+            min={0} 
+            max={250} 
           />
-          <TextField
+          <Typography id="length-slider" gutterBottom>
+            Weight
+          </Typography>
+          <Slider
             label="Weight"
-            size="small"
-            inputRef={weightRef}
-            type="number"
+            value={weightRange}
+            onChange={(event, newValue) => setWeightRange(newValue)}
+            valueLabelDisplay="on"
+            min={0} 
+            max={200} 
           />
         </div>
         <div>
