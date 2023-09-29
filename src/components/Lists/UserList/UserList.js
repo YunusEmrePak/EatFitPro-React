@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
@@ -66,9 +67,9 @@ const UserList = () => {
       filterable: false,
       renderCell: (value) => {
         return (
-          <ButtonUI
+          <DeleteIcon
             type="submit"
-            name="Delete"
+            style={{ cursor: "pointer", color: "red" }}
             onClick={() => {
               deleteHandler(value);
             }}
