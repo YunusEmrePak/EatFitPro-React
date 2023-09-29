@@ -13,8 +13,8 @@ const UserFilteringForm = (props) => {
   const emailRef = useRef(null);
 
   const [lengthRange, setLengthRange] = useState([150, 200]);
-  const [weightRange, setWeightRange] = useState([60, 100]); 
-  
+  const [weightRange, setWeightRange] = useState([60, 100]);
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -60,31 +60,35 @@ const UserFilteringForm = (props) => {
             size="small"
             inputRef={emailRef}
           />
-          
-          <Typography id="length-slider" style={{padding: "6px 12px"}} gutterBottom>
-            Length
-          </Typography>
-          <Slider 
-            label="Length"
-            value={lengthRange}
-            onChange={(event, newValue) => setLengthRange(newValue)}
-            valueLabelDisplay="auto"
-            min={100} 
-            max={230} 
-            style={{padding: "6px 12px", width: "145px"}}
-          />
-          <Typography id="length-slider" style={{padding: "6px 12px"}} gutterBottom>
-            Weight
-          </Typography>
-          <Slider
-            label="Weight"
-            value={weightRange}
-            onChange={(event, newValue) => setWeightRange(newValue)}
-            valueLabelDisplay="auto"
-            min={30} 
-            max={200} 
-            style={{padding: "6px 12px", width: "145px"}}
-          />
+          <div style={{ padding: "4px 12px" }}>
+            <Typography id="length-slider" gutterBottom>
+              Length
+            </Typography>
+            <Slider
+              label="Length"
+              value={lengthRange}
+              onChange={(event, newValue) => setLengthRange(newValue)}
+              valueLabelDisplay="auto"
+              min={100}
+              max={230}
+              style={{width: "170px" }}
+            />
+          </div>
+          <div style={{ padding: "4px 12px" }}>
+            <Typography id="length-slider" gutterBottom>
+              Weight
+            </Typography>
+            <Slider
+              label="Weight"
+              value={weightRange}
+              onChange={(event, newValue) => setWeightRange(newValue)}
+              valueLabelDisplay="auto"
+              min={30}
+              max={200}
+              style={{ width: "170px" }}
+            />
+          </div>
+
         </div>
         <div>
           <ButtonUI name="Filter" variant="contained" type="submit" />
