@@ -68,7 +68,7 @@ const UserFilteringForm = (props) => {
             label="Length"
             value={lengthRange}
             onChange={(event, newValue) => setLengthRange(newValue)}
-            valueLabelDisplay="on"
+            valueLabelDisplay="auto"
             min={0} 
             max={250} 
           />
@@ -79,7 +79,7 @@ const UserFilteringForm = (props) => {
             label="Weight"
             value={weightRange}
             onChange={(event, newValue) => setWeightRange(newValue)}
-            valueLabelDisplay="on"
+            valueLabelDisplay="auto"
             min={0} 
             max={200} 
           />
