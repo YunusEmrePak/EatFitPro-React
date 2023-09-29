@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField, Slider, Typography } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
@@ -11,14 +11,16 @@ const FoodFilteringForm = (props) => {
   const [databaseCategories, setDatabaseCategories] = useState([]);
 
   const nameRef = useRef(null);
-  const caloriesRef = useRef(null);
+
+  const [calorieRange, setCalorieRange] = useState([30, 800]);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     const data = {
       name: nameRef.current.value ? nameRef.current.value : null,
-      calories: caloriesRef.current.value ? caloriesRef.current.value : null,
+      caloriesLowerBound: calorieRange[0],
+      caloriesUpperBound: calorieRange[1],
       foodCategoryName: category ? category.name : null,
     };
     context.setFilterFoodData(data);
@@ -64,7 +66,20 @@ const FoodFilteringForm = (props) => {
       >
         <div>
           <TextField label="Name" size="small" inputRef={nameRef} />
-          <TextField label="Calories" size="small" type="number" inputRef={caloriesRef} />
+          <div style={{ padding: "4px 12px" }}>
+            <Typography id="calorie-slider" gutterBottom>
+              Calories
+            </Typography>
+            <Slider
+              label="Calories"
+              value={calorieRange}
+              onChange={(event, newValue) => setCalorieRange(newValue)}
+              valueLabelDisplay="auto"
+              min={0}
+              max={3000}
+              style={{width: "170px" }}
+            />
+          </div>
           <Autocomplete
             getOptionLabel={(option) => option.name}
             clearOnEscape
