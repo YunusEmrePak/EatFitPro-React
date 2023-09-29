@@ -12,8 +12,8 @@ const UserFilteringForm = (props) => {
   const surnameRef = useRef(null);
   const emailRef = useRef(null);
 
-  const [lengthRange, setLengthRange] = useState([100, 200]);
-  const [weightRange, setWeightRange] = useState([40, 100]); 
+  const [lengthRange, setLengthRange] = useState([150, 200]);
+  const [weightRange, setWeightRange] = useState([60, 100]); 
   
   const submitHandler = (event) => {
     event.preventDefault();
@@ -61,7 +61,7 @@ const UserFilteringForm = (props) => {
             inputRef={emailRef}
           />
           
-          <Typography id="length-slider" gutterBottom>
+          <Typography id="length-slider" style={{padding: "6px 12px"}} gutterBottom>
             Length
           </Typography>
           <Slider 
@@ -69,10 +69,11 @@ const UserFilteringForm = (props) => {
             value={lengthRange}
             onChange={(event, newValue) => setLengthRange(newValue)}
             valueLabelDisplay="auto"
-            min={0} 
-            max={250} 
+            min={100} 
+            max={230} 
+            style={{padding: "6px 12px", width: "145px"}}
           />
-          <Typography id="length-slider" gutterBottom>
+          <Typography id="length-slider" style={{padding: "6px 12px"}} gutterBottom>
             Weight
           </Typography>
           <Slider
@@ -80,8 +81,9 @@ const UserFilteringForm = (props) => {
             value={weightRange}
             onChange={(event, newValue) => setWeightRange(newValue)}
             valueLabelDisplay="auto"
-            min={0} 
+            min={30} 
             max={200} 
+            style={{padding: "6px 12px", width: "145px"}}
           />
         </div>
         <div>
