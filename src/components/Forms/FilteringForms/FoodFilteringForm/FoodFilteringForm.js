@@ -66,7 +66,7 @@ const FoodFilteringForm = (props) => {
       >
         <div>
           <TextField label="Name" size="small" inputRef={nameRef} />
-          <div style={{ padding: "4px 12px" }}>
+          <div style={{ marginLeft: 10 }}>
             <Typography id="calorie-slider" gutterBottom>
               Calories
             </Typography>

@@ -48,6 +48,8 @@ const EatFitProContext = React.createContext({
   foodAndActivityAssignmentListVisible: false,
 
   pageName: "",
+  idOfDeletingItem: 0,
+  isClickedDeleteButton: false,
 
   filterUserData: [],
   filterFoodData: [],
@@ -62,6 +64,10 @@ const EatFitProContext = React.createContext({
   activityCategoryListSize: 0,
   activityListSize: 0,
   foodAndActivityAssignmentListSize: 0,
+
+  openDeleteDialog: () => {},
+  closeDeleteDialog: () => {},
+  setIsClickedDeleteButton: () => {},
 
   showMainPage: () => {},
   showAddingPage: () => {},
@@ -117,6 +123,8 @@ export const EatFitProContextProvider = (props) => {
   const [foodAndActivityAssignmentListVisible, setFoodAndActivityAssignmentListVisible] = useState(false);
 
   const [pageName, setPageName] = useState("Main Page");
+  const [isClickedDeleteButton, setIsClickedDeleteButton] = useState(false);
+  const [idOfDeletingItem, setIdOfDeletingItem] = useState(0);
 
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
@@ -260,6 +268,15 @@ export const EatFitProContextProvider = (props) => {
     setFoodAndActivityAssignmentListVisible(true);
   };
 
+  const openDeleteDialog = (value) => {
+    setIdOfDeletingItem(value.id);
+    setIsClickedDeleteButton(true);
+  }
+
+  const closeDeleteDialog = () => {
+    setIsClickedDeleteButton(false);
+  };
+
   return (
     <EatFitProContext.Provider
       value={{
@@ -282,6 +299,8 @@ export const EatFitProContextProvider = (props) => {
         foodAndActivityAssignmentListVisible: foodAndActivityAssignmentListVisible,
 
         pageName: pageName,
+        isClickedDeleteButton: isClickedDeleteButton,
+        idOfDeletingItem: idOfDeletingItem,
 
         filterUserData: filterUserData,
         filterFoodData: filterFoodData,
@@ -295,6 +314,10 @@ export const EatFitProContextProvider = (props) => {
         activityListSize: activityListSize,
         activityCategoryListSize: activityCategoryListSize,
         foodAndActivityAssignmentListSize: foodAndActivityAssignmentListSize,
+
+        openDeleteDialog: openDeleteDialog,
+        closeDeleteDialog: closeDeleteDialog,
+        setIsClickedDeleteButton: setIsClickedDeleteButton,
 
         showMainPage: showMainPage,
         showAddingPage: showAddingPage,

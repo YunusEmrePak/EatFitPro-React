@@ -5,6 +5,8 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import { toast } from "react-toastify";
+import DialogUI from "../../Dialog/DialogUI";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
@@ -57,7 +59,7 @@ const FoodList = () => {
             type="submit"
             style={{ cursor: "pointer", color: "red" }}
             onClick={() => {
-              deleteHandler(value);
+              context.openDeleteDialog(value);
             }}
           />
         );
@@ -65,12 +67,11 @@ const FoodList = () => {
     },
   ];
 
-  const deleteHandler = (value) => {
-    console.log(value.id);
-    deleteUser(value.id);
+  const deleteHandler = () => {
+    deleteFood(context.idOfDeletingItem);
   };
 
-  const deleteUser = (id) => {
+  const deleteFood = (id) => {
     const url = `http://localhost:8080/food/delete?id=${id}`;
     fetch(url, {
       method: "DELETE",
@@ -84,6 +85,19 @@ const FoodList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
+        toast.success("Food successfully deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.success("Food can't deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
       });
   };
 
@@ -118,6 +132,7 @@ const FoodList = () => {
         alignItems: "flex-start",
       }}
     >
+      <DialogUI deleteHandler={deleteHandler} name="food" />
       <FoodFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
@@ -129,7 +144,7 @@ const FoodList = () => {
         }}
       >
         <FormControl>
-          <InputLabel id="demo-simple-select-label">Size</InputLabel>
+          <InputLabel>Size</InputLabel>
           <Select
             defaultValue={10}
             size="small"
@@ -149,7 +164,7 @@ const FoodList = () => {
         <div>
           <div
             style={{
-              width: 700,
+              width: 810,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -166,7 +181,7 @@ const FoodList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 700,
+                  width: 810,
                   marginTop: 10,
                 }}
               />

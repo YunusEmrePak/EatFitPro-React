@@ -60,7 +60,7 @@ const UserFilteringForm = (props) => {
             size="small"
             inputRef={emailRef}
           />
-          <div style={{ padding: "4px 12px" }}>
+          <div style={{ marginLeft: 10 }}>
             <Typography id="length-slider" gutterBottom>
               Length
             </Typography>
@@ -71,10 +71,10 @@ const UserFilteringForm = (props) => {
               valueLabelDisplay="auto"
               min={100}
               max={230}
-              style={{width: "170px" }}
+              style={{width: 170 }}
             />
           </div>
-          <div style={{ padding: "4px 12px" }}>
+          <div style={{ marginLeft: 10 }}>
             <Typography id="length-slider" gutterBottom>
               Weight
             </Typography>
@@ -85,10 +85,9 @@ const UserFilteringForm = (props) => {
               valueLabelDisplay="auto"
               min={30}
               max={200}
-              style={{ width: "170px" }}
+              style={{ width: 170 }}
             />
           </div>
-
         </div>
         <div>
           <ButtonUI name="Filter" variant="contained" type="submit" />

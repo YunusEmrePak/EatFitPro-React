@@ -1,3 +1,4 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   CircularProgress,
   FormControl,
@@ -5,9 +6,10 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "react-toastify";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
+import DialogUI from "../../Dialog/DialogUI";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import EatFitProContext from "../../store/context";
@@ -70,7 +72,7 @@ const UserList = () => {
             type="submit"
             style={{ cursor: "pointer", color: "red" }}
             onClick={() => {
-              deleteHandler(value);
+              context.openDeleteDialog(value);
             }}
           />
         );
@@ -78,9 +80,38 @@ const UserList = () => {
     },
   ];
 
-  const deleteHandler = (value) => {
-    console.log(value.id);
-    deleteUser(value.id);
+  const deleteHandler = () => {
+    deleteUser(context.idOfDeletingItem);
+  };
+
+  const deleteUser = (id) => {
+    const url = `http://localhost:8080/user/delete?id=${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        fetchFilteredData();
+        console.log(data);
+        toast.success("User successfully deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.success("User can't deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      });
   };
 
   const fetchFilteredData = () => {
@@ -102,23 +133,6 @@ const UserList = () => {
       });
   };
 
-  const deleteUser = (id) => {
-    const url = `http://localhost:8080/user/delete?id=${id}`;
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        fetchFilteredData();
-        console.log(data);
-      });
-  };
-
   useEffect(() => {
     fetchFilteredData();
   }, [context.filterUserData, pageNumber, userListSize]);
@@ -131,6 +145,7 @@ const UserList = () => {
         alignItems: "flex-start",
       }}
     >
+      <DialogUI deleteHandler={deleteHandler} name="user" />
       <UserFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
@@ -142,7 +157,7 @@ const UserList = () => {
         }}
       >
         <FormControl>
-          <InputLabel id="demo-simple-select-label">Size</InputLabel>
+          <InputLabel>Size</InputLabel>
           <Select
             defaultValue={10}
             size="small"
@@ -179,13 +194,12 @@ const UserList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 700,
+                  width: 810,
                   marginTop: 10,
                 }}
               />
             )}
           </div>
-
           <TablePagination
             pageNumber={pageNumber}
             totalPage={totalPage}

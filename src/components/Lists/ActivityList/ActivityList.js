@@ -5,7 +5,9 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-//   import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "react-toastify";
+import DialogUI from "../../Dialog/DialogUI";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import ActivityFilteringForm from "../../Forms/FilteringForms/ActivityFilteringForm/ActivityFilteringForm";
@@ -45,49 +47,64 @@ const ActivityList = () => {
       filterable: false,
       valueGetter: (params) => params.row?.activityCategoryDto?.name,
     },
-    //   {
-    //     field: "edit",
-    //     headerName: "Edit",
-    //     width: 110,
-    //     sortable: false,
-    //     filterable: false,
-    //     renderCell: (value) => {
-    //       return (
-    //         <DeleteIcon
-    //           type="submit"
-    //           style={{ cursor: "pointer", color: "red" }}
-    //           onClick={() => {
-    //             deleteHandler(value);
-    //           }}
-    //         />
-    //       );
-    //     },
-    //   },
+      {
+        field: "edit",
+        headerName: "Edit",
+        width: 110,
+        sortable: false,
+        filterable: false,
+        renderCell: (value) => {
+          return (
+            <DeleteIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "red" }}
+              onClick={() => {
+                context.openDeleteDialog(value);
+              }}
+            />
+          );
+        },
+      },
   ];
 
-  // const deleteHandler = (value) => {
-  //   console.log(value.id);
-  //   deleteUser(value.id);
-  // };
+  
+  
 
-  // const deleteUser = (id) => {
-  //   const url = `http://localhost:8080/activity/delete?id=${id}`;
-  //   fetch(url, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       return response.text();
-  //     })
-  //     .then((data) => {
-  //       fetchFilteredData();
-  //       console.log(data);
-  //     });
-  // };
+  const deleteHandler = () => {
+    deleteActivity(context.idOfDeletingItem);
+  };
 
-  useEffect(() => {
+  const deleteActivity = (id) => {
+    const url = `http://localhost:8080/activity/delete?id=${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        fetchFilteredData();
+        console.log(data);
+        toast.success("Activity successfully deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.success("Activity can't deleted!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      });
+  };
+
+  const fetchFilteredData = () => {
     const url = `http://localhost:8080/activity/get/filtered?page=${
       pageNumber - 1
     }&size=${activityListSize}`;
@@ -104,6 +121,10 @@ const ActivityList = () => {
         setActivityList(data.content);
         setTotalPage(data.totalPages);
       });
+  };
+
+  useEffect(() => {
+    fetchFilteredData();
   }, [context.filterActivityData, pageNumber, activityListSize]);
 
   return (
@@ -114,6 +135,7 @@ const ActivityList = () => {
         alignItems: "flex-start",
       }}
     >
+      <DialogUI deleteHandler={deleteHandler} name="activity" />
       <ActivityFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
@@ -145,7 +167,7 @@ const ActivityList = () => {
         <div>
           <div
             style={{
-              width: 700,
+              width: 810,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -162,7 +184,7 @@ const ActivityList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 700,
+                  width: 810,
                   marginTop: 10,
                 }}
               />
