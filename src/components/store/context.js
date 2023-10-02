@@ -14,6 +14,12 @@ const unFilteredFoodData = {
   foodCategoryName: null,
 };
 
+const unFilteredActivityData = {
+  name: null,
+  calories: null,
+  activityCategoryName: null,
+};
+
 const unFilteredFoodCategoryData = {
   name: null,
 };
@@ -114,6 +120,7 @@ export const EatFitProContextProvider = (props) => {
 
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
+  const [filterActivityData, setFilterActivityData] = useState(unFilteredActivityData);
   const [filterFoodCategoryData, setFilterFoodCategoryData] = useState(unFilteredFoodCategoryData);
   const [filterActivityCategoryData, setFilterActivityCategoryData] = useState(unFilteredActivityCategoryData);
 
@@ -278,6 +285,7 @@ export const EatFitProContextProvider = (props) => {
 
         filterUserData: filterUserData,
         filterFoodData: filterFoodData,
+        filterActivityData: filterActivityData,
         filterFoodCategoryData: filterFoodCategoryData,
         filterActivityCategoryData: filterActivityCategoryData,
 
@@ -308,6 +316,7 @@ export const EatFitProContextProvider = (props) => {
 
         setFilterUserData: setFilterUserData,
         setFilterFoodData: setFilterFoodData,
+        setFilterActivityData: setFilterActivityData,
         setFilterFoodCategoryData: setFilterFoodCategoryData,
         setFilterActivityCategoryData: setFilterActivityCategoryData,
 
