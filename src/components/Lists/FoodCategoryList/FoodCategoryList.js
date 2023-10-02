@@ -1,15 +1,17 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  CircularProgress
-} from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
+
+import { CircularProgress } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
 import checkDelete from "../../../utils/checkDelete";
+
 import DialogUI from "../../Dialog/DialogUI";
 import FoodCategoryFilteringForm from "../../Forms/FilteringForms/FoodCategoryFilteringForm/FoodCategoryFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const FoodCategoryList = () => {
   const context = useContext(EatFitProContext);
@@ -25,7 +27,7 @@ const FoodCategoryList = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 300,
+      width: 250,
       sortable: false,
       filterable: false,
     },
@@ -117,7 +119,7 @@ const FoodCategoryList = () => {
         <div>
           <div
             style={{
-              width: 810,
+              width: 850,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -134,7 +136,7 @@ const FoodCategoryList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 810,
+                  width: 850,
                   marginTop: 10,
                 }}
               />

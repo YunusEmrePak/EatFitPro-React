@@ -1,14 +1,17 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { CircularProgress } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
+
+import { CircularProgress } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
 import checkDelete from "../../../utils/checkDelete";
+
 import DialogUI from "../../Dialog/DialogUI";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
-
 import TableSize from "../../TableSize/TableSize";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
@@ -144,7 +147,7 @@ const UserList = () => {
         <div>
           <div
             style={{
-              width: 810,
+              width: 850,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -161,7 +164,7 @@ const UserList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 810,
+                  width: 850,
                   marginTop: 10,
                 }}
               />

@@ -1,9 +1,9 @@
-import { Autocomplete, Box, TextField, Slider, Typography } from "@mui/material";
-import { useContext, useEffect, useRef, useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import ButtonUI from "../../../UI/Button/Button";
-
+import { useContext, useRef, useState, useEffect } from "react";
 import EatFitProContext from "../../../../store/context";
+
+import { Box, TextField, Slider, Typography, Autocomplete } from "@mui/material";
+
+import ButtonUI from "../../../UI/Button/Button";
 
 const ActivityFilteringForm = (props) => {
   const context = useContext(EatFitProContext);

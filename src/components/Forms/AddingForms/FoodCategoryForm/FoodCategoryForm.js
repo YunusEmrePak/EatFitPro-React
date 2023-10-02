@@ -1,7 +1,7 @@
-import { Box, TextField } from "@mui/material";
 import { useRef, useState } from "react";
+
+import { Box, TextField } from "@mui/material";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
 
 const FoodCategoryForm = () => {

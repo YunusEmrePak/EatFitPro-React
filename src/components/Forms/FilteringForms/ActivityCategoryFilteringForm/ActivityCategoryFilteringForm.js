@@ -1,9 +1,9 @@
-import { Box, TextField } from "@mui/material";
 import { useContext, useRef } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import ButtonUI from "../../../UI/Button/Button";
-
 import EatFitProContext from "../../../../store/context";
+
+import { Box, TextField } from "@mui/material";
+
+import ButtonUI from "../../../UI/Button/Button";
 
 const ActivityCategoryFilteringForm = (props) => {
   const context = useContext(EatFitProContext);

@@ -1,8 +1,8 @@
-import { Box, TextField } from "@mui/material";
 import { useRef, useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+import { Box, TextField } from "@mui/material";
 import ButtonUI from "../../../UI/Button/Button";
+import { toast } from "react-toastify";
 
 const UserForm = () => {
   const nameRef = useRef();

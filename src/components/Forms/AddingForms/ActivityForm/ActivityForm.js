@@ -1,7 +1,7 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+
+import { Autocomplete, Box, TextField } from "@mui/material";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
 
 const ActivityForm = () => {

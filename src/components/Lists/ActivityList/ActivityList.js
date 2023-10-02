@@ -1,15 +1,17 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  CircularProgress
-} from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
+
+import { CircularProgress } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
 import checkDelete from "../../../utils/checkDelete";
+
 import DialogUI from "../../Dialog/DialogUI";
 import ActivityFilteringForm from "../../Forms/FilteringForms/ActivityFilteringForm/ActivityFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ActivityList = () => {
   const context = useContext(EatFitProContext);
@@ -44,28 +46,25 @@ const ActivityList = () => {
       filterable: false,
       valueGetter: (params) => params.row?.activityCategoryDto?.name,
     },
-      {
-        field: "edit",
-        headerName: "Edit",
-        width: 110,
-        sortable: false,
-        filterable: false,
-        renderCell: (value) => {
-          return (
-            <DeleteIcon
-              type="submit"
-              style={{ cursor: "pointer", color: "red" }}
-              onClick={() => {
-                context.openDeleteDialog(value);
-              }}
-            />
-          );
-        },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 110,
+      sortable: false,
+      filterable: false,
+      renderCell: (value) => {
+        return (
+          <DeleteIcon
+            type="submit"
+            style={{ cursor: "pointer", color: "red" }}
+            onClick={() => {
+              context.openDeleteDialog(value);
+            }}
+          />
+        );
       },
+    },
   ];
-
-  
-  
 
   const deleteHandler = () => {
     deleteActivity(context.idOfDeletingItem);
@@ -86,7 +85,7 @@ const ActivityList = () => {
         fetchFilteredData();
         console.log(data);
         checkDelete(data, "Activity");
-      })
+      });
   };
 
   const fetchFilteredData = () => {
@@ -135,7 +134,7 @@ const ActivityList = () => {
         <div>
           <div
             style={{
-              width: 810,
+              width: 850,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -152,7 +151,7 @@ const ActivityList = () => {
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 810,
+                  width: 850,
                   marginTop: 10,
                 }}
               />
