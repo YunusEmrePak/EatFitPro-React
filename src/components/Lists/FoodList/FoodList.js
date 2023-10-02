@@ -85,20 +85,20 @@ const FoodList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        toast.success("Food successfully deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
+        if (data === "Successfully Deleted!") {
+          toast.success("Food successfully deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.error("Food couldn't deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        }
       })
-      .catch((error) => {
-        console.log(error);
-        toast.success("Food can't deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
-      });
   };
 
   const fetchFilteredData = () => {

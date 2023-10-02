@@ -88,20 +88,20 @@ const ActivityList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        toast.success("Activity successfully deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
+        if (data === "Successfully Deleted!") {
+          toast.success("Activity successfully deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.error("Activity couldn't deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        }
       })
-      .catch((error) => {
-        console.log(error);
-        toast.success("Activity can't deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
-      });
   };
 
   const fetchFilteredData = () => {

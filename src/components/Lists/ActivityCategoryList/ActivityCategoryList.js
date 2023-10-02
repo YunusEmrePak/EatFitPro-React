@@ -70,19 +70,19 @@ const ActivityCategoryList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        toast.success("Activity category successfully deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.success("Activity category can't deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
+        if (data === "Successfully Deleted!") {
+          toast.success("Activity category successfully deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.error("Activity category couldn't deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        }
       });
   };
 

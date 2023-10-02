@@ -98,19 +98,19 @@ const UserList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        toast.success("User successfully deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.success("User can't deleted!", {
-          position: "bottom-left",
-          draggable: true,
-          pauseOnHover: false,
-        });
+        if (data === "Successfully Deleted!") {
+          toast.success("User successfully deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.success("User couldn't deleted!", {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          });
+        }
       });
   };
 
