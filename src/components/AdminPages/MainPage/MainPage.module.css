@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-image: url("../../../Assets/Images/mainImage.png");
+  background-image: url("../../../assets/Images/mainImage.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

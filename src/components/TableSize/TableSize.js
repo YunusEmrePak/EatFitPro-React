@@ -20,6 +20,9 @@ const TableSize = (props) => {
     if (name === "activity category") {
       context.setActivityCategoryListSize(value);
     }
+    if (name === "food and activity assignment") {
+      context.setFoodAndActivityAssignmentListSize(value);
+    }
   };
 
   const checkDefaultValue = () => {
@@ -37,6 +40,9 @@ const TableSize = (props) => {
     }
     if (props.name === "activity category") {
       return context.activityCategoryListSize;
+    }
+    if (props.name === "food and activity assignment") {
+      return context.foodAndActivityAssignmentListSize;
     }
   };
 
