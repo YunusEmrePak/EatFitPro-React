@@ -18,7 +18,7 @@ import ListingPage from "../AdminPages/ListingPage/ListingPage";
 import AddingFormController from "../Controller/FormController/AddingFormController";
 import ListingController from "../Controller/ListController/ListingController";
 import PageController from "../Controller/PageController/PageController";
-import EatFitProContext from "../store/context";
+import EatFitProContext from "../../store/context";
 
 import MainPage from "../AdminPages/MainPage/MainPage";
 import Logo from "../constants/Logo";

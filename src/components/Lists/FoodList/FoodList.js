@@ -1,18 +1,15 @@
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { toast } from "react-toastify";
-import DialogUI from "../../Dialog/DialogUI";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  CircularProgress
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
+import EatFitProContext from "../../../store/context";
+import checkDelete from "../../../utils/checkDelete";
+import DialogUI from "../../Dialog/DialogUI";
 import FoodFilteringForm from "../../Forms/FilteringForms/FoodFilteringForm/FoodFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
-import EatFitProContext from "../../store/context";
+import TableSize from "../../TableSize/TableSize";
 
 const FoodList = () => {
   const context = useContext(EatFitProContext);
@@ -85,19 +82,7 @@ const FoodList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        if (data === "Successfully Deleted!") {
-          toast.success("Food successfully deleted!", {
-            position: "bottom-left",
-            draggable: true,
-            pauseOnHover: false,
-          });
-        } else {
-          toast.error("Food couldn't deleted!", {
-            position: "bottom-left",
-            draggable: true,
-            pauseOnHover: false,
-          });
-        }
+        checkDelete(data, "Food");
       })
   };
 
@@ -143,24 +128,7 @@ const FoodList = () => {
           flexDirection: "column",
         }}
       >
-        <FormControl>
-          <InputLabel>Size</InputLabel>
-          <Select
-            defaultValue={10}
-            size="small"
-            label="Size"
-            style={{ width: "12ch" }}
-            onChange={(event) => {
-              context.setFoodListSize(event.target.value);
-              setPageNumber(1);
-            }}
-          >
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={15}>15</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
-          </Select>
-        </FormControl>
+        <TableSize setPageNumber={setPageNumber} name="food" />
         <div>
           <div
             style={{

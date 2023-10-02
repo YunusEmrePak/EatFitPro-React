@@ -6,7 +6,7 @@ import {
   DialogTitle
 } from "@mui/material";
 import React, { useContext } from "react";
-import EatFitProContext from "../store/context";
+import EatFitProContext from "../../store/context";
 const DialogUI = (props) => {
   const context = useContext(EatFitProContext);
   return (

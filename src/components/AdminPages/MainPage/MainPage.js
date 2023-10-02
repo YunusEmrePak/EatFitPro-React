@@ -1,6 +1,6 @@
-import wheel from "../../Images/waterWheel.png";
-import yogaPerson from "../../Images/Exercise-Yoga-drawing.png";
-import runner from "../../Images/runner.png";
+import wheel from "../../../Assets/Images/waterWheel.png";
+import yogaPerson from "../../../Assets/Images/Exercise-Yoga-drawing.png";
+import runner from "../../../Assets/Images/runner.png";
 
 import styles from "./MainPage.module.css";
 

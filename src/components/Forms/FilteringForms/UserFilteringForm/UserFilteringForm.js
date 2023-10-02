@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonUI from "../../../UI/Button/Button";
 
-import EatFitProContext from "../../../store/context";
+import EatFitProContext from "../../../../store/context";
 
 const UserFilteringForm = (props) => {
   const context = useContext(EatFitProContext);

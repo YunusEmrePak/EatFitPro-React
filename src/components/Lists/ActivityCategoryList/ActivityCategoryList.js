@@ -1,18 +1,15 @@
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { toast } from "react-toastify";
-import DialogUI from "../../Dialog/DialogUI";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  CircularProgress
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
+import EatFitProContext from "../../../store/context";
+import checkDelete from "../../../utils/checkDelete";
+import DialogUI from "../../Dialog/DialogUI";
 import ActivityCategoryFilteringForm from "../../Forms/FilteringForms/ActivityCategoryFilteringForm/ActivityCategoryFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
-import EatFitProContext from "../../store/context";
+import TableSize from "../../TableSize/TableSize";
 
 const ActivityCategoryList = () => {
   const context = useContext(EatFitProContext);
@@ -70,19 +67,7 @@ const ActivityCategoryList = () => {
       .then((data) => {
         fetchFilteredData();
         console.log(data);
-        if (data === "Successfully Deleted!") {
-          toast.success("Activity category successfully deleted!", {
-            position: "bottom-left",
-            draggable: true,
-            pauseOnHover: false,
-          });
-        } else {
-          toast.error("Activity category couldn't deleted!", {
-            position: "bottom-left",
-            draggable: true,
-            pauseOnHover: false,
-          });
-        }
+        checkDelete(data, "Activity category");
       });
   };
 
@@ -132,24 +117,7 @@ const ActivityCategoryList = () => {
           flexDirection: "column",
         }}
       >
-        <FormControl>
-          <InputLabel id="demo-simple-select-label">Size</InputLabel>
-          <Select
-            defaultValue={10}
-            size="small"
-            label="Size"
-            style={{ width: "12ch" }}
-            onChange={(event) => {
-              context.setActivityCategoryListSize(event.target.value);
-              setPageNumber(1);
-            }}
-          >
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={15}>15</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
-          </Select>
-        </FormControl>
+        <TableSize setPageNumber={setPageNumber} name="activity category" />
         <div>
           <div
             style={{

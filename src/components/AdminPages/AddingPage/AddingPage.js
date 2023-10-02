@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import FoodForm from "../../Forms/AddingForms/FoodForm/FoodForm";
 import UserForm from "../../Forms/AddingForms/UserForm/UserForm";
-import EatFitProContext from "../../store/context";
+import EatFitProContext from "../../../store/context";
 
 import styles from "./AddingPage.module.css";
 import FoodCategoryForm from "../../Forms/AddingForms/FoodCategoryForm/FoodCategoryForm";

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import EatFitProContext from "../../store/context";
+import EatFitProContext from "../../../store/context";
 
 import ButtonUI from "../../UI/Button/Button";
 

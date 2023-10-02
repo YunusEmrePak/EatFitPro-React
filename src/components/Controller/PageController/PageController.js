@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext } from "react";
-import EatFitProContext from "../../store/context";
+import EatFitProContext from "../../../store/context";
 
 import styles from "./PageController.module.css";
 

@@ -65,6 +65,8 @@ const EatFitProContext = React.createContext({
   activityListSize: 0,
   foodAndActivityAssignmentListSize: 0,
 
+  listSize: 0,
+
   openDeleteDialog: () => {},
   closeDeleteDialog: () => {},
   setIsClickedDeleteButton: () => {},
@@ -100,6 +102,8 @@ const EatFitProContext = React.createContext({
   setActivityListSize: () => {},
   setActivityCategoryListSize: () => {},
   setFoodAndActivityAssignmentListSize: () => {},
+
+  setListSize: () => {},
 
 });
 
@@ -138,6 +142,8 @@ export const EatFitProContextProvider = (props) => {
   const [activityListSize, setActivityListSize] = useState(10);
   const [activityCategoryListSize, setActivityCategoryListSize] = useState(10);
   const [foodAndActivityAssignmentListSize, setFoodAndActivityAssignmentListSize] = useState(10);
+
+  const [listSize, setListSize] = useState(10);
 
   const showMainPage = () => {
     setMainPageVisible(true);
@@ -315,6 +321,8 @@ export const EatFitProContextProvider = (props) => {
         activityCategoryListSize: activityCategoryListSize,
         foodAndActivityAssignmentListSize: foodAndActivityAssignmentListSize,
 
+        listSize: listSize,
+
         openDeleteDialog: openDeleteDialog,
         closeDeleteDialog: closeDeleteDialog,
         setIsClickedDeleteButton: setIsClickedDeleteButton,
@@ -349,6 +357,8 @@ export const EatFitProContextProvider = (props) => {
         setActivityListSize: setActivityListSize,
         setActivityCategoryListSize: setActivityCategoryListSize,
         setFoodAndActivityAssignmentListSize: setFoodAndActivityAssignmentListSize,
+
+        setListSize: setListSize,
 
       }}
     >
