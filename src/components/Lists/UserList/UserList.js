@@ -1,4 +1,3 @@
-import DeleteIcon from '@mui/icons-material/Delete';
 import {
   CircularProgress,
   FormControl,
@@ -6,6 +5,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";

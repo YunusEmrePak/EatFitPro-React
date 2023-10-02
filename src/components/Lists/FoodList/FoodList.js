@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
 import FoodFilteringForm from "../../Forms/FilteringForms/FoodFilteringForm/FoodFilteringForm";
@@ -44,9 +45,49 @@ const FoodList = () => {
       filterable: false,
       valueGetter: (params) => params.row?.foodCategoryDto?.name,
     },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 110,
+      sortable: false,
+      filterable: false,
+      renderCell: (value) => {
+        return (
+          <DeleteIcon
+            type="submit"
+            style={{ cursor: "pointer", color: "red" }}
+            onClick={() => {
+              deleteHandler(value);
+            }}
+          />
+        );
+      },
+    },
   ];
 
-  useEffect(() => {
+  const deleteHandler = (value) => {
+    console.log(value.id);
+    deleteUser(value.id);
+  };
+
+  const deleteUser = (id) => {
+    const url = `http://localhost:8080/food/delete?id=${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        fetchFilteredData();
+        console.log(data);
+      });
+  };
+
+  const fetchFilteredData = () => {
     const url = `http://localhost:8080/food/get/filtered?page=${
       pageNumber - 1
     }&size=${foodListSize}`;
@@ -63,6 +104,10 @@ const FoodList = () => {
         setFoodList(data.content);
         setTotalPage(data.totalPages);
       });
+  };
+
+  useEffect(() => {
+    fetchFilteredData();
   }, [context.filterFoodData, pageNumber, foodListSize]);
 
   return (

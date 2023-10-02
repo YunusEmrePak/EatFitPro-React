@@ -18,6 +18,10 @@ const unFilteredFoodCategoryData = {
   name: null,
 };
 
+const unFilteredActivityCategoryData = {
+  name: null,
+};
+
 const EatFitProContext = React.createContext({
   mainPageVisible: false,
   addingPageVisible: false,
@@ -43,11 +47,13 @@ const EatFitProContext = React.createContext({
   filterFoodData: [],
   filterFoodCategoryData: [],
   filterActivityData: [],
+  filterActivityCategoryData: [],
   filterFoodAndActivityAssignmentData: [],
 
   userListSize: 0,
   foodListSize: 0,
   foodCategoryListSize: 0,
+  activityCategoryListSize: 0,
   activityListSize: 0,
   foodAndActivityAssignmentListSize: 0,
 
@@ -73,12 +79,14 @@ const EatFitProContext = React.createContext({
   setFilterFoodData: () => {},
   setFilterFoodCategoryData: () => {},
   setFilterActivityData: () => {},
+  setFilterActivityCategoryData: () => {},
   setFilterFoodAndActivityAssignmentData: () => {},
 
   setUserListSize: () => {},
   setFoodListSize: () => {},
   setFoodCategoryListSize: () => {},
   setActivityListSize: () => {},
+  setActivityCategoryListSize: () => {},
   setFoodAndActivityAssignmentListSize: () => {},
 
 });
@@ -107,11 +115,13 @@ export const EatFitProContextProvider = (props) => {
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
   const [filterFoodCategoryData, setFilterFoodCategoryData] = useState(unFilteredFoodCategoryData);
+  const [filterActivityCategoryData, setFilterActivityCategoryData] = useState(unFilteredActivityCategoryData);
 
   const [userListSize, setUserListSize] = useState(10);
   const [foodListSize, setFoodListSize] = useState(10);
   const [foodCategoryListSize, setFoodCategoryListSize] = useState(10);
   const [activityListSize, setActivityListSize] = useState(10);
+  const [activityCategoryListSize, setActivityCategoryListSize] = useState(10);
   const [foodAndActivityAssignmentListSize, setFoodAndActivityAssignmentListSize] = useState(10);
 
   const showMainPage = () => {
@@ -269,11 +279,13 @@ export const EatFitProContextProvider = (props) => {
         filterUserData: filterUserData,
         filterFoodData: filterFoodData,
         filterFoodCategoryData: filterFoodCategoryData,
+        filterActivityCategoryData: filterActivityCategoryData,
 
         userListSize: userListSize,
         foodListSize: foodListSize,
         foodCategoryListSize: foodCategoryListSize,
         activityListSize: activityListSize,
+        activityCategoryListSize: activityCategoryListSize,
         foodAndActivityAssignmentListSize: foodAndActivityAssignmentListSize,
 
         showMainPage: showMainPage,
@@ -297,11 +309,13 @@ export const EatFitProContextProvider = (props) => {
         setFilterUserData: setFilterUserData,
         setFilterFoodData: setFilterFoodData,
         setFilterFoodCategoryData: setFilterFoodCategoryData,
+        setFilterActivityCategoryData: setFilterActivityCategoryData,
 
         setUserListSize: setUserListSize,
         setFoodListSize: setFoodListSize,
         setFoodCategoryListSize: setFoodCategoryListSize,
         setActivityListSize: setActivityListSize,
+        setActivityCategoryListSize: setActivityCategoryListSize,
         setFoodAndActivityAssignmentListSize: setFoodAndActivityAssignmentListSize,
 
       }}

@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useContext, useEffect, useState } from "react";
-import FoodCategoryFilteringForm from "../../Forms/FilteringForms/FoodActivityFilteringForm/FoodCategoryFilteringForm";
+import FoodCategoryFilteringForm from "../../Forms/FilteringForms/FoodCategoryFilteringForm/FoodCategoryFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import EatFitProContext from "../../store/context";
 
