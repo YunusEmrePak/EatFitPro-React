@@ -2,11 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
 
 import {
-  CircularProgress,
-  FormControl,
-  MenuItem,
-  Select,
-  InputLabel,
+  CircularProgress
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -15,8 +11,8 @@ import checkDelete from "../../../utils/checkDelete";
 import DialogUI from "../../Dialog/DialogUI";
 import FoodAndActivityAssignmentFiltering from "../../Forms/FilteringForms/FoodAndActivityAssignmentFilteringForm/FoodAndActivityAssignmentFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
-import TableSize from "../../TableSize/TableSize";
 import SelectMenu from "../../SelectMenu/SelectMenu";
+import TableSize from "../../TableSize/TableSize";
 
 // import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -25,8 +21,6 @@ const FoodAndActivityAssignmentList = () => {
 
   const [foodAndActivityAssignmentList, setFoodAndActivityAssignmentList] =
     useState([]);
-  const [foodNameList, setFoodNameList] = useState([]);
-  const [activityNameList, setActivityNameList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);

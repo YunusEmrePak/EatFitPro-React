@@ -1,12 +1,10 @@
-import { useContext, useRef, useState, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import EatFitProContext from "../../../../store/context";
 
 import {
-  Box,
-  TextField,
-  Slider,
-  Typography,
   Autocomplete,
+  Box,
+  TextField
 } from "@mui/material";
 
 import ButtonUI from "../../../UI/Button/Button";
