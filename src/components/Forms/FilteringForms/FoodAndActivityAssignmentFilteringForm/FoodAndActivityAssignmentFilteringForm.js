@@ -26,15 +26,13 @@ const FoodAndActivityAssignmentFiltering = (props) => {
     event.preventDefault();
 
     const data = {
-      name: nameRef.current.value ? nameRef.current.value : null,
-      surname: surnameRef.current.value ? surnameRef.current.value : null,
+      userName: nameRef.current.value ? nameRef.current.value : null,
+      userSurname: surnameRef.current.value ? surnameRef.current.value : null,
       foodName: food ? food.name : null,
       activityName: activity ? activity.name : null,
       date: dateRef ? dateRef.current.value : null,
     };
-
-    console.log(data)
-    context.setFilterFoodData(data);
+    context.setFilterFoodAndActivityAssignmentData(data);
     props.setPageNumber(1);
   };
 

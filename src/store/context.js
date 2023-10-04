@@ -29,7 +29,11 @@ const unFilteredActivityCategoryData = {
 };
 
 const unFilteredFoodAndActivityAssignmentData = {
-  name: null,
+  userName: null, 
+  userSurname: null,
+  foodName: null,
+  activityName: null,
+  date: null,
 };
 
 const EatFitProContext = React.createContext({

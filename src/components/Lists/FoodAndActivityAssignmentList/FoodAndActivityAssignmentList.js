@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
 
-import { CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
+import {
+  CircularProgress,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import checkDelete from "../../../utils/checkDelete";
@@ -10,6 +16,7 @@ import DialogUI from "../../Dialog/DialogUI";
 import FoodAndActivityAssignmentFiltering from "../../Forms/FilteringForms/FoodAndActivityAssignmentFilteringForm/FoodAndActivityAssignmentFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
+import SelectMenu from "../../SelectMenu/SelectMenu";
 
 // import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -47,17 +54,22 @@ const FoodAndActivityAssignmentList = () => {
     {
       field: "foodDtoList",
       headerName: "Food Name",
-      width: 150,
+      width: 170,
       sortable: false,
       filterable: false,
-        // valueGetter: (params) => {
-        //   console.log({ params });
-        //   // params.row?.foodDtoList?.name;
-    //     // },
-    //   renderCell: (params) => {
-    //     // console.log(params.row.foodDtoList);
-    //     (params.row.id === params.id) ? 
-    //   },
+      renderCell: (params) => (
+        <SelectMenu name="Food Name" data={params.row.foodDtoList} />
+      ),
+    },
+    {
+      field: "activityDtoList",
+      headerName: "Activity Name",
+      width: 170,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <SelectMenu name="Activity Name" data={params.row.activityDtoList} />
+      ),
     },
     {
       field: "date",
@@ -67,21 +79,6 @@ const FoodAndActivityAssignmentList = () => {
       filterable: false,
     },
   ];
-
-  //   const makeList = () => {
-  //     foodAndActivityAssignmentList.forEach((element) => {
-  //       element.foodDtoList.forEach((food) => {
-  //         setFoodNameList((prevData) => {
-  //           return [...prevData, food];
-  //         });
-  //       });
-  //       element.activityDtoList.forEach((activity) => {
-  //         setActivityNameList((prevData) => {
-  //           return [...prevData, activity];
-  //         });
-  //       });
-  //     });
-  //   };
 
   const deleteHandler = () => {
     // deleteFoodAndActivityAssignment(context.idOfDeletingItem);
@@ -127,7 +124,6 @@ const FoodAndActivityAssignmentList = () => {
 
   useEffect(() => {
     fetchFilteredData();
-    // makeList();
   }, [
     context.filterFoodAndActivityAssignmentData,
     pageNumber,
