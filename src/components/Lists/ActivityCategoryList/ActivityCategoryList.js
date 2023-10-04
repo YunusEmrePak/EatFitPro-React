@@ -73,7 +73,7 @@ const ActivityCategoryList = () => {
       });
   };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterActivityCategoryData, pageNumber, activityCategoryListSize) => {
     const url = `http://localhost:8080/activityCategory/get/filtered?page=${
       pageNumber - 1
     }&size=${activityCategoryListSize}`;
@@ -82,7 +82,7 @@ const ActivityCategoryList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterActivityCategoryData),
+      body: JSON.stringify(filterActivityCategoryData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -93,7 +93,7 @@ const ActivityCategoryList = () => {
   };
 
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredData(context.filterActivityCategoryData, pageNumber, activityCategoryListSize);
   }, [
     context.filterActivityCategoryData,
     pageNumber,

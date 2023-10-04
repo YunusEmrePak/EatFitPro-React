@@ -101,7 +101,7 @@ const UserList = () => {
       });
   };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterUserData, pageNumber, userListSize) => {
     const url = `http://localhost:8080/user/get/filtered?page=${
       pageNumber - 1
     }&size=${userListSize}`;
@@ -110,7 +110,7 @@ const UserList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterUserData),
+      body: JSON.stringify(filterUserData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -121,7 +121,7 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredData(context.filterUserData, pageNumber, userListSize);
   }, [context.filterUserData, pageNumber, userListSize]);
 
   return (

@@ -73,7 +73,7 @@ const FoodCategoryList = () => {
       });
   };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterFoodCategoryData, pageNumber, foodCategoryListSize) => {
     const url = `http://localhost:8080/foodCategory/get/filtered?page=${
       pageNumber - 1
     }&size=${foodCategoryListSize}`;
@@ -82,7 +82,7 @@ const FoodCategoryList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterFoodCategoryData),
+      body: JSON.stringify(filterFoodCategoryData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -93,7 +93,7 @@ const FoodCategoryList = () => {
   };
 
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredData(context.filterFoodCategoryData, pageNumber, foodCategoryListSize);
   }, [context.filterFoodCategoryData, pageNumber, foodCategoryListSize]);
 
   return (

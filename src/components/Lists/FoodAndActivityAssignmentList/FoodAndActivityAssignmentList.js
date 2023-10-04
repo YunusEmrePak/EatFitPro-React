@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-import checkDelete from "../../../utils/checkDelete";
+// import checkDelete from "../../../utils/checkDelete";
 
 import DialogUI from "../../Dialog/DialogUI";
 import FoodAndActivityAssignmentFiltering from "../../Forms/FilteringForms/FoodAndActivityAssignmentFilteringForm/FoodAndActivityAssignmentFilteringForm";
@@ -78,25 +78,25 @@ const FoodAndActivityAssignmentList = () => {
     // deleteFoodAndActivityAssignment(context.idOfDeletingItem);
   };
 
-  const deleteFoodAndActivityAssignment = (id) => {
-    const url = `http://localhost:8080/foodAndActivityAssignment/delete?id=${id}`;
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        fetchFilteredData();
-        // console.log(data);
-        checkDelete(data, "Food And Activity Assignment");
-      });
-  };
+  // const deleteFoodAndActivityAssignment = (id) => {
+  //   const url = `http://localhost:8080/foodAndActivityAssignment/delete?id=${id}`;
+  //   fetch(url, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.text();
+  //     })
+  //     .then((data) => {
+  //       fetchFilteredData();
+  //       // console.log(data);
+  //       checkDelete(data, "Food And Activity Assignment");
+  //     });
+  // };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterFoodAndActivityAssignmentData, pageNumber, foodAndActivityAssignmentListSize) => {
     const url = `http://localhost:8080/foodAndActivityAssignment/get/filtered?page=${
       pageNumber - 1
     }&size=${foodAndActivityAssignmentListSize}`;
@@ -105,7 +105,7 @@ const FoodAndActivityAssignmentList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterFoodAndActivityAssignmentData),
+      body: JSON.stringify(filterFoodAndActivityAssignmentData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -118,6 +118,7 @@ const FoodAndActivityAssignmentList = () => {
 
   useEffect(() => {
     fetchFilteredData();
+    fetchFilteredData(context.filterFoodAndActivityAssignmentData, pageNumber, foodAndActivityAssignmentListSize);
   }, [
     context.filterFoodAndActivityAssignmentData,
     pageNumber,

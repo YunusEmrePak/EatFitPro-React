@@ -88,7 +88,7 @@ const ActivityList = () => {
       });
   };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterActivityData, pageNumber, activityListSize) => {
     const url = `http://localhost:8080/activity/get/filtered?page=${
       pageNumber - 1
     }&size=${activityListSize}`;
@@ -97,7 +97,7 @@ const ActivityList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterActivityData),
+      body: JSON.stringify(filterActivityData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -108,7 +108,7 @@ const ActivityList = () => {
   };
 
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredData(context.filterActivityData, pageNumber, activityListSize);
   }, [context.filterActivityData, pageNumber, activityListSize]);
 
   return (

@@ -88,7 +88,7 @@ const FoodList = () => {
       });
   };
 
-  const fetchFilteredData = () => {
+  const fetchFilteredData = (filterFoodData, pageNumber, foodListSize) => {
     const url = `http://localhost:8080/food/get/filtered?page=${
       pageNumber - 1
     }&size=${foodListSize}`;
@@ -97,7 +97,7 @@ const FoodList = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(context.filterFoodData),
+      body: JSON.stringify(filterFoodData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -108,7 +108,7 @@ const FoodList = () => {
   };
 
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredData(context.filterFoodData, pageNumber, foodListSize);
   }, [context.filterFoodData, pageNumber, foodListSize]);
 
   return (
