@@ -29,7 +29,7 @@ const unFilteredActivityCategoryData = {
 };
 
 const unFilteredFoodAndActivityAssignmentData = {
-  userName: null, 
+  userName: null,
   userSurname: null,
   foodName: null,
   activityName: null,
@@ -58,6 +58,7 @@ const EatFitProContext = React.createContext({
   pageName: "",
   idOfDeletingItem: 0,
   isClickedDeleteButton: false,
+  isDatabaseConnected: false,
 
   filterUserData: [],
   filterFoodData: [],
@@ -75,7 +76,9 @@ const EatFitProContext = React.createContext({
 
   openDeleteDialog: () => {},
   closeDeleteDialog: () => {},
-  setIsClickedDeleteButton: () => {},
+  DatabaseErrorTrue: () => {},
+  DatabaseErrorFalse: () => {},
+  setIsDatabaseConnected: () => {},
 
   showMainPage: () => {},
   showAddingPage: () => {},
@@ -108,7 +111,6 @@ const EatFitProContext = React.createContext({
   setActivityListSize: () => {},
   setActivityCategoryListSize: () => {},
   setFoodAndActivityAssignmentListSize: () => {},
-
 });
 
 export const EatFitProContextProvider = (props) => {
@@ -120,15 +122,23 @@ export const EatFitProContextProvider = (props) => {
   const [foodFormVisible, setFoodFormVisible] = useState(false);
   const [foodCategoryFormVisible, setFoodCategoryFormVisible] = useState(false);
   const [activityFormVisible, setActivityFormVisible] = useState(false);
-  const [activityCategoryFormVisible, setActivityCategoryFormVisible] = useState(false);
-  const [foodAndActivityAssignmentFormVisible, setFoodAndActivityAssignmentFormVisible] = useState(false);
+  const [activityCategoryFormVisible, setActivityCategoryFormVisible] =
+    useState(false);
+  const [
+    foodAndActivityAssignmentFormVisible,
+    setFoodAndActivityAssignmentFormVisible,
+  ] = useState(false);
 
   const [userListVisible, setUserListVisible] = useState(true);
   const [foodListVisible, setFoodListVisible] = useState(false);
   const [foodCategoryListVisible, setFoodCategoryListVisible] = useState(false);
   const [activityListVisible, setActivityListVisible] = useState(false);
-  const [activityCategoryListVisible, setActivityCategoryListVisible] = useState(false);
-  const [foodAndActivityAssignmentListVisible, setFoodAndActivityAssignmentListVisible] = useState(false);
+  const [activityCategoryListVisible, setActivityCategoryListVisible] =
+    useState(false);
+  const [
+    foodAndActivityAssignmentListVisible,
+    setFoodAndActivityAssignmentListVisible,
+  ] = useState(false);
 
   const [pageName, setPageName] = useState("Main Page");
   const [isClickedDeleteButton, setIsClickedDeleteButton] = useState(false);
@@ -136,17 +146,39 @@ export const EatFitProContextProvider = (props) => {
 
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
-  const [filterActivityData, setFilterActivityData] = useState(unFilteredActivityData);
-  const [filterFoodCategoryData, setFilterFoodCategoryData] = useState(unFilteredFoodCategoryData);
-  const [filterActivityCategoryData, setFilterActivityCategoryData] = useState(unFilteredActivityCategoryData);
-  const [filterFoodAndActivityAssignmentData, setFilterFoodAndActivityAssignmentData] = useState(unFilteredFoodAndActivityAssignmentData);
+  const [filterActivityData, setFilterActivityData] = useState(
+    unFilteredActivityData
+  );
+  const [filterFoodCategoryData, setFilterFoodCategoryData] = useState(
+    unFilteredFoodCategoryData
+  );
+  const [filterActivityCategoryData, setFilterActivityCategoryData] = useState(
+    unFilteredActivityCategoryData
+  );
+  const [
+    filterFoodAndActivityAssignmentData,
+    setFilterFoodAndActivityAssignmentData,
+  ] = useState(unFilteredFoodAndActivityAssignmentData);
 
   const [userListSize, setUserListSize] = useState(10);
   const [foodListSize, setFoodListSize] = useState(10);
   const [foodCategoryListSize, setFoodCategoryListSize] = useState(10);
   const [activityListSize, setActivityListSize] = useState(10);
   const [activityCategoryListSize, setActivityCategoryListSize] = useState(10);
-  const [foodAndActivityAssignmentListSize, setFoodAndActivityAssignmentListSize] = useState(10);
+  const [
+    foodAndActivityAssignmentListSize,
+    setFoodAndActivityAssignmentListSize,
+  ] = useState(10);
+
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
+
+  const DatabaseErrorTrue = () => {
+    setIsDatabaseConnected(false);
+  };
+
+  const DatabaseErrorFalse = () => {
+    setIsDatabaseConnected(true);
+  };
 
   const showMainPage = () => {
     setMainPageVisible(true);
@@ -173,54 +205,54 @@ export const EatFitProContextProvider = (props) => {
     setUserFormVisible(true);
     setFoodFormVisible(false);
     setFoodCategoryFormVisible(false);
-    setActivityFormVisible(false)
+    setActivityFormVisible(false);
     setActivityCategoryFormVisible(false);
-    setFoodAndActivityAssignmentFormVisible(false)
+    setFoodAndActivityAssignmentFormVisible(false);
   };
 
   const showFoodForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(true);
     setFoodCategoryFormVisible(false);
-    setActivityFormVisible(false)
+    setActivityFormVisible(false);
     setActivityCategoryFormVisible(false);
-    setFoodAndActivityAssignmentFormVisible(false)
+    setFoodAndActivityAssignmentFormVisible(false);
   };
 
   const showFoodCategoryForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(false);
     setFoodCategoryFormVisible(true);
-    setActivityFormVisible(false)
+    setActivityFormVisible(false);
     setActivityCategoryFormVisible(false);
-    setFoodAndActivityAssignmentFormVisible(false)
+    setFoodAndActivityAssignmentFormVisible(false);
   };
 
   const showActivityForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(false);
     setFoodCategoryFormVisible(false);
-    setActivityFormVisible(true)
+    setActivityFormVisible(true);
     setActivityCategoryFormVisible(false);
-    setFoodAndActivityAssignmentFormVisible(false)
+    setFoodAndActivityAssignmentFormVisible(false);
   };
 
   const showActivityCategoryForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(false);
     setFoodCategoryFormVisible(false);
-    setActivityFormVisible(false)
+    setActivityFormVisible(false);
     setActivityCategoryFormVisible(true);
-    setFoodAndActivityAssignmentFormVisible(false)
+    setFoodAndActivityAssignmentFormVisible(false);
   };
 
   const showFoodAndActivityAssignmentForm = () => {
     setUserFormVisible(false);
     setFoodFormVisible(false);
     setFoodCategoryFormVisible(false);
-    setActivityFormVisible(false)
+    setActivityFormVisible(false);
     setActivityCategoryFormVisible(false);
-    setFoodAndActivityAssignmentFormVisible(true)
+    setFoodAndActivityAssignmentFormVisible(true);
   };
 
   const showUserList = () => {
@@ -280,7 +312,7 @@ export const EatFitProContextProvider = (props) => {
   const openDeleteDialog = (value) => {
     setIdOfDeletingItem(value.id);
     setIsClickedDeleteButton(true);
-  }
+  };
 
   const closeDeleteDialog = () => {
     setIsClickedDeleteButton(false);
@@ -298,25 +330,29 @@ export const EatFitProContextProvider = (props) => {
         foodCategoryFormVisible: foodCategoryFormVisible,
         activityFormVisible: activityFormVisible,
         activityCategoryFormVisible: activityCategoryFormVisible,
-        foodAndActivityAssignmentFormVisible: foodAndActivityAssignmentFormVisible,
+        foodAndActivityAssignmentFormVisible:
+          foodAndActivityAssignmentFormVisible,
 
         userListVisible: userListVisible,
         foodListVisible: foodListVisible,
         foodCategoryListVisible: foodCategoryListVisible,
         activityListVisible: activityListVisible,
         activityCategoryListVisible: activityCategoryListVisible,
-        foodAndActivityAssignmentListVisible: foodAndActivityAssignmentListVisible,
+        foodAndActivityAssignmentListVisible:
+          foodAndActivityAssignmentListVisible,
 
         pageName: pageName,
         isClickedDeleteButton: isClickedDeleteButton,
         idOfDeletingItem: idOfDeletingItem,
+        isDatabaseConnected: isDatabaseConnected,
 
         filterUserData: filterUserData,
         filterFoodData: filterFoodData,
         filterActivityData: filterActivityData,
         filterFoodCategoryData: filterFoodCategoryData,
         filterActivityCategoryData: filterActivityCategoryData,
-        filterFoodAndActivityAssignmentData: filterFoodAndActivityAssignmentData,
+        filterFoodAndActivityAssignmentData:
+          filterFoodAndActivityAssignmentData,
 
         userListSize: userListSize,
         foodListSize: foodListSize,
@@ -327,7 +363,9 @@ export const EatFitProContextProvider = (props) => {
 
         openDeleteDialog: openDeleteDialog,
         closeDeleteDialog: closeDeleteDialog,
-        setIsClickedDeleteButton: setIsClickedDeleteButton,
+        DatabaseErrorTrue: DatabaseErrorTrue,
+        DatabaseErrorFalse: DatabaseErrorFalse,
+        setIsDatabaseConnected: setIsDatabaseConnected,
 
         showMainPage: showMainPage,
         showAddingPage: showAddingPage,
@@ -352,15 +390,16 @@ export const EatFitProContextProvider = (props) => {
         setFilterActivityData: setFilterActivityData,
         setFilterFoodCategoryData: setFilterFoodCategoryData,
         setFilterActivityCategoryData: setFilterActivityCategoryData,
-        setFilterFoodAndActivityAssignmentData: setFilterFoodAndActivityAssignmentData,
+        setFilterFoodAndActivityAssignmentData:
+          setFilterFoodAndActivityAssignmentData,
 
         setUserListSize: setUserListSize,
         setFoodListSize: setFoodListSize,
         setFoodCategoryListSize: setFoodCategoryListSize,
         setActivityListSize: setActivityListSize,
         setActivityCategoryListSize: setActivityCategoryListSize,
-        setFoodAndActivityAssignmentListSize: setFoodAndActivityAssignmentListSize,
-
+        setFoodAndActivityAssignmentListSize:
+          setFoodAndActivityAssignmentListSize,
       }}
     >
       {props.children}

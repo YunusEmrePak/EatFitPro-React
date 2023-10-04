@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
 
-import {
-  CircularProgress
-} from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 // import checkDelete from "../../../utils/checkDelete";
@@ -24,6 +22,7 @@ const FoodAndActivityAssignmentList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   let foodAndActivityAssignmentListSize =
     context.foodAndActivityAssignmentListSize;
@@ -96,11 +95,15 @@ const FoodAndActivityAssignmentList = () => {
   //     });
   // };
 
-  const fetchFilteredData = (filterFoodAndActivityAssignmentData, pageNumber, foodAndActivityAssignmentListSize) => {
+  const fetchFilteredData = async (
+    filterFoodAndActivityAssignmentData,
+    pageNumber,
+    foodAndActivityAssignmentListSize
+  ) => {
     const url = `http://localhost:8080/foodAndActivityAssignment/get/filtered?page=${
       pageNumber - 1
     }&size=${foodAndActivityAssignmentListSize}`;
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,16 +116,25 @@ const FoodAndActivityAssignmentList = () => {
         setIsLoading(false);
         setFoodAndActivityAssignmentList(data.content);
         setTotalPage(data.totalPages);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
   };
 
   useEffect(() => {
-    fetchFilteredData();
-    fetchFilteredData(context.filterFoodAndActivityAssignmentData, pageNumber, foodAndActivityAssignmentListSize);
+    fetchFilteredData(
+      context.filterFoodAndActivityAssignmentData,
+      pageNumber,
+      foodAndActivityAssignmentListSize
+    );
   }, [
     context.filterFoodAndActivityAssignmentData,
     pageNumber,
     foodAndActivityAssignmentListSize,
+    isDatabaseConnected,
   ]);
 
   return (
@@ -162,7 +174,11 @@ const FoodAndActivityAssignmentList = () => {
             }}
           >
             {isLoading ? (
-              <CircularProgress />
+              isDatabaseConnected ? (
+                <CircularProgress />
+              ) : (
+                <div>Server Error</div>
+              )
             ) : (
               <DataGrid
                 rows={foodAndActivityAssignmentList}

@@ -1,11 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import EatFitProContext from "../../../../store/context";
 
-import {
-  Autocomplete,
-  Box,
-  TextField
-} from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 
 import ButtonUI from "../../../UI/Button/Button";
 
@@ -15,6 +11,7 @@ const FoodAndActivityAssignmentFiltering = (props) => {
   const [activity, setActivity] = useState(null);
   const [databaseFoodName, setDatabaseFoodName] = useState([]);
   const [databaseActivityName, setDatabaseActivityName] = useState([]);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   const nameRef = useRef(null);
   const surnameRef = useRef(null);
@@ -34,9 +31,9 @@ const FoodAndActivityAssignmentFiltering = (props) => {
     props.setPageNumber(1);
   };
 
-  useEffect(() => {
+  const fetchFoodData = async () => {
     const foodNameUrl = "http://localhost:8080/food/get/all";
-    fetch(foodNameUrl, {
+    await fetch(foodNameUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -47,9 +44,17 @@ const FoodAndActivityAssignmentFiltering = (props) => {
       })
       .then((data) => {
         setDatabaseFoodName(data);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
+  };
+
+  const fetchActivityData = async () => {
     const activityNameUrl = "http://localhost:8080/activity/get/all";
-    fetch(activityNameUrl, {
+    await fetch(activityNameUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -60,8 +65,17 @@ const FoodAndActivityAssignmentFiltering = (props) => {
       })
       .then((data) => {
         setDatabaseActivityName(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchFoodData();
+    fetchActivityData();
+  }, [isDatabaseConnected]);
 
   return (
     <Box

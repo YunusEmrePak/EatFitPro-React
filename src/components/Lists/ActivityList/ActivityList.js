@@ -20,6 +20,7 @@ const ActivityList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   let activityListSize = context.activityListSize;
 
@@ -88,7 +89,11 @@ const ActivityList = () => {
       });
   };
 
-  const fetchFilteredData = (filterActivityData, pageNumber, activityListSize) => {
+  const fetchFilteredData = (
+    filterActivityData,
+    pageNumber,
+    activityListSize
+  ) => {
     const url = `http://localhost:8080/activity/get/filtered?page=${
       pageNumber - 1
     }&size=${activityListSize}`;
@@ -104,12 +109,22 @@ const ActivityList = () => {
         setIsLoading(false);
         setActivityList(data.content);
         setTotalPage(data.totalPages);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
   };
 
   useEffect(() => {
     fetchFilteredData(context.filterActivityData, pageNumber, activityListSize);
-  }, [context.filterActivityData, pageNumber, activityListSize]);
+  }, [
+    context.filterActivityData,
+    pageNumber,
+    activityListSize,
+    isDatabaseConnected,
+  ]);
 
   return (
     <div
@@ -142,7 +157,11 @@ const ActivityList = () => {
             }}
           >
             {isLoading ? (
-              <CircularProgress />
+              isDatabaseConnected ? (
+                <CircularProgress />
+              ) : (
+                <div>Server Error</div>
+              )
             ) : (
               <DataGrid
                 rows={activityList}

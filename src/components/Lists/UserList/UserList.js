@@ -20,6 +20,7 @@ const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   let userListSize = context.userListSize;
 
@@ -101,11 +102,15 @@ const UserList = () => {
       });
   };
 
-  const fetchFilteredData = (filterUserData, pageNumber, userListSize) => {
+  const fetchFilteredData = async (
+    filterUserData,
+    pageNumber,
+    userListSize
+  ) => {
     const url = `http://localhost:8080/user/get/filtered?page=${
       pageNumber - 1
     }&size=${userListSize}`;
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -117,12 +122,17 @@ const UserList = () => {
         setIsLoading(false);
         setUserList(data.content);
         setTotalPage(data.totalPages);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
   };
 
   useEffect(() => {
     fetchFilteredData(context.filterUserData, pageNumber, userListSize);
-  }, [context.filterUserData, pageNumber, userListSize]);
+  }, [context.filterUserData, pageNumber, userListSize, isDatabaseConnected]);
 
   return (
     <div
@@ -155,7 +165,11 @@ const UserList = () => {
             }}
           >
             {isLoading ? (
-              <CircularProgress />
+              isDatabaseConnected ? (
+                <CircularProgress />
+              ) : (
+                <div>Server Error</div>
+              )
             ) : (
               <DataGrid
                 rows={userList}

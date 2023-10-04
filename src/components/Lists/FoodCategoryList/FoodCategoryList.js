@@ -20,6 +20,7 @@ const FoodCategoryList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   let foodCategoryListSize = context.foodCategoryListSize;
 
@@ -73,7 +74,11 @@ const FoodCategoryList = () => {
       });
   };
 
-  const fetchFilteredData = (filterFoodCategoryData, pageNumber, foodCategoryListSize) => {
+  const fetchFilteredData = (
+    filterFoodCategoryData,
+    pageNumber,
+    foodCategoryListSize
+  ) => {
     const url = `http://localhost:8080/foodCategory/get/filtered?page=${
       pageNumber - 1
     }&size=${foodCategoryListSize}`;
@@ -89,12 +94,26 @@ const FoodCategoryList = () => {
         setIsLoading(false);
         setFoodCategoryList(data.content);
         setTotalPage(data.totalPages);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
   };
 
   useEffect(() => {
-    fetchFilteredData(context.filterFoodCategoryData, pageNumber, foodCategoryListSize);
-  }, [context.filterFoodCategoryData, pageNumber, foodCategoryListSize]);
+    fetchFilteredData(
+      context.filterFoodCategoryData,
+      pageNumber,
+      foodCategoryListSize
+    );
+  }, [
+    context.filterFoodCategoryData,
+    pageNumber,
+    foodCategoryListSize,
+    isDatabaseConnected,
+  ]);
 
   return (
     <div
@@ -127,7 +146,11 @@ const FoodCategoryList = () => {
             }}
           >
             {isLoading ? (
-              <CircularProgress />
+              isDatabaseConnected ? (
+                <CircularProgress />
+              ) : (
+                <div>Server Error</div>
+              )
             ) : (
               <DataGrid
                 rows={foodCategoryList}

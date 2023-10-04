@@ -14,6 +14,7 @@ const FoodForm = () => {
   const [nameError, setNameError] = useState(false);
   const [caloriesError, setCaloriesError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   const errorHandler = () => {
     let errorCounter = 0;
@@ -44,6 +45,34 @@ const FoodForm = () => {
     }
   };
 
+  const fetchData = async (dataJSON) => {
+    const url = "http://localhost:8080/food/add";
+
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
+        toast.error("Server Error", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      });
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -58,30 +87,18 @@ const FoodForm = () => {
 
       const dataJSON = JSON.stringify(data);
 
-      const url = "http://localhost:8080/food/add";
-
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: dataJSON,
-      })
-        .then((response) => {
-          return response.text();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      fetchData(dataJSON);
 
       nameRef.current.value = "";
       caloriesRef.current.value = "";
       setCategory(null);
-      toast.success("Data is added correctly!", {
-        position: "bottom-left",
-        draggable: true,
-        pauseOnHover: false,
-      });
+      if (isDatabaseConnected) {
+        toast.success("Data is added correctly!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      }
     }
   };
 
@@ -98,8 +115,12 @@ const FoodForm = () => {
       })
       .then((data) => {
         setDatabaseCategories(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
-  }, []);
+  }, [isDatabaseConnected]);
 
   return (
     <Box
@@ -160,11 +181,7 @@ const FoodForm = () => {
       <div
         style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
       >
-        <ButtonUI
-            name="Add"
-            variant="contained"
-            type="submit"
-          />
+        <ButtonUI name="Add" variant="contained" type="submit" />
       </div>
     </Box>
   );

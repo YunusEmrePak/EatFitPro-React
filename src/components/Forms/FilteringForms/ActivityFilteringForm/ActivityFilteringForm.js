@@ -1,7 +1,13 @@
 import { useContext, useRef, useState, useEffect } from "react";
 import EatFitProContext from "../../../../store/context";
 
-import { Box, TextField, Slider, Typography, Autocomplete } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Slider,
+  Typography,
+  Autocomplete,
+} from "@mui/material";
 
 import ButtonUI from "../../../UI/Button/Button";
 
@@ -9,6 +15,7 @@ const ActivityFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
   const [category, setCategory] = useState(null);
   const [databaseCategories, setDatabaseCategories] = useState([]);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   const nameRef = useRef(null);
 
@@ -27,9 +34,9 @@ const ActivityFilteringForm = (props) => {
     props.setPageNumber(1);
   };
 
-  useEffect(() => {
+  const fetchData = async () => {
     const url = "http://localhost:8080/activityCategory/get/all";
-    fetch(url, {
+    await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,8 +47,17 @@ const ActivityFilteringForm = (props) => {
       })
       .then((data) => {
         setDatabaseCategories(data);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [isDatabaseConnected]);
 
   return (
     <Box
@@ -77,7 +93,7 @@ const ActivityFilteringForm = (props) => {
               valueLabelDisplay="auto"
               min={0}
               max={3000}
-              style={{width: "170px" }}
+              style={{ width: "170px" }}
             />
           </div>
           <Autocomplete

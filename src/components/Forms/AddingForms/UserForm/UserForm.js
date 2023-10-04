@@ -18,6 +18,7 @@ const UserForm = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [lengthError, setLengthError] = useState(false);
   const [weightError, setWeightError] = useState(false);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   const errorHandler = () => {
     let errorCounter = 0;
@@ -68,8 +69,36 @@ const UserForm = () => {
     }
   };
 
+  const fetchData = async (dataJSON) => {
+    const url = "http://localhost:8080/user/add";
+
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
+        toast.error("Server Error", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      });
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log(isDatabaseConnected);
 
     if (!errorHandler()) {
       const data = {
@@ -83,21 +112,7 @@ const UserForm = () => {
 
       const dataJSON = JSON.stringify(data);
 
-      const url = "http://localhost:8080/user/add";
-
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: dataJSON,
-      })
-        .then((response) => {
-          return response.text();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      fetchData(dataJSON);
 
       nameRef.current.value = "";
       surnameRef.current.value = "";
@@ -106,11 +121,13 @@ const UserForm = () => {
       lengthRef.current.value = "";
       weightRef.current.value = "";
 
-      toast.success("Data is added correctly!", {
-        position: "bottom-left",
-        draggable: true,
-        pauseOnHover: false,
-      });
+      if (isDatabaseConnected) {
+        toast.success("Data is added correctly!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      }
     }
   };
 
@@ -191,7 +208,7 @@ const UserForm = () => {
           type="number"
           inputProps={{
             maxLength: 13,
-            step: "1"
+            step: "1",
           }}
           inputRef={weightRef}
           error={weightError ? true : false}

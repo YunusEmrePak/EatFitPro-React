@@ -9,6 +9,7 @@ const FoodFilteringForm = (props) => {
   const context = useContext(EatFitProContext);
   const [category, setCategory] = useState(null);
   const [databaseCategories, setDatabaseCategories] = useState([]);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
 
   const nameRef = useRef(null);
 
@@ -27,9 +28,9 @@ const FoodFilteringForm = (props) => {
     props.setPageNumber(1);
   };
 
-  useEffect(() => {
+  const fetchData = async () => {
     const url = "http://localhost:8080/foodCategory/get/all";
-    fetch(url, {
+    await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,8 +41,17 @@ const FoodFilteringForm = (props) => {
       })
       .then((data) => {
         setDatabaseCategories(data);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
       });
-  }, []);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [isDatabaseConnected]);
 
   return (
     <Box

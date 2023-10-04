@@ -8,6 +8,35 @@ const ActivityCategoryForm = () => {
   const nameRef = useRef();
 
   const [nameError, setNameError] = useState(false);
+  const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
+
+  const fetchData = async (dataJSON) => {
+    const url = "http://localhost:8080/activityCategory/add";
+
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+        setIsDatabaseConnected(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsDatabaseConnected(false);
+        toast.error("Server Error", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      });
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -27,28 +56,17 @@ const ActivityCategoryForm = () => {
 
       const dataJSON = JSON.stringify(data);
 
-      const url = "http://localhost:8080/activityCategory/add";
-
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: dataJSON,
-      })
-        .then((response) => {
-          return response.text();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      fetchData(dataJSON);
 
       nameRef.current.value = "";
-      toast.success("Data is added correctly!", {
-        position: "bottom-left",
-        draggable: true,
-        pauseOnHover: false,
-      });
+
+      if (isDatabaseConnected) {
+        toast.success("Data is added correctly!", {
+          position: "bottom-left",
+          draggable: true,
+          pauseOnHover: false,
+        });
+      }
     }
   };
 
