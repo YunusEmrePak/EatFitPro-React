@@ -11,8 +11,8 @@ const AddingFormController = () => {
   const buttons = [
     {
       name: "User",
-      variant: context.userFormVisible,
-      click: context.showUserForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -20,8 +20,8 @@ const AddingFormController = () => {
     },
     {
       name: "Food",
-      variant: context.foodFormVisible,
-      click: context.showFoodForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -29,8 +29,8 @@ const AddingFormController = () => {
     },
     {
       name: "Food Category",
-      variant: context.foodCategoryFormVisible,
-      click: context.showFoodCategoryForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -38,8 +38,8 @@ const AddingFormController = () => {
     },
     {
       name: "Activity",
-      variant: context.activityFormVisible,
-      click: context.showActivityForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -47,8 +47,8 @@ const AddingFormController = () => {
     },
     {
       name: "Activity Category",
-      variant: context.activityCategoryFormVisible,
-      click: context.showActivityCategoryForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -56,8 +56,8 @@ const AddingFormController = () => {
     },
     {
       name: "Food And Activity Assignment",
-      variant: context.foodAndActivityAssignmentFormVisible,
-      click: context.showFoodAndActivityAssignmentForm,
+      click: context.changeFormPage,
+      variant: "Form",
       style: {
         color: "#084392",
         backgroundColor: "#084392",

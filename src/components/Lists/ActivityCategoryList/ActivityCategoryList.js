@@ -68,7 +68,11 @@ const ActivityCategoryList = () => {
         return response.text();
       })
       .then((data) => {
-        fetchFilteredData();
+        fetchFilteredData(
+          context.filterActivityCategoryData,
+          pageNumber,
+          activityCategoryListSize
+        );
         console.log(data);
         checkDelete(data, "Activity category");
       });

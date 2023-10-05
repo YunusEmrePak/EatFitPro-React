@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from "@mui/material";
 import React, { useContext } from "react";
 import EatFitProContext from "../../store/context";
@@ -18,12 +18,12 @@ const DialogUI = (props) => {
       disablePortal
     >
       <DialogTitle
-        style={{ height: "10vh", fontWeight: "bold", fontSize: "1.7vw" }}
+        style={{ height: "12vh", fontWeight: "bold", fontSize: "1.7vw" }}
       >
         Delete
       </DialogTitle>
       <DialogContent
-        style={{ height: "7vh", fontWeight: "bold", fontSize: "1vw" }}
+        style={{ height: "9vh", fontWeight: "bold", fontSize: "1vw" }}
       >
         Are you sure you want to delete this {props.name}?
       </DialogContent>
@@ -31,10 +31,14 @@ const DialogUI = (props) => {
         <Button variant="contained" onClick={context.closeDeleteDialog}>
           No
         </Button>
-        <Button variant="contained" color="error" onClick={() => {
-          props.deleteHandler();
-          context.setIsClickedDeleteButton(false);
-        }}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => {
+            props.deleteHandler();
+            context.setIsClickedDeleteButton(false);
+          }}
+        >
           Yes
         </Button>
       </DialogActions>

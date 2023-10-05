@@ -11,8 +11,8 @@ const ListingController = () => {
   const buttons = [
     {
       name: "User",
-      variant: context.userListVisible,
-      click: context.showUserList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -20,8 +20,8 @@ const ListingController = () => {
     },
     {
       name: "Food",
-      variant: context.foodListVisible,
-      click: context.showFoodList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -29,8 +29,8 @@ const ListingController = () => {
     },
     {
       name: "Food Category",
-      variant: context.foodCategoryListVisible,
-      click: context.showFoodCategoryList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -38,8 +38,8 @@ const ListingController = () => {
     },
     {
       name: "Activity",
-      variant: context.activityListVisible,
-      click: context.showActivityList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -47,8 +47,8 @@ const ListingController = () => {
     },
     {
       name: "Activity Category",
-      variant: context.activityCategoryListVisible,
-      click: context.showActivityCategoryList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",
@@ -56,8 +56,8 @@ const ListingController = () => {
     },
     {
       name: "Food And Activity Assignment",
-      variant: context.foodAndActivityAssignmentListVisible,
-      click: context.showFoodAndActivityAssignmentList,
+      variant: "List",
+      click: context.changeListPage,
       style: {
         color: "#084392",
         backgroundColor: "#084392",

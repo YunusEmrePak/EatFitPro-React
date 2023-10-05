@@ -83,7 +83,7 @@ const ActivityList = () => {
         return response.text();
       })
       .then((data) => {
-        fetchFilteredData();
+        fetchFilteredData(context.filterActivityData, pageNumber, activityListSize);
         console.log(data);
         checkDelete(data, "Activity");
       });

@@ -83,7 +83,7 @@ const FoodList = () => {
         return response.text();
       })
       .then((data) => {
-        fetchFilteredData();
+        fetchFilteredData(context.filterFoodData, pageNumber, foodListSize);
         console.log(data);
         checkDelete(data, "Food");
       });

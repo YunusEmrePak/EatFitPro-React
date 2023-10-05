@@ -4,7 +4,7 @@ import EatFitProContext from "../../../store/context";
 import { CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-// import checkDelete from "../../../utils/checkDelete";
+import checkDelete from "../../../utils/checkDelete";
 
 import DialogUI from "../../Dialog/DialogUI";
 import FoodAndActivityAssignmentFiltering from "../../Forms/FilteringForms/FoodAndActivityAssignmentFilteringForm/FoodAndActivityAssignmentFilteringForm";
@@ -12,7 +12,7 @@ import TablePagination from "../../Pagination/TablePagination";
 import SelectMenu from "../../SelectMenu/SelectMenu";
 import TableSize from "../../TableSize/TableSize";
 
-// import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const FoodAndActivityAssignmentList = () => {
   const context = useContext(EatFitProContext);
@@ -71,29 +71,50 @@ const FoodAndActivityAssignmentList = () => {
       sortable: false,
       filterable: false,
     },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 110,
+      sortable: false,
+      filterable: false,
+      renderCell: (value) => {
+        return (
+          <DeleteIcon
+            type="submit"
+            style={{ cursor: "pointer", color: "red" }}
+            onClick={() => {
+              context.openDeleteDialog(value);
+            }}
+          />
+        );
+      },
+    },
   ];
 
   const deleteHandler = () => {
-    // deleteFoodAndActivityAssignment(context.idOfDeletingItem);
+    deleteFoodAndActivityAssignment(context.idOfDeletingItem);
   };
 
-  // const deleteFoodAndActivityAssignment = (id) => {
-  //   const url = `http://localhost:8080/foodAndActivityAssignment/delete?id=${id}`;
-  //   fetch(url, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       return response.text();
-  //     })
-  //     .then((data) => {
-  //       fetchFilteredData();
-  //       // console.log(data);
-  //       checkDelete(data, "Food And Activity Assignment");
-  //     });
-  // };
+  const deleteFoodAndActivityAssignment = (id) => {
+    const url = `http://localhost:8080/foodAndActivityAssignment/delete?id=${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        fetchFilteredData(
+          context.filterFoodAndActivityAssignmentData,
+          pageNumber,
+          foodAndActivityAssignmentListSize
+        );
+        checkDelete(data, "Food And Activity Assignment");
+      });
+  };
 
   const fetchFilteredData = async (
     filterFoodAndActivityAssignmentData,
@@ -112,7 +133,6 @@ const FoodAndActivityAssignmentList = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.content);
         setIsLoading(false);
         setFoodAndActivityAssignmentList(data.content);
         setTotalPage(data.totalPages);

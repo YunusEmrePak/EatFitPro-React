@@ -18,7 +18,12 @@ const PageController = () => {
   return (
     <div className={styles.pageControllerContainer}>
       <ListItem disablePadding className={styles.hover}>
-        <ListItemButton onClick={context.showMainPage}>
+        <ListItemButton
+          onClick={() => {
+            context.changePage("Main");
+            context.setPageName("Main Page");
+          }}
+        >
           <ListItemIcon>
             <HomeIcon fontSize="large" style={{ color: "white" }} />
           </ListItemIcon>
@@ -32,7 +37,12 @@ const PageController = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding className={styles.hover}>
-        <ListItemButton onClick={context.showAddingPage}>
+        <ListItemButton
+          onClick={() => {
+            context.changePage("Adding");
+            context.setPageName("Adding Page");
+          }}
+        >
           <ListItemIcon>
             <AddIcon fontSize="large" style={{ color: "white" }} />
           </ListItemIcon>
@@ -46,7 +56,12 @@ const PageController = () => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding className={styles.hover}>
-        <ListItemButton onClick={context.showListingPage}>
+        <ListItemButton
+          onClick={() => {
+            context.changePage("Listing");
+            context.setPageName("Listing Page");
+          }}
+        >
           <ListItemIcon>
             <ListIcon fontSize="large" style={{ color: "white" }} />
           </ListItemIcon>

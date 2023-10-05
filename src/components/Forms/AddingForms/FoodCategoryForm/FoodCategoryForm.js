@@ -41,6 +41,7 @@ const FoodCategoryForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    
     if (nameRef.current.value.trim().length === 0) {
       toast.error("All fields must be filled!", {
         position: "bottom-left",
@@ -53,10 +54,11 @@ const FoodCategoryForm = () => {
       const data = {
         name: nameRef.current.value,
       };
-
+      
       const dataJSON = JSON.stringify(data);
-
+      
       fetchData(dataJSON);
+      console.log(isDatabaseConnected)
 
       nameRef.current.value = "";
 

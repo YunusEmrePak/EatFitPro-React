@@ -1,17 +1,38 @@
+import { useContext } from "react";
+import EatFitProContext from "../../../store/context";
 import { Button } from "@mui/material";
 
 const ButtonUI = (props) => {
+  const context = useContext(EatFitProContext);
   const color = "#084392";
   const backgroundColor = "#084392";
+  const controller = props.variant;
   return (
     <Button
-      variant={props.variant ? "contained" : "outlined"}
-      onClick={props.onClick}
+      variant="contained"
+      onClick={() => {
+        (controller === "Form" || controller === "List") &&
+          props.onClick(props.name);
+      }}
       style={{
-        backgroundColor: props.variant ? backgroundColor : "#fff",
-        color: !props.variant ? color : "#fff",
+        backgroundColor:
+          (controller === "Form"
+            ? context.currentFormPage
+            : context.currentListPage) === props.name ||
+          controller === "contained"
+            ? backgroundColor
+            : "#fff",
+        color: !(
+          (controller === "Form"
+            ? context.currentFormPage
+            : context.currentListPage) === props.name ||
+          controller === "contained"
+        )
+          ? color
+          : "#fff",
         fontSize: props.fontSize,
-        width: props.width
+        width: props.width,
+        // border: ".5px solid #084392"
       }}
       type={props.type}
     >

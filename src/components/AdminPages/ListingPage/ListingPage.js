@@ -15,12 +15,12 @@ const ListingPage = () => {
   return (
     <div className={styles.listingPage}>
       <div className={styles.listContainer}>
-        {(context.userListVisible && <UserList />) ||
-          (context.foodListVisible && <FoodList />) ||
-          (context.foodCategoryListVisible && <FoodCategoryList />) ||
-          (context.activityListVisible && <ActivityList />) ||
-          (context.activityCategoryListVisible && <ActivityCategoryList />) ||
-          (context.foodAndActivityAssignmentListVisible && (
+        {(context.currentListPage === "User" && <UserList />) ||
+          (context.currentListPage === "Food" && <FoodList />) ||
+          (context.currentListPage === "Food Category" && <FoodCategoryList />) ||
+          (context.currentListPage === "Activity" && <ActivityList />) ||
+          (context.currentListPage === "Activity Category" && <ActivityCategoryList />) ||
+          (context.currentListPage === "Food And Activity Assignment" && (
             <FoodAndActivityAssignmentList />
           ))}
       </div>

@@ -68,7 +68,11 @@ const FoodCategoryList = () => {
         return response.text();
       })
       .then((data) => {
-        fetchFilteredData();
+        fetchFilteredData(
+          context.filterFoodCategoryData,
+          pageNumber,
+          foodCategoryListSize
+        );
         console.log(data);
         checkDelete(data, "Food Category");
       });

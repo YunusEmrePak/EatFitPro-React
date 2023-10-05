@@ -96,7 +96,7 @@ const UserList = () => {
         return response.text();
       })
       .then((data) => {
-        fetchFilteredData();
+        fetchFilteredData(context.filterUserData, pageNumber, userListSize);
         console.log(data);
         checkDelete(data, "User");
       });

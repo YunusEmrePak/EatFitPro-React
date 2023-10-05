@@ -14,12 +14,12 @@ const AddingPage = () => {
 
   return (
     <div className={styles.addingPage}>
-      {(context.userFormVisible && <UserForm />) ||
-        (context.foodFormVisible && <FoodForm />) ||
-        (context.foodCategoryFormVisible && <FoodCategoryForm />) ||
-        (context.activityFormVisible && <ActivityForm />) ||
-        (context.activityCategoryFormVisible && <ActivityCategoryForm />) ||
-        (context.foodAndActivityAssignmentFormVisible && (
+      {(context.currentFormPage === "User" && <UserForm />) ||
+        (context.currentFormPage === "Food" && <FoodForm />) ||
+        (context.currentFormPage === "Food Category" && <FoodCategoryForm />) ||
+        (context.currentFormPage === "Activity" && <ActivityForm />) ||
+        (context.currentFormPage === "Activity Category" && <ActivityCategoryForm />) ||
+        (context.currentFormPage === "Food And Activity Assignment" && (
           <FoodAndActivityAssignmentForm />
         ))}
     </div>

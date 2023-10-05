@@ -113,13 +113,13 @@ const AdminPanel = () => {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3, marginTop: 8 }}
       >
         <Toolbar>
-          {(context.addingPageVisible && <AddingFormController />) ||
-            (context.listingPageVisible && <ListingController />)}
+          {(context.currentPage === "Adding" && <AddingFormController />) ||
+            (context.currentPage === "Listing" && <ListingController />)}
         </Toolbar>
         <Toolbar>
-          {(context.mainPageVisible && <MainPage />) ||
-            (context.addingPageVisible && <AddingPage />) ||
-            (context.listingPageVisible && <ListingPage />)}
+          {(context.currentPage === "Main" && <MainPage />) ||
+            (context.currentPage === "Adding" && <AddingPage />) ||
+            (context.currentPage === "Listing" && <ListingPage />)}
         </Toolbar>
       </Box>
     </Box>
