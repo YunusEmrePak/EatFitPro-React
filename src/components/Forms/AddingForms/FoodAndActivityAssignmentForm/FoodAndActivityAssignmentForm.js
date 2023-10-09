@@ -11,7 +11,7 @@ const FoodAndActivityAssignmentForm = () => {
   const [databaseActivityNames, setDatabaseActivityNames] = useState([]);
   const [activityNames, setActivityNames] = useState([]);
 
-  // const nameRef = useRef(null);
+  const emailRef = useRef(null);
   const dateRef = useRef();
 
   const fetchData = async (dataJSON) => {
@@ -35,19 +35,38 @@ const FoodAndActivityAssignmentForm = () => {
       });
   };
 
-  const getUsers = () => {
-    const url = "http://localhost:8080/user/get/all";
-    fetch(url, {
-      method: "GET",
+  // const getUsersByEmail = async (email) => {
+  //   const url = `http://localhost:8080/user/getByEmail?email=${email}`;
+  //   await fetch(url, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setDatabaseUsers([data]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  const getFilteredUsers = async (filterUserData) => {
+    const url = "http://localhost:8080/user/get/filtered?page=0&size=20";
+    await fetch(url, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(filterUserData),
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        setDatabaseUsers(data);
+        setDatabaseUsers(data.content);
+        console.log(data.content);
       })
       .catch((error) => {
         console.log(error);
@@ -93,7 +112,6 @@ const FoodAndActivityAssignmentForm = () => {
   };
 
   useEffect(() => {
-    getUsers();
     getFoodNames();
     getActivityNames();
   }, [foodNames]);
@@ -128,84 +146,118 @@ const FoodAndActivityAssignmentForm = () => {
     const dataJSON = JSON.stringify(data);
 
     fetchData(dataJSON);
+  };
 
-    console.log(data);
+  const submitHandlerOfUserName = (event) => {
+    event.preventDefault();
+
+    // getUsersByEmail(emailRef.current.value);
+
+    const data = {
+      name: null,
+      surname: null,
+      email: emailRef.current.value,
+      length: null,
+      weight: null,
+    };
+    getFilteredUsers(data);
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "20ch" },
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={submitHandler}
-    >
-      <div>
-        {/* <TextField label="Name" size="small" inputRef={nameRef} /> */}
-        <Autocomplete
-          options={databaseUsers}
-          getOptionLabel={(option) => option.name + " " + option.surname}
-          label="Users"
-          clearOnBlur
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Users"
-              style={{ width: "41.8ch" }}
-            />
-          )}
-          onChange={(event, value) => {
-            setUsers(value.id);
-          }}
-        />
-        <Autocomplete
-          multiple
-          options={databaseFoodNames}
-          getOptionLabel={(option) => option.name}
-          clearOnBlur
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Food Names"
-              style={{ width: "41.8ch" }}
-            />
-          )}
-          onChange={(event, value) => {
-            setFoodNames(value);
-          }}
-        />
-        <Autocomplete
-          multiple
-          options={databaseActivityNames}
-          getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          clearOnBlur
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Activity Names"
-              style={{ width: "41.8ch" }}
-            />
-          )}
-          onChange={(event, value) => {
-            setActivityNames(value);
-          }}
-        />
-        <TextField size="small" inputRef={dateRef} type="date" />
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "flex-end", width: "42.8ch" }}
+    <div>
+      <Box
+        component="form"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={submitHandlerOfUserName}
       >
-        <ButtonUI name="Add" variant="contained" type="submit" />
-      </div>
-    </Box>
+        <TextField label="Email" size="small" inputRef={emailRef} />
+        <ButtonUI name="Filter" type="submit" variant="contained" />
+      </Box>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "20ch" },
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={submitHandler}
+      >
+        <div>
+          <Autocomplete
+            options={databaseUsers}
+            getOptionLabel={(option) =>
+              databaseUsers && option.name + " " + option.surname
+            }
+            label="Users"
+            clearOnBlur
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Users"
+                style={{ width: "41.8ch" }}
+              />
+            )}
+            onChange={(event, value) => {
+              setUsers(value.id);
+            }}
+          />
+          <Autocomplete
+            multiple
+            options={databaseFoodNames}
+            getOptionLabel={(option) => option.name}
+            clearOnBlur
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Food Names"
+                style={{ width: "41.8ch" }}
+              />
+            )}
+            onChange={(event, value) => {
+              setFoodNames(value);
+            }}
+          />
+          <Autocomplete
+            multiple
+            options={databaseActivityNames}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            clearOnBlur
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Activity Names"
+                style={{ width: "41.8ch" }}
+              />
+            )}
+            onChange={(event, value) => {
+              setActivityNames(value);
+            }}
+          />
+          <TextField size="small" inputRef={dateRef} type="date" />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "42.8ch",
+          }}
+        >
+          <ButtonUI name="Add" variant="contained" type="submit" />
+        </div>
+      </Box>
+    </div>
   );
 };
 

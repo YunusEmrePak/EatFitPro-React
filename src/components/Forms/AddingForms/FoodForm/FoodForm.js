@@ -115,6 +115,7 @@ const FoodForm = () => {
       })
       .then((data) => {
         setDatabaseCategories(data);
+        console.log(data)
       })
       .catch((error) => {
         console.log(error);

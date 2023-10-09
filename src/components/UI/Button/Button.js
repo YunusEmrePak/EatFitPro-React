@@ -32,7 +32,6 @@ const ButtonUI = (props) => {
           : "#fff",
         fontSize: props.fontSize,
         width: props.width,
-        // border: ".5px solid #084392"
       }}
       type={props.type}
     >
