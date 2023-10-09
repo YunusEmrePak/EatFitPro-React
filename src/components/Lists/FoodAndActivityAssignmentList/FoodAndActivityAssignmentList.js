@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import EatFitProContext from "../../../store/context";
+import uuid from "react-uuid";
 
 import { CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
@@ -23,6 +24,7 @@ const FoodAndActivityAssignmentList = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [isDatabaseConnected, setIsDatabaseConnected] = useState(true);
+  const [foodAndActivityNames, setFoodAndActivityNames] = useState([]);
 
   let foodAndActivityAssignmentListSize =
     context.foodAndActivityAssignmentListSize;
@@ -44,33 +46,33 @@ const FoodAndActivityAssignmentList = () => {
       filterable: false,
       valueGetter: (params) => params.row?.userDto?.surname,
     },
-    {
-      field: "foodDtoList",
-      headerName: "Food Name",
-      width: 170,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => (
-        <SelectMenu name="Food Name" data={params.row.foodDtoList} />
-      ),
-    },
-    {
-      field: "activityDtoList",
-      headerName: "Activity Name",
-      width: 170,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => (
-        <SelectMenu name="Activity Name" data={params.row.activityDtoList} />
-      ),
-    },
-    {
-      field: "date",
-      headerName: "Date",
-      width: 150,
-      sortable: false,
-      filterable: false,
-    },
+    // {
+    //   field: "foodDtoList",
+    //   headerName: "Food Name",
+    //   width: 170,
+    //   sortable: false,
+    //   filterable: false,
+    //   renderCell: (params) => (
+    //     <SelectMenu name="Food Name" data={params.row.foodDtoList} />
+    //   ),
+    // },
+    // {
+    //   field: "activityDtoList",
+    //   headerName: "Activity Name",
+    //   width: 170,
+    //   sortable: false,
+    //   filterable: false,
+    //   renderCell: (params) => (
+    //     <SelectMenu name="Activity Name" data={params.row.activityDtoList} />
+    //   ),
+    // },
+    // {
+    //   field: "date",
+    //   headerName: "Date",
+    //   width: 150,
+    //   sortable: false,
+    //   filterable: false,
+    // },
     {
       field: "edit",
       headerName: "Edit",
@@ -88,6 +90,25 @@ const FoodAndActivityAssignmentList = () => {
           />
         );
       },
+    },
+  ];
+
+  const foodAnaActivityColumns = [
+    {
+      field: "foodName",
+      headerName: "Food Name",
+      width: 170,
+      sortable: false,
+      filterable: false,
+      valueGetter: (params) => params.row?.foodName?.name,
+    },
+    {
+      field: "activityName",
+      headerName: "Activity Name",
+      width: 170,
+      sortable: false,
+      filterable: false,
+      valueGetter: (params) => params.row?.activityName?.name,
     },
   ];
 
@@ -144,6 +165,25 @@ const FoodAndActivityAssignmentList = () => {
       });
   };
 
+  const onRowSelect = (event) => {
+    let length =
+      event.row.foodDtoList.length > event.row.activityDtoList.length
+        ? event.row.foodDtoList.length
+        : event.row.activityDtoList.length;
+
+    let data = [];
+
+    for (let index = 0; index < length; index++) {
+      const element = event.row.foodDtoList[index];
+      data.push({
+        id: uuid(),
+        foodName: event.row.foodDtoList[index],
+        activityName: event.row.activityDtoList[index],
+      });
+    }
+    setFoodAndActivityNames(data);
+  };
+
   useEffect(() => {
     fetchFilteredData(
       context.filterFoodAndActivityAssignmentData,
@@ -186,7 +226,7 @@ const FoodAndActivityAssignmentList = () => {
         <div>
           <div
             style={{
-              width: 850,
+              width: 900,
               height: 318,
               display: "flex",
               justifyContent: "center",
@@ -204,15 +244,28 @@ const FoodAndActivityAssignmentList = () => {
                 rows={foodAndActivityAssignmentList}
                 columns={columns}
                 hideFooter
+                onRowClick={onRowSelect}
                 style={{
                   maxHeight: 318,
                   minHeight: 318,
-                  width: 850,
+                  width: 350,
                   marginTop: 10,
                 }}
               />
             )}
+            <DataGrid
+              rows={foodAndActivityNames}
+              columns={foodAnaActivityColumns}
+              hideFooter
+              style={{
+                maxHeight: 318,
+                minHeight: 318,
+                width: 350,
+                marginTop: 10,
+              }}
+            />
           </div>
+
           <TablePagination
             pageNumber={pageNumber}
             totalPage={totalPage}

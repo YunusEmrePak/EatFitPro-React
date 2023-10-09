@@ -8,9 +8,10 @@ const FoodAndActivityAssignmentForm = () => {
   const [users, setUsers] = useState([]);
   const [databaseFoodNames, setDatabaseFoodNames] = useState([]);
   const [foodNames, setFoodNames] = useState([]);
-  const [foodId, setFoodId] = useState([]);
   const [databaseActivityNames, setDatabaseActivityNames] = useState([]);
   const [activityNames, setActivityNames] = useState([]);
+
+  // const nameRef = useRef(null);
   const dateRef = useRef();
 
   const fetchData = async (dataJSON) => {
@@ -128,9 +129,7 @@ const FoodAndActivityAssignmentForm = () => {
 
     fetchData(dataJSON);
 
-    // console.log(dataJSON);
     console.log(data);
-    // console.log(foodNames)
   };
 
   return (
@@ -144,6 +143,7 @@ const FoodAndActivityAssignmentForm = () => {
       onSubmit={submitHandler}
     >
       <div>
+        {/* <TextField label="Name" size="small" inputRef={nameRef} /> */}
         <Autocomplete
           options={databaseUsers}
           getOptionLabel={(option) => option.name + " " + option.surname}
