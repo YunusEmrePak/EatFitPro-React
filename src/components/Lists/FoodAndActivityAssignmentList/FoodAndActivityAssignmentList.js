@@ -190,67 +190,87 @@ const FoodAndActivityAssignmentList = () => {
       <FoodAndActivityAssignmentFiltering setPageNumber={setPageNumber} />
       <div
         style={{
-          marginLeft: 30,
-          marginTop: -20,
           display: "flex",
-          alignItems: "flex-end",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
           flexDirection: "column",
+          marginLeft: 30,
+          marginTop: -25,
+          width: 550,
         }}
       >
-        <TableSize
-          setPageNumber={setPageNumber}
-          name="food and activity assignment"
-        />
-        <div>
-          <div
-            style={{
-              width: 1000,
-              height: 318,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {isLoading ? (
-              isDatabaseConnected ? (
-                <CircularProgress />
-              ) : (
-                <div>Server Error</div>
-              )
+        <header
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            width: 500,
+          }}
+        >
+          <TableSize
+            setPageNumber={setPageNumber}
+            name="food and activity assignment"
+          />
+        </header>
+        <main
+          style={{
+            width: 500,
+            height: 325,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          {isLoading ? (
+            isDatabaseConnected ? (
+              <CircularProgress />
             ) : (
-              <DataGrid
-                rows={foodAndActivityAssignmentList}
-                columns={columns}
-                hideFooter
-                onRowClick={onRowSelect}
-                style={{
-                  maxHeight: 318,
-                  minHeight: 318,
-                  width: 400,
-                  marginTop: 10,
-                }}
-              />
-            )}
+              <div>Server Error</div>
+            )
+          ) : (
             <DataGrid
-              rows={foodAndActivityNames}
-              columns={foodAnaActivityColumns}
+              rows={foodAndActivityAssignmentList}
+              columns={columns}
               hideFooter
+              onRowClick={onRowSelect}
               style={{
                 maxHeight: 318,
                 minHeight: 318,
-                width: 300,
+                width: 500,
                 marginTop: 10,
               }}
             />
-          </div>
-
+          )}
+        </main>
+        <footer
+          style={{
+            width: 500,
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
           <TablePagination
             pageNumber={pageNumber}
             totalPage={totalPage}
             setPageNumber={setPageNumber}
           />
-        </div>
+        </footer>
       </div>
+      <aside style={{ marginTop: 15 }}>
+        <DataGrid
+          rows={foodAndActivityNames}
+          columns={foodAnaActivityColumns}
+          hideFooter
+          style={{
+            maxHeight: 318,
+            minHeight: 318,
+            width: 400,
+            marginTop: 10,
+          }}
+        />
+      </aside>
     </div>
   );
 };
