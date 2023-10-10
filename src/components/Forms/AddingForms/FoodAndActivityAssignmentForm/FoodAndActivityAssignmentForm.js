@@ -171,12 +171,16 @@ const FoodAndActivityAssignmentForm = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          width: "42.8ch",
+        }}
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "20ch" },
         }}
         noValidate
         autoComplete="off"
         onSubmit={submitHandlerOfUserName}
       >
-        <TextField label="Email" size="small" inputRef={emailRef} />
+        <TextField label="Email" size="small" inputRef={emailRef} style={{ width: "30ch" }} />
         <ButtonUI name="Filter" type="submit" variant="contained" />
       </Box>
       <Box
@@ -200,7 +204,6 @@ const FoodAndActivityAssignmentForm = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
                 label="Users"
                 style={{ width: "41.8ch" }}
               />
@@ -218,7 +221,6 @@ const FoodAndActivityAssignmentForm = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
                 label="Food Names"
                 style={{ width: "41.8ch" }}
               />
@@ -236,7 +238,7 @@ const FoodAndActivityAssignmentForm = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
+                // variant="standard"
                 label="Activity Names"
                 style={{ width: "41.8ch" }}
               />
@@ -245,7 +247,12 @@ const FoodAndActivityAssignmentForm = () => {
               setActivityNames(value);
             }}
           />
-          <TextField size="small" inputRef={dateRef} type="date" />
+          <TextField
+            size="small"
+            inputRef={dateRef}
+            type="date"
+            style={{ width: "41.8ch" }}
+          />
         </div>
         <div
           style={{
