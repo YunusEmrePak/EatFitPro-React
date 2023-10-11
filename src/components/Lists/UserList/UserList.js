@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import checkDelete from "../../../utils/checkDelete";
+import { toast } from "react-toastify";
 
 import DeleteDialog from "../../Dialog/DeleteDialog";
 import UpdateDialog from "../../Dialog/UpdateDialog";
@@ -114,6 +115,15 @@ const UserList = () => {
       .then((data) => {
         console.log(data);
         fetchFilteredData(context.filterUserData, pageNumber, userListSize);
+        toast.success(
+          `${context.updatingItem.name}
+          ${context.updatingItem.surname}'s information is updated successfully!`,
+          {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          }
+        );
       })
       .catch((error) => {
         console.log(error);

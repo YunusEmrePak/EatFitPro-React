@@ -101,7 +101,12 @@ const UpdateDialog = (props) => {
         open={context.isClickedUpdateButton}
         disablePortal
       >
-        <DialogTitle>Information</DialogTitle>
+        <DialogTitle style={{ marginLeft: 10 }}>
+          {context.updatingItem.name +
+            " " +
+            context.updatingItem.surname +
+            "'s Information"  }
+        </DialogTitle>
         <DialogContent>
           <div>
             <TextField
