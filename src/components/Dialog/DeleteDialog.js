@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useContext } from "react";
 import EatFitProContext from "../../store/context";
-const DialogUI = (props) => {
+const DeleteDialog = (props) => {
   const context = useContext(EatFitProContext);
   return (
     <Dialog
@@ -46,4 +46,4 @@ const DialogUI = (props) => {
   );
 };
 
-export default DialogUI;
+export default DeleteDialog;

@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import checkDelete from "../../../utils/checkDelete";
 
-import DialogUI from "../../Dialog/DialogUI";
+import DeleteDialog from "../../Dialog/DeleteDialog";
 import ActivityFilteringForm from "../../Forms/FilteringForms/ActivityFilteringForm/ActivityFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
@@ -134,7 +134,7 @@ const ActivityList = () => {
         alignItems: "flex-start",
       }}
     >
-      <DialogUI deleteHandler={deleteHandler} name="activity" />
+      <DeleteDialog deleteHandler={deleteHandler} name="activity" />
       <ActivityFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{

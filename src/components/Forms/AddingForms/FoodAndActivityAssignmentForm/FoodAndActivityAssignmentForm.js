@@ -1,5 +1,6 @@
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
 
 import ButtonUI from "../../../UI/Button/Button";
 
@@ -118,34 +119,51 @@ const FoodAndActivityAssignmentForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    let foods = [
-      foodNames.map((value) => {
-        return {
-          id: value.id,
-        };
-      }),
-    ];
 
-    let activities = [
-      activityNames.map((value) => {
-        return {
-          id: value.id,
-        };
-      }),
-    ];
+    console.log(dateRef.current.value);
 
-    const data = {
-      user: {
-        id: users,
-      },
-      foodList: foods[0],
-      activityList: activities[0],
-      date: dateRef ? dateRef.current.value : null,
-    };
+    if (users.length === undefined && dateRef.current.value !== "") {
+      let foods = [
+        foodNames.map((value) => {
+          return {
+            id: value.id,
+          };
+        }),
+      ];
 
-    const dataJSON = JSON.stringify(data);
+      let activities = [
+        activityNames.map((value) => {
+          return {
+            id: value.id,
+          };
+        }),
+      ];
 
-    fetchData(dataJSON);
+      const data = {
+        user: {
+          id: users,
+        },
+        foodList: foods[0],
+        activityList: activities[0],
+        date: dateRef ? dateRef.current.value : null,
+      };
+
+      const dataJSON = JSON.stringify(data);
+
+      fetchData(dataJSON);
+
+      toast.success("Data is added correctly!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
+      });
+    } else {
+      toast.error("Data couldn't added!", {
+        position: "bottom-left",
+        draggable: true,
+        pauseOnHover: false,
+      });
+    }
   };
 
   const submitHandlerOfUserName = (event) => {
@@ -180,7 +198,12 @@ const FoodAndActivityAssignmentForm = () => {
         autoComplete="off"
         onSubmit={submitHandlerOfUserName}
       >
-        <TextField label="Email" size="small" inputRef={emailRef} style={{ width: "30ch" }} />
+        <TextField
+          label="Email"
+          size="small"
+          inputRef={emailRef}
+          style={{ width: "30ch" }}
+        />
         <ButtonUI name="Filter" type="submit" variant="contained" />
       </Box>
       <Box

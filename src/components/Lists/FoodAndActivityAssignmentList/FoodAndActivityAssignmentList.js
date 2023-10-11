@@ -7,7 +7,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import checkDelete from "../../../utils/checkDelete";
 
-import DialogUI from "../../Dialog/DialogUI";
+import DeleteDialog from "../../Dialog/DeleteDialog";
 import FoodAndActivityAssignmentFiltering from "../../Forms/FilteringForms/FoodAndActivityAssignmentFilteringForm/FoodAndActivityAssignmentFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
@@ -183,7 +183,7 @@ const FoodAndActivityAssignmentList = () => {
         alignItems: "flex-start",
       }}
     >
-      <DialogUI
+      <DeleteDialog
         deleteHandler={deleteHandler}
         name="food and activity assignment"
       />

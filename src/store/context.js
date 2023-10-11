@@ -40,7 +40,12 @@ const EatFitProContext = React.createContext({
   pageName: "",
   idOfDeletingItem: 0,
   isClickedDeleteButton: false,
+  idOfUpdatingItem: 0,
+  isClickedUpdateButton: false,
   isDatabaseConnected: false,
+
+  updatingItem: {},
+  updatedItem: {},
 
   filterUserData: [],
   filterFoodData: [],
@@ -64,9 +69,15 @@ const EatFitProContext = React.createContext({
 
   openDeleteDialog: () => {},
   closeDeleteDialog: () => {},
+  openUpdateDialog: () => {},
+  closeUpdateDialog: () => {},
   setIsDatabaseConnected: () => {},
 
   setIsClickedDeleteButton: () => {},
+  setIsClickedUpdateButton: () => {},
+
+  setUpdatingItem: () => {},
+  setUpdatedItem: () => {},
 
   changePage: () => {},
   changeFormPage: () => {},
@@ -90,7 +101,11 @@ const EatFitProContext = React.createContext({
 export const EatFitProContextProvider = (props) => {
   const [pageName, setPageName] = useState("Main Page");
   const [isClickedDeleteButton, setIsClickedDeleteButton] = useState(false);
+  const [isClickedUpdateButton, setIsClickedUpdateButton] = useState(false);
   const [idOfDeletingItem, setIdOfDeletingItem] = useState(0);
+  const [idOfUpdatingItem, setIdOfUpdatingItem] = useState(0);
+  const [updatingItem, setUpdatingItem] = useState({});
+  const [updatedItem, setUpdatedItem] = useState({});
 
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);
@@ -145,13 +160,27 @@ export const EatFitProContextProvider = (props) => {
     setIsClickedDeleteButton(false);
   };
 
+  const openUpdateDialog = (value) => {
+    setIdOfUpdatingItem(value.id);
+    setIsClickedUpdateButton(true);
+  };
+
+  const closeUpdateDialog = () => {
+    setIsClickedUpdateButton(false);
+  };
+
   return (
     <EatFitProContext.Provider
       value={{
         pageName: pageName,
         isClickedDeleteButton: isClickedDeleteButton,
         idOfDeletingItem: idOfDeletingItem,
+        isClickedUpdateButton: isClickedUpdateButton,
+        idOfUpdatingItem: idOfUpdatingItem,
         isDatabaseConnected: isDatabaseConnected,
+
+        updatingItem: updatingItem,
+        updatedItem: updatedItem,
 
         filterUserData: filterUserData,
         filterFoodData: filterFoodData,
@@ -180,9 +209,17 @@ export const EatFitProContextProvider = (props) => {
 
         openDeleteDialog: openDeleteDialog,
         closeDeleteDialog: closeDeleteDialog,
+
+        openUpdateDialog: openUpdateDialog,
+        closeUpdateDialog: closeUpdateDialog,
+
         setIsDatabaseConnected: setIsDatabaseConnected,
 
+        setUpdatingItem: setUpdatingItem,
+        setUpdatedItem: setUpdatedItem,
+
         setIsClickedDeleteButton: setIsClickedDeleteButton,
+        setIsClickedUpdateButton: setIsClickedUpdateButton,
 
         setFilterUserData: setFilterUserData,
         setFilterFoodData: setFilterFoodData,

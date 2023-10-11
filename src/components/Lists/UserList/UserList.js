@@ -6,12 +6,14 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import checkDelete from "../../../utils/checkDelete";
 
-import DialogUI from "../../Dialog/DialogUI";
+import DeleteDialog from "../../Dialog/DeleteDialog";
+import UpdateDialog from "../../Dialog/UpdateDialog";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const UserList = () => {
   const context = useContext(EatFitProContext);
@@ -68,17 +70,55 @@ const UserList = () => {
       filterable: false,
       renderCell: (value) => {
         return (
-          <DeleteIcon
-            type="submit"
-            style={{ cursor: "pointer", color: "red" }}
-            onClick={() => {
-              context.openDeleteDialog(value);
-            }}
-          />
+          <div>
+            <DeleteIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "red", marginRight: 10 }}
+              onClick={() => {
+                context.openDeleteDialog(value);
+              }}
+            />
+            <EditIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "blueviolet" }}
+              onClick={() => {
+                context.openUpdateDialog(value, value.id);
+                context.setUpdatingItem(value.row);
+              }}
+            />
+          </div>
         );
       },
     },
   ];
+
+  const updateHandler = (value) => {
+    updateUser(value);
+  };
+
+  const updateUser = async (value, id) => {
+    const url = `http://localhost:8080/user/update?id=${context.idOfUpdatingItem}`;
+
+    const dataJSON = JSON.stringify(value);
+
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+        fetchFilteredData(context.filterUserData, pageNumber, userListSize);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const deleteHandler = () => {
     deleteUser(context.idOfDeletingItem);
@@ -142,7 +182,8 @@ const UserList = () => {
         alignItems: "flex-start",
       }}
     >
-      <DialogUI deleteHandler={deleteHandler} name="user" />
+      <DeleteDialog deleteHandler={deleteHandler} name="user" />
+      <UpdateDialog updateHandler={updateHandler} name="user" />
       <UserFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
