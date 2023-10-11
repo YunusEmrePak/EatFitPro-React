@@ -9,48 +9,37 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import EatFitProContext from "../../store/context";
-const UpdateDialog = (props) => {
+const UpdateUser = (props) => {
   const context = useContext(EatFitProContext);
   const nameRef = useRef();
   const surnameRef = useRef();
   const emailRef = useRef();
   const lengthRef = useRef();
   const weightRef = useRef();
-
-  const [nameError, setNameError] = useState(false);
-  const [surnameError, setSurnameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [lengthError, setLengthError] = useState(false);
-  const [weightError, setWeightError] = useState(false);
-
+  
   const errorHandler = () => {
     let errorCounter = 0;
     if (
       nameRef.current.value.trim().length === 0 ||
       !/^[A-Za-z]+$/.test(nameRef.current.value)
     ) {
-      setNameError(true);
       errorCounter += 1;
     }
     if (
       surnameRef.current.value.trim().length === 0 ||
       !/^[A-Za-z]+$/.test(surnameRef.current.value)
     ) {
-      setSurnameError(true);
       errorCounter += 1;
     }
     if (emailRef.current.value.trim().length === 0) {
-      setEmailError(true);
       errorCounter += 1;
     }
     if (lengthRef.current.value.trim().length === 0) {
-      setLengthError(true);
       errorCounter += 1;
     }
     if (weightRef.current.value.trim().length === 0) {
-      setWeightError(true);
       errorCounter += 1;
     }
     if (errorCounter !== 0) {
@@ -72,16 +61,17 @@ const UpdateDialog = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    const data = {
-      name: nameRef.current.value,
-      surname: surnameRef.current.value,
-      email: emailRef.current.value,
-      length: lengthRef.current.value,
-      weight: weightRef.current.value,
-    };
-    props.updateHandler(data);
-    context.setUpdatedItem(data);
+    if (!errorHandler()) {
+      const data = {
+        name: nameRef.current.value,
+        surname: surnameRef.current.value,
+        email: emailRef.current.value,
+        length: lengthRef.current.value,
+        weight: weightRef.current.value,
+      };
+      props.updateHandler(data);
+      context.setUpdatedItem(data);
+    }
   };
 
   return (
@@ -105,7 +95,7 @@ const UpdateDialog = (props) => {
           {context.updatingItem.name +
             " " +
             context.updatingItem.surname +
-            "'s Information"  }
+            "'s Information"}
         </DialogTitle>
         <DialogContent>
           <div>
@@ -115,12 +105,8 @@ const UpdateDialog = (props) => {
               type="text"
               defaultValue={context.updatingItem.name}
               inputRef={nameRef}
-              error={nameError ? true : false}
               inputProps={{
                 pattern: "[A-Za-z]+",
-              }}
-              onChange={() => {
-                setNameError(false);
               }}
             />
             <TextField
@@ -128,10 +114,6 @@ const UpdateDialog = (props) => {
               size="small"
               defaultValue={context.updatingItem.surname}
               inputRef={surnameRef}
-              error={surnameError ? true : false}
-              onChange={() => {
-                setSurnameError(false);
-              }}
             />
           </div>
           <div>
@@ -142,10 +124,6 @@ const UpdateDialog = (props) => {
               type="email"
               defaultValue={context.updatingItem.email}
               inputRef={emailRef}
-              error={emailError ? true : false}
-              onChange={() => {
-                setEmailError(false);
-              }}
             />
           </div>
           <div>
@@ -155,10 +133,6 @@ const UpdateDialog = (props) => {
               type="number"
               defaultValue={context.updatingItem.length}
               inputRef={lengthRef}
-              error={lengthError ? true : false}
-              onChange={() => {
-                setLengthError(false);
-              }}
             />
             <TextField
               label="Weight"
@@ -170,10 +144,6 @@ const UpdateDialog = (props) => {
                 step: "1",
               }}
               inputRef={weightRef}
-              error={weightError ? true : false}
-              onChange={() => {
-                setWeightError(false);
-              }}
             />
           </div>
         </DialogContent>
@@ -197,4 +167,4 @@ const UpdateDialog = (props) => {
   );
 };
 
-export default UpdateDialog;
+export default UpdateUser;

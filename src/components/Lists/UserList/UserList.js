@@ -8,7 +8,7 @@ import checkDelete from "../../../utils/checkDelete";
 import { toast } from "react-toastify";
 
 import DeleteDialog from "../../Dialog/DeleteDialog";
-import UpdateDialog from "../../Dialog/UpdateDialog";
+import UpdateUser from "../../Dialog/UpdateUser";
 import UserFilteringForm from "../../Forms/FilteringForms/UserFilteringForm/UserFilteringForm";
 import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
@@ -97,7 +97,7 @@ const UserList = () => {
     updateUser(value);
   };
 
-  const updateUser = async (value, id) => {
+  const updateUser = async (value) => {
     const url = `http://localhost:8080/user/update?id=${context.idOfUpdatingItem}`;
 
     const dataJSON = JSON.stringify(value);
@@ -193,7 +193,7 @@ const UserList = () => {
       }}
     >
       <DeleteDialog deleteHandler={deleteHandler} name="user" />
-      <UpdateDialog updateHandler={updateHandler} name="user" />
+      <UpdateUser updateHandler={updateHandler} />
       <UserFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{

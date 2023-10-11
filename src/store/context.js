@@ -38,10 +38,13 @@ const unFilteredFoodAndActivityAssignmentData = {
 
 const EatFitProContext = React.createContext({
   pageName: "",
+
   idOfDeletingItem: 0,
   isClickedDeleteButton: false,
+
   idOfUpdatingItem: 0,
   isClickedUpdateButton: false,
+
   isDatabaseConnected: false,
 
   updatingItem: {},
@@ -160,13 +163,13 @@ export const EatFitProContextProvider = (props) => {
     setIsClickedDeleteButton(false);
   };
 
+  const closeUpdateDialog = () => {
+    setIsClickedUpdateButton(false);
+  };
+
   const openUpdateDialog = (value) => {
     setIdOfUpdatingItem(value.id);
     setIsClickedUpdateButton(true);
-  };
-
-  const closeUpdateDialog = () => {
-    setIsClickedUpdateButton(false);
   };
 
   return (
