@@ -29,7 +29,6 @@ const UpdateFoodCategory = (props) => {
       };
 
       props.updateHandler(data);
-      context.setUpdatedItem(data);
     }
   };
   return (

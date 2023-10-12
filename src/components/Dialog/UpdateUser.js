@@ -70,7 +70,6 @@ const UpdateUser = (props) => {
         weight: weightRef.current.value,
       };
       props.updateHandler(data);
-      context.setUpdatedItem(data);
     }
   };
 

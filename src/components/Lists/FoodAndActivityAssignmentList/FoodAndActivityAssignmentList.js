@@ -4,6 +4,7 @@ import EatFitProContext from "../../../store/context";
 
 import { CircularProgress } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { toast } from "react-toastify";
 
 import checkDelete from "../../../utils/checkDelete";
 
@@ -13,6 +14,8 @@ import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import UpdateFoodAndActivityAssignment from "../../Dialog/UpdateFoodAndActivityAssignment";
 
 const FoodAndActivityAssignmentList = () => {
   const context = useContext(EatFitProContext);
@@ -60,13 +63,23 @@ const FoodAndActivityAssignmentList = () => {
       filterable: false,
       renderCell: (value) => {
         return (
-          <DeleteIcon
-            type="submit"
-            style={{ cursor: "pointer", color: "red" }}
-            onClick={() => {
-              context.openDeleteDialog(value);
-            }}
-          />
+          <div>
+            <DeleteIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "red", marginRight: 10 }}
+              onClick={() => {
+                context.openDeleteDialog(value);
+              }}
+            />
+            <EditIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "blueviolet" }}
+              onClick={() => {
+                context.openUpdateDialog(value, value.id);
+                context.setUpdatingItem(value.row);
+              }}
+            />
+          </div>
         );
       },
     },
@@ -90,6 +103,47 @@ const FoodAndActivityAssignmentList = () => {
       valueGetter: (params) => params.row?.activityName?.name,
     },
   ];
+
+  const updateHandler = (value) => {
+    updateUser(value);
+  };
+
+  const updateUser = async (value) => {
+    const url = `http://localhost:8080/foodAndActivityAssignment/update?id=${context.idOfUpdatingItem}`;
+
+    const dataJSON = JSON.stringify(value);
+
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+        fetchFilteredData(
+          context.filterFoodAndActivityAssignmentData,
+          pageNumber,
+          foodAndActivityAssignmentListSize
+        );
+        toast.success(
+          `${context.updatingItem.userDto.name + " " + context.updatingItem.userDto.surname}
+          's information is updated successfully!`,
+          {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          }
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const deleteHandler = () => {
     deleteFoodAndActivityAssignment(context.idOfDeletingItem);
@@ -145,6 +199,8 @@ const FoodAndActivityAssignmentList = () => {
   };
 
   const onRowSelect = (event) => {
+    // console.log(event.row.foodDtoList)
+    // console.log(event.row.activityDtoList)
     let length =
       event.row.foodDtoList.length > event.row.activityDtoList.length
         ? event.row.foodDtoList.length
@@ -160,7 +216,7 @@ const FoodAndActivityAssignmentList = () => {
       });
     }
     setFoodAndActivityNames(data);
-  };
+  };  
 
   useEffect(() => {
     fetchFilteredData(
@@ -168,11 +224,11 @@ const FoodAndActivityAssignmentList = () => {
       pageNumber,
       foodAndActivityAssignmentListSize
     );
+    
   }, [
     context.filterFoodAndActivityAssignmentData,
     pageNumber,
     foodAndActivityAssignmentListSize,
-    isDatabaseConnected,
   ]);
 
   return (
@@ -187,6 +243,7 @@ const FoodAndActivityAssignmentList = () => {
         deleteHandler={deleteHandler}
         name="food and activity assignment"
       />
+      <UpdateFoodAndActivityAssignment updateHandler={updateHandler} />
       <FoodAndActivityAssignmentFiltering setPageNumber={setPageNumber} />
       <div
         style={{

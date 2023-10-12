@@ -29,7 +29,6 @@ import EatFitProContext from "../../store/context";
         };
   
         props.updateHandler(data);
-        context.setUpdatedItem(data);
       }
     };
     return (

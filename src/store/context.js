@@ -48,7 +48,7 @@ const EatFitProContext = React.createContext({
   isDatabaseConnected: false,
 
   updatingItem: {},
-  updatedItem: {},
+  updatedItem: [],
 
   filterUserData: [],
   filterFoodData: [],
@@ -108,7 +108,7 @@ export const EatFitProContextProvider = (props) => {
   const [idOfDeletingItem, setIdOfDeletingItem] = useState(0);
   const [idOfUpdatingItem, setIdOfUpdatingItem] = useState(0);
   const [updatingItem, setUpdatingItem] = useState({});
-  const [updatedItem, setUpdatedItem] = useState({});
+  const [updatedItem, setUpdatedItem] = useState([]);
 
   const [filterUserData, setFilterUserData] = useState(unFilteredUserData);
   const [filterFoodData, setFilterFoodData] = useState(unFilteredFoodData);

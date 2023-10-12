@@ -58,7 +58,6 @@ import {
         };
         console.log(data);
         props.updateHandler(data);
-        context.setUpdatedItem(data);
       }
     };
     useEffect(() => {
