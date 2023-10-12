@@ -12,6 +12,9 @@ import TablePagination from "../../Pagination/TablePagination";
 import TableSize from "../../TableSize/TableSize";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import UpdateActivityCategory from "../../Dialog/UpdateActivityCategory";
+import { toast } from "react-toastify";
 
 const ActivityCategoryList = () => {
   const context = useContext(EatFitProContext);
@@ -40,17 +43,68 @@ const ActivityCategoryList = () => {
       filterable: false,
       renderCell: (value) => {
         return (
-          <DeleteIcon
-            type="submit"
-            style={{ cursor: "pointer", color: "red" }}
-            onClick={() => {
-              context.openDeleteDialog(value);
-            }}
-          />
+          <div>
+            <DeleteIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "red", marginRight: 10 }}
+              onClick={() => {
+                context.openDeleteDialog(value);
+              }}
+            />
+            <EditIcon
+              type="submit"
+              style={{ cursor: "pointer", color: "blueviolet" }}
+              onClick={() => {
+                context.openUpdateDialog(value, value.id);
+                context.setUpdatingItem(value.row);
+              }}
+            />
+          </div>
         );
       },
     },
   ];
+
+  const updateHandler = (value) => {
+    updateUser(value);
+  };
+
+  const updateUser = async (value) => {
+    const url = `http://localhost:8080/activityCategory/update?id=${context.idOfUpdatingItem}`;
+
+    const dataJSON = JSON.stringify(value);
+
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataJSON,
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        console.log(data);
+        fetchFilteredData(
+          context.filterActivityCategoryData,
+          pageNumber,
+          activityCategoryListSize
+        );
+        toast.success(
+          `${context.updatingItem.name}
+          's information is updated successfully!`,
+          {
+            position: "bottom-left",
+            draggable: true,
+            pauseOnHover: false,
+          }
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const deleteHandler = () => {
     deleteActivityCategory(context.idOfDeletingItem);
@@ -128,6 +182,7 @@ const ActivityCategoryList = () => {
       }}
     >
       <DeleteDialog deleteHandler={deleteHandler} name="activity category" />
+      <UpdateActivityCategory updateHandler={updateHandler} />
       <ActivityCategoryFilteringForm setPageNumber={setPageNumber} />
       <div
         style={{
